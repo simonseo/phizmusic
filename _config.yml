@@ -1,0 +1,19 @@
+title: PhizMusic Wiki
+description: Physics-first music theory wiki
+theme: minima
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
+
+include:
+  - wiki
+
+exclude:
+  - .sisyphus
+  - validate.sh
