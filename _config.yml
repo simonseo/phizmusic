@@ -1,10 +1,13 @@
 title: PhizMusic Wiki
 description: Physics-first music theory wiki
-theme: minima
+url: https://simonseo.github.io
+baseurl: /phizmusic/
+remote_theme: poole/hyde
 markdown: kramdown
 permalink: pretty
 
 plugins:
+  - jekyll-remote-theme
   - jekyll-relative-links
 
 relative_links:
