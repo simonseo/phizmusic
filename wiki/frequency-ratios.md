@@ -176,7 +176,7 @@ Different cultures' tuning systems can be classified by the largest prime factor
 
 This classification reveals that different tuning systems are **different engineering solutions to the same mathematical constraints** — not progressive stages of development. 3-limit tuning isn't "primitive" — it optimizes for maximal consonance of fifths. 5-limit adds sweeter thirds at the cost of complexity. Each choice reflects different aesthetic priorities.
 
-The mathematical constraint underlying all ratio-based tuning: **log₂(3) is irrational**. You cannot stack any number of perfect fifths (3:2) and arrive at an exact octave (2:1). This impossibility forces every culture to choose how to distribute the inevitable error. 12-TET distributes it equally across all steps.
+The mathematical constraint underlying all ratio-based tuning: **log₂(3) is irrational**. You cannot stack any number of step-distance-7 intervals (3:2 ratio) and arrive at an exact octave (2:1). Twelve step-distance-7 intervals = 84 chromatic steps = 7 octaves in integer arithmetic, but (3/2)^12 ≈ 129.75 while 2^7 = 128 — the frequencies don't close. This impossibility forces every culture to choose how to distribute the inevitable error. 12-TET distributes it equally across all steps.
 
 ## Translation Table
 

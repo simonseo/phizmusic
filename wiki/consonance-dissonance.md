@@ -82,7 +82,7 @@ Dissonance
 
 For **complex tones** (with harmonics), the total dissonance is the sum of contributions from every pair of harmonic components. This predicts the consonance ranking of intervals quite accurately:
 
-Octave (2:1) > fifth (3:2) > fourth (4:3) > major third (5:4) > minor third (6:5) > ...
+Step-distance 12 (2:1) > step-distance 7 (3:2) > step-distance 5 (4:3) > step-distance 4 (5:4) > step-distance 3 (6:5) > ...
 
 This ranking emerges from physics alone, without any cultural input. What cultures differ on is whether they *prefer* the consonant end, the dissonant end, or various mixtures.
 

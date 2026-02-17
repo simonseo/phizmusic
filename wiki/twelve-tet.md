@@ -19,18 +19,18 @@ has_audio: true
 
 The fundamental mathematical impossibility underlying all tuning systems:
 
-**You cannot simultaneously have pure octaves (2:1), pure fifths (3:2), and a closed circle of fifths.**
+**You cannot simultaneously have pure octaves (2:1) and pure step-distance-7 intervals (3:2) in a closed cycle.**
 
-The proof: stack twelve 3:2 ratios:
+The proof, expressed in step arithmetic:
+
+Stack **twelve step-distance-7 intervals**: 12 × 7 = **84 chromatic steps** = 7 octaves.
+Stack **seven octaves** (step-distance 12): 7 × 12 = **84 chromatic steps**.
+
+Both paths traverse 84 steps — they *should* land on the same pitch. But the frequency math disagrees:
 
 ```
-(3/2)^12 = 129.7463...
-```
-
-Seven octaves:
-
-```
-2^7 = 128
+Twelve 3:2 ratios:  (3/2)^12 = 129.7463...
+Seven octaves:      2^7      = 128.0000
 ```
 
 The difference — the **Pythagorean comma** — is:
@@ -41,7 +41,7 @@ The difference — the **Pythagorean comma** — is:
 
 In cents: approximately **23.46 cents** — roughly a quarter of a chromatic step.
 
-This means: if you tune 12 perfect fifths in a row, the 12th "fifth" overshoots where it should close the circle by 23.46 cents. The circle doesn't close. You can't have it all.
+This means: if you tune 12 pure step-distance-7 intervals in a row (84 chromatic steps = 7 octaves), you overshoot the target octave by 23.46 cents. The cycle doesn't close. The integer arithmetic says 12 × 7 = 7 × 12, but the frequency ratios say (3/2)^12 ≠ 2^7. You can't have it all.
 
 Every tuning system in history is a different strategy for distributing this inevitable error. 12-TET distributes it **equally** across all 12 steps.
 
@@ -117,19 +117,19 @@ This is why 12-TET won: the errors are *just small enough* to be tolerable in mo
 
 ## Hear the Difference
 
-Compare just intonation intervals (pure ratios) with their 12-TET approximations. The difference is most audible on sustained thirds.
+Compare just intonation intervals (pure ratios) with their 12-TET approximations. Root = **220.00 Hz** (La3 / step 9, octave 3). The difference is most audible on sustained step-distances 3 and 4.
 
 <table>
 <tr>
-  <th>Interval</th>
-  <th>Just (ratio)</th>
-  <th>12-TET</th>
+  <th>Step-distance</th>
+  <th>Just ratio → Hz</th>
+  <th>12-TET → Hz</th>
   <th>Error</th>
   <th>Listen Just</th>
   <th>Listen 12-TET</th>
 </tr>
 <tr>
-  <td>Perfect fifth</td>
+  <td>7 (the "fifth")</td>
   <td>3:2 → 330.00 Hz</td>
   <td>2^(7/12) → 329.63 Hz</td>
   <td>−2.0 cents</td>
@@ -137,7 +137,15 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
   <td><button class="phiz-play-btn" data-freq1="220" data-freq2="329.63" onclick="playRatio(this)">▶ 12-TET</button></td>
 </tr>
 <tr>
-  <td>Major third</td>
+  <td>5 (the "fourth")</td>
+  <td>4:3 → 293.33 Hz</td>
+  <td>2^(5/12) → 293.66 Hz</td>
+  <td>+2.0 cents</td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.33" onclick="playRatio(this)">▶ Just</button></td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.66" onclick="playRatio(this)">▶ 12-TET</button></td>
+</tr>
+<tr>
+  <td>4 (the "major third")</td>
   <td>5:4 → 275.00 Hz</td>
   <td>2^(4/12) → 277.18 Hz</td>
   <td>+13.7 cents</td>
@@ -145,20 +153,12 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
   <td><button class="phiz-play-btn" data-freq1="220" data-freq2="277.18" onclick="playRatio(this)">▶ 12-TET</button></td>
 </tr>
 <tr>
-  <td>Minor third</td>
+  <td>3 (the "minor third")</td>
   <td>6:5 → 264.00 Hz</td>
   <td>2^(3/12) → 261.63 Hz</td>
   <td>−15.6 cents</td>
   <td><button class="phiz-play-btn" data-freq1="220" data-freq2="264.00" onclick="playRatio(this)">▶ Just</button></td>
   <td><button class="phiz-play-btn" data-freq1="220" data-freq2="261.63" onclick="playRatio(this)">▶ 12-TET</button></td>
-</tr>
-<tr>
-  <td>Perfect fourth</td>
-  <td>4:3 → 293.33 Hz</td>
-  <td>2^(5/12) → 293.66 Hz</td>
-  <td>+2.0 cents</td>
-  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.33" onclick="playRatio(this)">▶ Just</button></td>
-  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.66" onclick="playRatio(this)">▶ 12-TET</button></td>
 </tr>
 </table>
 

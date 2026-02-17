@@ -61,14 +61,14 @@ where `d_PL` is the Plomp-Levelt dissonance function for a single pair of pure t
 For a tone with harmonic partials (1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f) and natural amplitude roll-off (1/n), the dissonance curve shows clear valleys at:
 
 ```
-Ratio    Step-distance    Western name
-1.000    0.00             Unison
-1.200    3.16             Minor third
-1.250    3.86             Major third
-1.333    5.00             Perfect fourth
-1.500    7.02             Perfect fifth
-1.667    8.84             Major sixth
-2.000    12.00            Octave
+Ratio    Step-distance    (Western name)
+1.000    0.00             (unison)
+1.200    ~3               (minor third)
+1.250    ~4               (major third)
+1.333    5.00             (perfect fourth)
+1.500    7.02             (perfect fifth)
+1.667    ~9               (major sixth)
+2.000    12.00            (octave)
 ```
 
 These minima land near the step-distances that [12-TET](twelve-tet.md) approximates: 0, 3, 4, 5, 7, 9, 12. This is not coincidence — it is the **reason 12-TET works**. The 12-tone equal-temperament system was designed (over centuries of empirical refinement) to serve instruments with harmonic spectra: strings, voices, brass, woodwinds. The dissonance curve for harmonic timbres has its valleys at almost exactly the positions 12-TET places its steps.

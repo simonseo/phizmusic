@@ -62,7 +62,7 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
 
 This is the 7-of-12 subset that can be derived by stacking six step-7 intervals: start at any step, go up 7 repeatedly, and collect the results (mod 12). Starting from step 5: 5 → 0 → 7 → 2 → 9 → 4 → 11. Sort: {0, 2, 4, 5, 7, 9, 11}.
 
-The major scale includes all the consonant intervals of the pentatonic plus adds step-distances 1 and 11 (the leading tone), which create tension and resolution — the engine of Western harmonic motion.
+The major scale includes all the consonant intervals of the pentatonic plus adds step-distances 1 and 11 (the "leading tone" — the step one chromatic step below the octave), which create tension and resolution — the engine of harmonic motion in many traditions.
 
 ### Natural Minor: {0, 2, 3, 5, 7, 8, 10}
 
@@ -75,7 +75,7 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
         ●     ●  ●     ●     ●  ●     ●
 ```
 
-Contains the same intervals as the major scale (it is a **rotation** — see Modes below) but reorders them, starting from a different point. The different ordering places step-distance 3 (minor third, 6:5 ratio) prominently above the starting point instead of step-distance 4 (major third, 5:4 ratio), producing a "darker" character.
+Contains the same intervals as the major scale (it is a **rotation** — see Modes below) but reorders them, starting from a different point. The different ordering places step-distance 3 (6:5 ratio) prominently above the starting point instead of step-distance 4 (5:4 ratio), producing a "darker" character.
 
 ### Whole-Tone: {0, 2, 4, 6, 8, 10}
 
