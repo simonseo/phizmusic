@@ -156,6 +156,7 @@ Hear pure sine waves at different frequencies, and compare ratio-based perceptio
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -248,6 +249,7 @@ Hear pure sine waves at different frequencies, and compare ratio-based perceptio
   waveformBtns.sawtooth.addEventListener("click", handleWaveformClick("sawtooth"));
   waveformBtns.triangle.addEventListener("click", handleWaveformClick("triangle"));
 })();
+});
 </script>
 
 <div class="phiz-viz-container" id="sw-spectrum-analyzer">
@@ -268,6 +270,7 @@ Hear pure sine waves at different frequencies, and compare ratio-based perceptio
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -364,6 +367,7 @@ Hear pure sine waves at different frequencies, and compare ratio-based perceptio
     updateInfo();
   });
 })();
+});
 </script>
 
 ## Logarithmic Perception: Hearing in Ratios

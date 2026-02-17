@@ -110,15 +110,16 @@ So instrument construction is not downstream of theory; it co-defines theory.
 </div>
 <div class="phiz-viz-controls" style="margin-top:8px;">
   <button class="phiz-play-btn" id="ipe-play-single">▶ Play Root (110 Hz)</button>
-  <button class="phiz-play-btn" id="ipe-play-interval">▶ Play Step-distance 7 (110 + 165 Hz)</button>
+  <button class="phiz-play-btn" id="ipe-play-interval">▶ Play The 7-step-interval (110 + 165 Hz)</button>
   <button class="phiz-play-btn" id="ipe-play-chord">▶ Play {0,4,7} (110 + 138.6 + 165 Hz)</button>
 </div>
 <div id="ipe-desc" style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-top:6px;line-height:1.5;">
-Switch archetypes and listen: the same step-distance sounds smoother or rougher depending on the source spectrum.
+Switch archetypes and listen: the same step-interval sounds smoother or rougher depending on the source spectrum.
 </div>
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
 
@@ -326,18 +327,19 @@ Switch archetypes and listen: the same step-distance sounds smoother or rougher 
   });
 
   playIntervalBtn.addEventListener("click", function() {
-    // Step-distance 7: ratio 3:2
+    // The 7-step-interval: ratio 3:2
     playArchetypeSound([FUNDAMENTAL, FUNDAMENTAL * 1.5]);
   });
 
   playChordBtn.addEventListener("click", function() {
-    // {0,4,7}: root + step-distance 4 (5:4) + step-distance 7 (3:2) in just intonation
+    // {0,4,7}: root + the 4-step-interval (5:4) + the 7-step-interval (3:2) in just intonation
     playArchetypeSound([FUNDAMENTAL, FUNDAMENTAL * 1.25, FUNDAMENTAL * 1.5]);
   });
 
   // Initial draw
   selectArchetype("string");
 })();
+});
 </script>
 
 ## Translation Table

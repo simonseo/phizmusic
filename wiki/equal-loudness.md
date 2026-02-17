@@ -6,6 +6,7 @@ tags: [psychoacoustics, loudness, perception]
 prerequisites: [sound-waves.md, ear-cochlea.md]
 related: [sound-waves.md, ear-cochlea.md, auditory-masking.md, digital-audio.md, instrument-physics.md]
 scope-boundary: Conceptual equal-loudness behavior and practical implications only. No full standard derivation or weighting-standard deep dive.
+has_audio: true
 ---
 
 # Equal Loudness
@@ -78,6 +79,7 @@ Equal-loudness contours prove that "volume" is not a single physical scalar in p
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
 
@@ -277,11 +279,7 @@ Equal-loudness contours prove that "volume" is not a single physical scalar in p
   }
 
   // Initial draw
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", draw);
-  } else {
-    draw();
-  }
+  draw();
 
   // Redraw on resize
   var resizeTimer = null;
@@ -290,6 +288,7 @@ Equal-loudness contours prove that "volume" is not a single physical scalar in p
     resizeTimer = setTimeout(draw, 150);
   });
 })();
+});
 </script>
 
 ## Translation Table

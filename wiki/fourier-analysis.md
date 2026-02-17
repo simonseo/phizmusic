@@ -135,6 +135,7 @@ Build complex timbres from sine waves. Each button adds harmonics at integer mul
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -298,12 +299,9 @@ Build complex timbres from sine waves. Each button adds harmonics at integer mul
   });
 
   // --- Initial draw ---
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", redraw);
-  } else {
-    redraw();
-  }
+  redraw();
 })();
+});
 </script>
 
 ### Phasor Animation
@@ -324,6 +322,7 @@ Each harmonic is a rotating vector (phasor). The vertical projection of each pha
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("fp-phasor-canvas");
@@ -476,12 +475,9 @@ Each harmonic is a rotating vector (phasor). The vertical projection of each pha
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", draw);
-  } else {
-    draw();
-  }
+  draw();
 })();
+});
 </script>
 
 ## The Cochlea Does This Physically

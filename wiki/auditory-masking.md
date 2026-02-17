@@ -6,6 +6,7 @@ tags: [psychoacoustics, perception, compression]
 prerequisites: [ear-cochlea.md, sound-waves.md, missing-fundamental.md, digital-audio.md]
 related: [ear-cochlea.md, sound-waves.md, missing-fundamental.md, digital-audio.md, equal-loudness.md, consonance-dissonance.md]
 scope-boundary: Perceptual masking phenomena and applications only. No MPEG model internals or codec implementation details.
+has_audio: true
 ---
 
 # Auditory Masking
@@ -105,6 +106,7 @@ Masking shows that perception is a reconstructed model, not an exhaustive measur
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("am-freq-canvas");
@@ -245,12 +247,9 @@ Masking shows that perception is a reconstructed model, not an exhaustive measur
   });
   document.getElementById("am-stop").addEventListener("click", stopAll);
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", drawViz);
-  } else {
-    drawViz();
-  }
+  drawViz();
 })();
+});
 </script>
 
 ## Translation Table

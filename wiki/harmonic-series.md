@@ -44,7 +44,7 @@ For a fundamental of 100 Hz (chosen for easy arithmetic — the pattern scales t
       <th>Harmonic</th>
       <th>Frequency</th>
       <th>Ratio to fundamental</th>
-      <th>Nearest step-distance</th>
+      <th>Nearest step-interval</th>
       <th>Cents from step</th>
       <th>Notes</th>
       <th>Preview</th>
@@ -200,8 +200,8 @@ For a fundamental of 100 Hz (chosen for easy arithmetic — the pattern scales t
 
 Key observations:
 - **Harmonics 1, 2, 4, 8, 16** are exact octaves (powers of 2) — they land perfectly on 12-TET grid points
-- **Harmonics 3, 6, 12** approximate step-distance 7 (the 3:2 ratio) with only +2 cents error
-- **Harmonics 5, 10** approximate step-distance 4 (the 5:4 ratio) with -13.7 cents error — this is the major-third compromise of 12-TET
+- **Harmonics 3, 6, 12** approximate the 7-step-interval (the 3:2 ratio) with only +2 cents error
+- **Harmonics 5, 10** approximate the 4-step-interval (the 5:4 ratio) with -13.7 cents error — this is the major-third compromise of 12-TET
 - **Harmonic 7** falls ~31 cents below any 12-TET step — it is the "blue seventh," audible in blues and barbershop singing but absent from standard 12-TET
 - **Harmonics 11 and 13** fall far from any 12-TET step — these are the primes beyond 5-limit tuning
 
@@ -213,7 +213,7 @@ Harmonics 4, 5, and 6 of any fundamental form the frequency pattern:
 4f : 5f : 6f    →    simplified ratio 4:5:6
 ```
 
-In step-distances from the 4th harmonic: {0, 4, 7} — exactly the step-set that Western theory calls a "major triad." This chord is not a cultural invention; it is a direct selection from the harmonic series. Cultures worldwide arrived at this combination independently because it falls out of physics (see [chords.md](chords.md)).
+In step-intervals from the 4th harmonic: {0, 4, 7} — exactly the step-combo that Western theory calls a "major triad." This chord is not a cultural invention; it is a direct selection from the harmonic series. Cultures worldwide arrived at this combination independently because it falls out of physics (see [chords.md](chords.md)).
 
 The ratio 4:5:6 means the three frequencies share many aligned harmonics, producing maximal perceptual fusion and minimal roughness within critical bandwidth.
 
@@ -248,6 +248,7 @@ Shepard tones demonstrate that chroma (step position 0-11) and height (octave nu
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   var NUM_HARMONICS = 16;
   var FUNDAMENTAL = 100;
@@ -451,6 +452,7 @@ Shepard tones demonstrate that chroma (step position 0-11) and height (octave nu
   // Initial draw
   redraw();
 })();
+});
 </script>
 
 ## Translation Table
@@ -466,7 +468,7 @@ Shepard tones demonstrate that chroma (step position 0-11) and height (octave nu
 
 - [Frequency Ratios](frequency-ratios.md) — the ratio language for describing relationships between harmonics
 - [Fourier Analysis](fourier-analysis.md) — the mathematical framework that decomposes sounds into their harmonic components
-- [Intervals](intervals.md) — how harmonic ratios map to step-distances
+- [Intervals](intervals.md) — how harmonic ratios map to step-intervals
 - [Chords](chords.md) — how selecting harmonics (e.g., 4:5:6) produces chords
 - [Timbre](timbre.md) — how the relative strength of harmonics determines a sound's character
 - [Instrument Physics](instrument-physics.md) — why strings produce all harmonics but closed pipes produce only odd ones

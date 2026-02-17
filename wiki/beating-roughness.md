@@ -61,6 +61,7 @@ Use the explorer to move from slow beating to roughness and then to two separate
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -196,6 +197,7 @@ Use the explorer to move from slow beating to roughness and then to two separate
 
   updateInfo();
 })();
+});
 </script>
 
 ## Implications

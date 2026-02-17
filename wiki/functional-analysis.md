@@ -12,7 +12,7 @@ has_audio: true
 
 # Functional Analysis
 
-Functional analysis asks: **given a step-subset and a root, what role does each step-set play?** Every member of the step-subset can serve as the bottom note of a triad built from that subset. Some of those triads sound stable, others tense, others transitional. The physics of *why* comes down to ratio-set quality and step-distance relationships between roots.
+Functional analysis asks: **given a step-subset and a root, what role does each step-combo play?** Every member of the step-subset can serve as the bottom note of a triad built from that subset. Some of those triads sound stable, others tense, others transitional. The physics of *why* comes down to ratio-set quality and step-interval relationships between roots.
 
 > 🎯 **Simple version**: Pick a scale (step-subset) and a home note (root). You can build a chord on each note of the scale. Some chords feel like "home," some feel like "tension," some feel like "pull toward home." Functional analysis is the system for labeling those roles — Position 0 is home, Position 4 pulls hardest toward home.
 
@@ -27,7 +27,7 @@ In PhizMusic, this is explicit: "step-subset {0,2,4,5,7,9,11} rooted at step 0" 
 
 The root step-number defines the reference frequency. All other pitches in the subset are heard *relative to* this anchor. The auditory system builds expectations around returning to this reference — that pull is the foundation of tonal music.
 
-**Why a root creates gravity**: the root's harmonics overlap most strongly with the harmonic series of the step-subset's most consonant intervals (step-distance 7, step-distance 5). The auditory system's [harmonic template matching](ear-cochlea.md) reinforces the root as a perceptual anchor.
+**Why a root creates gravity**: the root's harmonics overlap most strongly with the harmonic series of the step-subset's most consonant intervals (the 7-step-interval, the 5-step-interval). The auditory system's [harmonic template matching](ear-cochlea.md) reinforces the root as a perceptual anchor.
 
 ## Positions Within a Step-Subset
 
@@ -39,13 +39,13 @@ The procedure:
 2. From that member, skip one subset member and take the next (the "third")
 3. Skip one more and take the next (the "fifth")
 
-The result is a 3-note step-set built entirely from the step-subset. Different positions produce step-sets with different interval structures — and therefore different ratio-set approximations and different perceptual qualities.
+The result is a 3-note step-combo built entirely from the step-subset. Different positions produce step-combos with different interval structures — and therefore different ratio-set approximations and different perceptual qualities.
 
 ## The Position Table
 
 For step-subset **{0, 2, 4, 5, 7, 9, 11}** (major) rooted at step 0:
 
-| Position | Subset members used | Step-set | Intervals | Approx. ratio-set | Quality |
+| Position | Subset members used | Step-combo | Intervals | Approx. ratio-set | Quality |
 |----------|-------------------|----------|-----------|-------------------|---------|
 | 0 | 0, 4, 7 | {0, 4, 7} | 4 + 3 | 4:5:6 | Bright, stable |
 | 1 | 2, 5, 9 | {2, 5, 9} | 3 + 4 | 10:12:15 | Dark, warm |
@@ -57,7 +57,7 @@ For step-subset **{0, 2, 4, 5, 7, 9, 11}** (major) rooted at step 0:
 
 <table>
   <thead>
-    <tr><th>Position</th><th>Step-set</th><th>Preview</th></tr>
+    <tr><th>Position</th><th>Step-combo</th><th>Preview</th></tr>
   </thead>
   <tbody>
     <tr><td>0</td><td>{0, 4, 7}</td><td><button class="phiz-play-btn" data-steps="[0,4,7]" onclick="playStepSet(this)">▶</button></td></tr>
@@ -70,29 +70,29 @@ For step-subset **{0, 2, 4, 5, 7, 9, 11}** (major) rooted at step 0:
   </tbody>
 </table>
 
-**Pattern**: Positions 0, 3, and 4 produce step-sets with interval structure 4+3 (ratio ≈ 4:5:6). Positions 1, 2, and 5 produce 3+4 (ratio ≈ 10:12:15). Position 6 produces 3+3 (diminished — no strong harmonic-series alignment). The quality of each position is determined entirely by the step-subset's geometry.
+**Pattern**: Positions 0, 3, and 4 produce step-combos with interval structure 4+3 (ratio ≈ 4:5:6). Positions 1, 2, and 5 produce 3+4 (ratio ≈ 10:12:15). Position 6 produces 3+3 (diminished — no strong harmonic-series alignment). The quality of each position is determined entirely by the step-subset's geometry.
 
 ## Tension and Resolution
 
 The most powerful directional pull in tonal music is **Position 4 → Position 0**. Why?
 
-The root of Position 4 sits at step-distance 7 from the root of Position 0. Step-distance 7 corresponds to the frequency ratio 3:2 — the strongest consonance after the octave. The [step-7 cycle](step-7-cycle.md) explains this relationship in depth: step-7 is the generator of the diatonic system itself.
+The root of Position 4 sits at the 7-step-interval from the root of Position 0. The 7-step-interval corresponds to the frequency ratio 3:2 — the strongest consonance after the octave. The [step-7 cycle](step-7-cycle.md) explains this relationship in depth: step-7 is the generator of the diatonic system itself.
 
-But Position 4's step-set also contains step 11 — which sits at step-distance 1 from step 0 (the root of Position 0). This step-distance-1 relationship creates maximum melodic tension: the ear expects step 11 to resolve upward to step 0. When it does, that tiny motion produces a disproportionately strong sense of arrival.
+But Position 4's step-combo also contains step 11 — which sits at the 1-step-interval from step 0 (the root of Position 0). This 1-step-interval relationship creates maximum melodic tension: the ear expects step 11 to resolve upward to step 0. When it does, that tiny motion produces a disproportionately strong sense of arrival.
 
 The combination of:
-- **Strong root relationship** (step-distance 7 between roots)
+- **Strong root relationship** (the 7-step-interval between roots)
 - **Leading-tone pull** (step 11 → step 0, distance of 1)
 
 makes Position 4 → Position 0 the most powerful resolution in the 7-member step-subset system.
 
-**Position 3 → Position 0** is the second-strongest pull. The root of Position 3 sits at step-distance 5 from Position 0's root — the ratio 4:3, also highly consonant. But Position 3 lacks the leading-tone (step 11 is not in its step-set), so the resolution is softer.
+**Position 3 → Position 0** is the second-strongest pull. The root of Position 3 sits at the 5-step-interval from Position 0's root — the ratio 4:3, also highly consonant. But Position 3 lacks the leading-tone (step 11 is not in its step-combo), so the resolution is softer.
 
 ## Common Patterns
 
 Progressions expressed as Position sequences (for the major step-subset rooted at step 0):
 
-| Pattern | Step-sets | Character |
+| Pattern | Step-combos | Character |
 |---------|----------|-----------|
 | 0 – 3 – 4 – 0 | {0,4,7} → {5,9,0} → {7,11,2} → {0,4,7} | The foundational closed loop. Depart, build tension, resolve. |
 | 0 – 4 – 5 – 3 | {0,4,7} → {7,11,2} → {9,0,4} → {5,9,0} | Tension first, then gradual descent back toward stability. |
@@ -126,6 +126,7 @@ These patterns are not rules. They are commonly observed sequences whose percept
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -302,7 +303,7 @@ These patterns are not rules. They are commonly observed sequences whose percept
     var ratio = getRatioLabel(intervals);
     var western = getWesternLabel(selectedPos);
 
-    var infoText = "Position " + selectedPos + " | Step-set: " + formatStepSet(ss) +
+    var infoText = "Position " + selectedPos + " | Step-combo: " + formatStepSet(ss) +
       " | Ratio-set: \u2248 " + ratio;
     if (western) {
       infoText = infoText + " | Western: " + western;
@@ -413,6 +414,7 @@ These patterns are not rules. They are commonly observed sequences whose percept
   // --- Initial state ---
   updateAll();
 })();
+});
 </script>
 
 ## Other Step-Subsets
@@ -421,7 +423,7 @@ The position table above uses the major step-subset. Different step-subsets gene
 
 **Natural minor {0, 2, 3, 5, 7, 8, 10}** rooted at step 0:
 
-| Position | Step-set | Intervals | Quality |
+| Position | Step-combo | Intervals | Quality |
 |----------|----------|-----------|---------|
 | 0 | {0, 3, 7} | 3 + 4 | Dark, warm |
 | 1 | {2, 5, 8} | 3 + 3 | Tense, unstable |
@@ -440,25 +442,25 @@ Notice: Position 4 in the natural minor produces a 10:12:15 ratio-set instead of
 | Key of C major | Step-subset {0,2,4,5,7,9,11} rooted at step 0 | "Key" = step-subset + root step |
 | Key of G major | Step-subset {0,2,4,5,7,9,11} rooted at step 7 | Same subset structure, different root |
 | Scale degree | Position within the step-subset (0-indexed) | Western uses 1-indexed |
-| I (tonic) | Position 0 | Home step-set |
+| I (tonic) | Position 0 | Home step-combo |
 | ii (supertonic) | Position 1 | First dark-quality position |
 | iii (mediant) | Position 2 | Second dark-quality position |
 | IV (subdominant) | Position 3 | Bright, second-strongest pull |
-| V (dominant) | Position 4 | Bright, strongest pull (root at step-distance 7) |
+| V (dominant) | Position 4 | Bright, strongest pull (root at the 7-step-interval) |
 | vi (submediant) | Position 5 | Dark, gentle |
 | vii° (leading tone) | Position 6 | Diminished, maximum instability |
-| Tonic function | Position 0 step-set (highest stability) | Stable arrival point |
-| Dominant function | Position 4 step-set (maximum pull toward Position 0) | Tension seeking resolution |
-| Subdominant function | Position 3 step-set (departure from stability) | Transitional |
+| Tonic function | Position 0 step-combo (highest stability) | Stable arrival point |
+| Dominant function | Position 4 step-combo (maximum pull toward Position 0) | Tension seeking resolution |
+| Subdominant function | Position 3 step-combo (departure from stability) | Transitional |
 | Roman numeral analysis | Position-number analysis | Same system, 0-indexed, no cultural naming |
-| Cadence (V → I) | Position 4 → Position 0 | Step-distance 7 root relationship + leading-tone |
-| Plagal cadence (IV → I) | Position 3 → Position 0 | Step-distance 5 root relationship |
+| Cadence (V → I) | Position 4 → Position 0 | The 7-step-interval root relationship + leading-tone |
+| Plagal cadence (IV → I) | Position 3 → Position 0 | The 5-step-interval root relationship |
 
 ## Connections
 
-- [Chord Progressions](chord-progressions.md) — step-set sequences and voice-leading metrics that underlie position movement
-- [Chords](chords.md) — step-set and ratio-set definitions used to describe each position's triad
-- [Scales](scales.md) — step-subsets from which positions and their step-sets are derived
-- [Step-7 Cycle](step-7-cycle.md) — the step-distance 7 relationship that makes Position 4 → Position 0 the strongest resolution
+- [Chord Progressions](chord-progressions.md) — step-combo sequences and voice-leading metrics that underlie position movement
+- [Chords](chords.md) — step-combo and ratio-set definitions used to describe each position's triad
+- [Scales](scales.md) — step-subsets from which positions and their step-combos are derived
+- [Step-7 Cycle](step-7-cycle.md) — the 7-step-interval relationship that makes Position 4 → Position 0 the strongest resolution
 - [Consonance & Dissonance](consonance-dissonance.md) — why some positions sound stable and others tense
 - [Naming System](naming-system.md) — step-number and Dodeka syllable conventions

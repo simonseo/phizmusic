@@ -122,6 +122,7 @@ All four buttons play the same pitch (Do4 = 261.63 Hz) with different oscillator
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -296,13 +297,10 @@ All four buttons play the same pitch (Do4 = 261.63 Hz) with different oscillator
   document.getElementById("tl-pr-bell").addEventListener("click", function () { applyPreset("Bell-like"); });
 
   // --- Initial draw ---
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { redraw(); updateInfo("Sawtooth"); });
-  } else {
-    redraw();
-    updateInfo("Sawtooth");
-  }
+  redraw();
+  updateInfo("Sawtooth");
 })();
+});
 </script>
 
 ## Translation Table

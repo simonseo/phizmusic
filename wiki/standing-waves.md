@@ -93,6 +93,7 @@ This is not a coincidence. The harmonic series *is* the set of standing wave mod
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -229,6 +230,7 @@ This is not a coincidence. The harmonic series *is* the set of standing wave mod
   // --- Init ---
   rebuildViz();
 })();
+});
 </script>
 
 ## Boundary Conditions

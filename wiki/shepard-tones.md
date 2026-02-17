@@ -81,7 +81,7 @@ The phenomenon also depends on [equal loudness](equal-loudness.md) perception: t
 
 <div class="phiz-viz-container" id="sh-shepard-demo">
   <div class="phiz-viz-title">Shepard Tone Demo</div>
-  <canvas id="sh-viz-canvas" height="200" style="width:100%;"></canvas>
+  <canvas id="sh-viz-canvas" height="320" style="width:100%;max-width:600px;display:block;margin:0 auto;"></canvas>
   <div class="phiz-viz-controls" style="margin-top:10px; justify-content:center;">
     <button id="sh-btn-asc">▶ Ascending</button>
     <button id="sh-btn-desc">▶ Descending</button>
@@ -98,6 +98,7 @@ The phenomenon also depends on [equal loudness](equal-loudness.md) perception: t
 </div>
 
 <script>
+window.addEventListener('load', function() {
 "use strict";
 
 var NUM_COMPONENTS = 10;
@@ -358,11 +359,8 @@ document.getElementById("sh-speed-slider").addEventListener("input", function ()
 });
 
 // --- Initial draw ---
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", function () { drawVisualization(); });
-} else {
-  drawVisualization();
-}
+drawVisualization();
+});
 </script>
 
 ## Translation Table

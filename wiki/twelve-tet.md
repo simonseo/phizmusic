@@ -19,12 +19,12 @@ has_audio: true
 
 The fundamental mathematical impossibility underlying all tuning systems:
 
-**You cannot simultaneously have pure octaves (2:1) and pure step-distance-7 intervals (3:2) in a closed cycle.**
+**You cannot simultaneously have pure octaves (2:1) and pure 7-step-intervals (3:2) in a closed cycle.**
 
 The proof, expressed in step arithmetic:
 
-Stack **twelve step-distance-7 intervals**: 12 × 7 = **84 chromatic steps** = 7 octaves.
-Stack **seven octaves** (step-distance 12): 7 × 12 = **84 chromatic steps**.
+Stack **twelve 7-step-intervals**: 12 × 7 = **84 chromatic steps** = 7 octaves.
+Stack **seven octaves** (the 12-step-interval): 7 × 12 = **84 chromatic steps**.
 
 Both paths traverse 84 steps — they *should* land on the same pitch. But the frequency math disagrees:
 
@@ -41,7 +41,7 @@ The difference — the **Pythagorean comma** — is:
 
 In cents: approximately **23.46 cents** — roughly a quarter of a chromatic step.
 
-This means: if you tune 12 pure step-distance-7 intervals in a row (84 chromatic steps = 7 octaves), you overshoot the target octave by 23.46 cents. The cycle doesn't close. The integer arithmetic says 12 × 7 = 7 × 12, but the frequency ratios say (3/2)^12 ≠ 2^7. You can't have it all.
+This means: if you tune 12 pure 7-step-intervals in a row (84 chromatic steps = 7 octaves), you overshoot the target octave by 23.46 cents. The cycle doesn't close. The integer arithmetic says 12 × 7 = 7 × 12, but the frequency ratios say (3/2)^12 ≠ 2^7. You can't have it all.
 
 Every tuning system in history is a different strategy for distributing this inevitable error. 12-TET distributes it **equally** across all 12 steps.
 
@@ -55,10 +55,10 @@ Cents per step = exactly 100
 ```
 
 This means:
-- Every step-distance 7 (the "fifth") = 700 cents, vs. just 702.0 cents → error of -2.0 cents
-- Every step-distance 5 (the "fourth") = 500 cents, vs. just 498.0 cents → error of +2.0 cents
-- Every step-distance 4 (the "major third") = 400 cents, vs. just 386.3 cents → error of +13.7 cents
-- Every step-distance 3 (the "minor third") = 300 cents, vs. just 315.6 cents → error of -15.6 cents
+- Every the 7-step-interval (the "fifth") = 700 cents, vs. just 702.0 cents → error of -2.0 cents
+- Every the 5-step-interval (the "fourth") = 500 cents, vs. just 498.0 cents → error of +2.0 cents
+- Every the 4-step-interval (the "major third") = 400 cents, vs. just 386.3 cents → error of +13.7 cents
+- Every the 3-step-interval (the "minor third") = 300 cents, vs. just 315.6 cents → error of -15.6 cents
 
 The fifths and fourths are excellent approximations (2 cents off — barely perceptible). The thirds are noticeably compromised (14-16 cents off — clearly audible in sustained chords to trained listeners). This is the central trade-off.
 
@@ -117,11 +117,11 @@ This is why 12-TET won: the errors are *just small enough* to be tolerable in mo
 
 ## Hear the Difference
 
-Compare just intonation intervals (pure ratios) with their 12-TET approximations. Root = **220.00 Hz** (La3 / step 9, octave 3). The difference is most audible on sustained step-distances 3 and 4.
+Compare just intonation intervals (pure ratios) with their 12-TET approximations. Root = **220.00 Hz** (La3 / octave 3, step 9). The difference is most audible on sustained step-intervals 3 and 4.
 
 <table>
 <tr>
-  <th>Step-distance</th>
+  <th>Step-interval</th>
   <th>Just ratio → Hz</th>
   <th>12-TET → Hz</th>
   <th>Error</th>
@@ -184,6 +184,7 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   var ROOT = 220;
 
@@ -384,6 +385,7 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
 
   selectPreset("major");
 })();
+});
 </script>
 
 ## Translation Table

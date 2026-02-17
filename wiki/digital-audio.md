@@ -6,6 +6,7 @@ tags: [audio engineering, signal processing, recording]
 prerequisites: [sound-waves.md, fourier-analysis.md, adsr-envelope.md]
 related: [sound-waves.md, fourier-analysis.md, adsr-envelope.md, auditory-masking.md, equal-loudness.md, instrument-physics.md]
 scope-boundary: Fundamentals only (ADC, sampling, aliasing, bit depth, clipping, echo, room basics). No codec internals or advanced DSP design.
+has_audio: true
 ---
 
 # Digital Audio
@@ -148,6 +149,7 @@ So "accurate audio" is not only mathematical reconstruction; it is reconstructio
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
 
@@ -313,37 +315,10 @@ So "accurate audio" is not only mathematical reconstruction; it is reconstructio
   freqSlider.addEventListener("input", onInput);
   srSlider.addEventListener("input", onInput);
 
-  // Audio playback
-  function playTone(freq, duration) {
-    Tone.start().then(function() {
-      var gain = new Tone.Gain(0.25).toDestination();
-      var osc = new Tone.Oscillator(freq, "sine").connect(gain);
-      osc.start();
-      setTimeout(function() {
-        osc.stop();
-        osc.dispose();
-        gain.dispose();
-      }, (duration || 1.0) * 1000);
-    });
-  }
-
-  playOrigBtn.addEventListener("click", function() {
-    var p = getParams();
-    playTone(p.sourceFreq, 1.0);
-  });
-
-  playAliasBtn.addEventListener("click", function() {
-    var p = getParams();
-    playTone(p.aliasFreq, 1.0);
-  });
-
   // Initial draw
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", draw);
-  } else {
-    draw();
-  }
+  draw();
 })();
+});
 </script>
 
 ## Translation Table

@@ -80,6 +80,7 @@ When a complex sound arrives — one containing many frequencies simultaneously 
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
 
@@ -328,12 +329,9 @@ When a complex sound arrives — one containing many frequencies simultaneously 
   });
 
   // Initial draw
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", draw);
-  } else {
-    draw();
-  }
+  draw();
 })();
+});
 </script>
 
 ## Hair Cells: Converting Motion to Nerve Signals

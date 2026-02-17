@@ -113,6 +113,7 @@ Try these demonstrations. First, hear the complete harmonic series with the fund
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   var NUM = 8;
   var FUND = 100;
@@ -284,6 +285,7 @@ Try these demonstrations. First, hear the complete harmonic series with the fund
   }
   redraw();
 })();
+});
 </script>
 
 ## Translation Table

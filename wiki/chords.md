@@ -1,12 +1,12 @@
 ---
 title: Chords
-aliases: [step-sets, ratio-sets, triads, chord]
+aliases: [step-combos, ratio-sets, triads, chord]
 tier: 1
 category: music
 tags: [music, foundation, harmony]
 prerequisites: [intervals.md, harmonic-series.md, frequency-ratios.md, naming-system.md]
 related: [intervals.md, harmonic-series.md, frequency-ratios.md, chord-progressions.md, consonance-dissonance.md, scales.md]
-scope-boundary: Chord definition, step-set/ratio-set notation, common chord catalog only. No chord progressions, no inversions or voicing in depth.
+scope-boundary: Chord definition, step-combo/ratio-set notation, common chord catalog only. No chord progressions, no inversions or voicing in depth.
 has_audio: true
 ---
 
@@ -15,9 +15,9 @@ has_audio: true
 A **chord** is two or more pitches sounding simultaneously. PhizMusic describes every chord in two complementary ways:
 
 - **Ratio-set** — the frequency ratios between the notes, explaining *why* the chord sounds the way it does (physics)
-- **Step-set** — the chromatic step positions relative to the lowest note, specifying *which* notes to play (practical)
+- **Step-combo** — the chromatic step positions relative to the lowest note, specifying *which* notes to play (practical)
 
-Ratio first, then step-set. The physics explains the perception; the step-set makes it playable.
+Ratio first, then step-combo. The physics explains the perception; the step-combo makes it playable.
 
 > 🎯 **Simple version**: A chord is multiple notes at once. Some combinations sound smooth because they match the natural pattern of vibrating objects (the harmonic series). The chord {0, 4, 7} matches harmonics 4, 5, 6 — that's why it sounds natural. PhizMusic describes chords by their frequency ratio (why it sounds good) AND their step positions (which keys to press).
 
@@ -53,15 +53,15 @@ Ratio-set: 4:5:6
 ```
 
 What are the intervals?
-- Between 4f and 5f: ratio 5/4 = 386 cents ≈ step-distance 4
-- Between 5f and 6f: ratio 6/5 = 316 cents ≈ step-distance 3
-- Between 4f and 6f: ratio 6/4 = 3/2 = 702 cents ≈ step-distance 7
+- Between 4f and 5f: ratio 5/4 = 386 cents ≈ the 4-step-interval
+- Between 5f and 6f: ratio 6/5 = 316 cents ≈ the 3-step-interval
+- Between 4f and 6f: ratio 6/4 = 3/2 = 702 cents ≈ the 7-step-interval
 
-So the step-set is: **{0, 4, 7}**
+So the step-combo is: **{0, 4, 7}**
 
 This chord is maximally fused because every component is a harmonic of the implied fundamental (the frequency at 1f, two octaves below the lowest note). The auditory system hears this as a single, rich, stable sound.
 
-Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:5:6 harmonic selection, played as step-set {0, 4, 7}.
+Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:5:6 harmonic selection, played as step-combo {0, 4, 7}.
 
 ## Common Chords
 
@@ -70,7 +70,7 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
 <table>
   <thead>
     <tr>
-      <th>Step-set</th>
+      <th>Step-combo</th>
       <th>Ratio-set</th>
       <th>Harmonic origin</th>
       <th>Character</th>
@@ -109,7 +109,7 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
   </tbody>
 </table>
 
-**Why {0, 3, 7} sounds different from {0, 4, 7}**: The ratio 10:12:15 involves larger numbers than 4:5:6. Larger ratio numbers = more complex relationship = less harmonic overlap = less perceptual fusion. The chord still sounds "good" (the outer step-distance 7 is the solid 3:2 ratio), but the internal structure is less aligned with the harmonic series, giving it a darker, more complex quality.
+**Why {0, 3, 7} sounds different from {0, 4, 7}**: The ratio 10:12:15 involves larger numbers than 4:5:6. Larger ratio numbers = more complex relationship = less harmonic overlap = less perceptual fusion. The chord still sounds "good" (the outer 7-step-interval is the solid 3:2 ratio), but the internal structure is less aligned with the harmonic series, giving it a darker, more complex quality.
 
 **Why {0, 3, 6} sounds tense**: Neither internal interval (step-3 and step-3) matches the strong 3:2 or 4:3 ratios. The outer interval (step-6, the tritone) sits at the point of maximum harmonic ambiguity. There is no implied fundamental that neatly generates this combination.
 
@@ -118,7 +118,7 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
 <table>
   <thead>
     <tr>
-      <th>Step-set</th>
+      <th>Step-combo</th>
       <th>Ratio-set</th>
       <th>Harmonic origin</th>
       <th>Character</th>
@@ -159,19 +159,19 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
 
 **The {0, 4, 7, 10} tetrad** deserves special attention. Its ratio-set 4:5:6:7 means it literally IS harmonics 4 through 7 of a fundamental. The 7th harmonic (ratio 7:4 = 969 cents) falls 31 cents below the 12-TET step-10 (1000 cents). This means the "natural" version of this chord doesn't quite match the 12-TET approximation. Barbershop quartets and blues singers instinctively tune the top note lower than 12-TET to hit the 7:4 sweet spot. Western theory calls this chord "dominant seventh" and explains it as functional harmony. Physics simply says: "It's harmonics 4-5-6-7."
 
-## Building Chords from Step-Sets
+## Building Chords from Step-Combos
 
-Any combination of step-numbers is a valid chord. But some step-sets produce more perceptual fusion than others. A rough hierarchy:
+Any combination of step-numbers is a valid chord. But some step-combos produce more perceptual fusion than others. A rough hierarchy:
 
-1. **Step-sets that map to small-integer ratio-sets** (e.g., {0,4,7} → 4:5:6): maximum fusion
-2. **Step-sets with a strong 3:2 backbone** (e.g., {0,3,7} — the outer 7 is solid): moderate fusion
-3. **Step-sets without any strong ratio anchors** (e.g., {0,1,2}): minimal fusion, maximum roughness
+1. **Step-combos that map to small-integer ratio-sets** (e.g., {0,4,7} → 4:5:6): maximum fusion
+2. **Step-combos with a strong 3:2 backbone** (e.g., {0,3,7} — the outer 7 is solid): moderate fusion
+3. **Step-combos without any strong ratio anchors** (e.g., {0,1,2}): minimal fusion, maximum roughness
 
 This hierarchy is a description of physics, not a prescription of taste. Composers deliberately use all levels of fusion and roughness for expressive purposes. Tension and resolution are two sides of the same phenomenon (see [chord-progressions.md](chord-progressions.md)).
 
 ## Transposition
 
-Because chords are step-sets, transposition is addition:
+Because chords are step-combos, transposition is addition:
 
 ```
 Original:      {0, 4, 7}
@@ -183,15 +183,15 @@ The internal intervals — and therefore the ratios, the fusion quality, and the
 
 ## Voicing and Registration
 
-The step-set {0, 4, 7} specifies pitch *classes* — which of the 12 chromatic steps to include. It doesn't specify:
+The step-combo {0, 4, 7} specifies pitch *classes* — which of the 12 chromatic steps to include. It doesn't specify:
 - Which octave each note is in (registration)
 - How the notes are spaced across octaves (voicing)
 - How many times each note appears (doubling)
 
-These choices affect the sound significantly — a closely spaced {0, 4, 7} in one octave sounds different from a widely spaced version across three octaves — but the harmonic identity (4:5:6 ratio relationship) is preserved. Voicing is an expressive dimension beyond the step-set itself.
+These choices affect the sound significantly — a closely spaced {0, 4, 7} in one octave sounds different from a widely spaced version across three octaves — but the harmonic identity (4:5:6 ratio relationship) is preserved. Voicing is an expressive dimension beyond the step-combo itself.
 
 <div class="phiz-viz-container">
-<div class="phiz-viz-title">Chord Explorer — Build a Step-Set</div>
+<div class="phiz-viz-title">Chord Explorer — Build a Step-Combo</div>
 <div id="ch-step-buttons" class="phiz-viz-controls" style="flex-wrap:nowrap;justify-content:center;"></div>
 <div id="ch-step-info" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin:8px 0 4px;text-align:center;font-family:monospace;"></div>
 <div id="ch-ratio-info" style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin:2px 0 8px;text-align:center;font-family:monospace;"></div>
@@ -210,6 +210,7 @@ These choices affect the sound significantly — a closely spaced {0, 4, 7} in o
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
 
@@ -326,12 +327,12 @@ These choices affect the sound significantly — a closely spaced {0, 4, 7} in o
       }
     }
 
-    // Step-set display
+    // Step-combo display
     if (arr.length === 0) {
-      stepInfo.textContent = "Step-set: (none selected)";
+      stepInfo.textContent = "Step-combo: (none selected)";
       ratioInfo.textContent = "";
     } else {
-      stepInfo.textContent = "Step-set: {" + arr.join(", ") + "}";
+      stepInfo.textContent = "Step-combo: {" + arr.join(", ") + "}";
       ratioInfo.textContent = "Ratio-set: " + getRatioLabel(arr);
     }
 
@@ -509,25 +510,26 @@ These choices affect the sound significantly — a closely spaced {0, 4, 7} in o
   // Initial render
   updateUI();
 })();
+});
 </script>
 
 ## Translation Table
 
 | PhizMusic | Western | Notes |
 |-----------|---------|-------|
-| Step-set {0, 4, 7} | Major triad (C-E-G if rooted on Do) | PhizMusic specifies intervals; Western names require a root |
-| Step-set {0, 3, 7} | Minor triad | — |
-| Step-set {0, 3, 6} | Diminished triad | — |
-| Step-set {0, 4, 8} | Augmented triad | — |
-| Step-set {0, 4, 7, 10} | Dominant 7th | Physics: "natural tetrad" (harmonics 4-5-6-7) |
-| Step-set {0, 4, 7, 11} | Major 7th | — |
-| Step-set {0, 3, 7, 10} | Minor 7th | — |
+| Step-combo {0, 4, 7} | Major triad (C-E-G if rooted on Do) | PhizMusic specifies intervals; Western names require a root |
+| Step-combo {0, 3, 7} | Minor triad | — |
+| Step-combo {0, 3, 6} | Diminished triad | — |
+| Step-combo {0, 4, 8} | Augmented triad | — |
+| Step-combo {0, 4, 7, 10} | Dominant 7th | Physics: "natural tetrad" (harmonics 4-5-6-7) |
+| Step-combo {0, 4, 7, 11} | Major 7th | — |
+| Step-combo {0, 3, 7, 10} | Minor 7th | — |
 | Ratio-set 4:5:6 | — | No standard Western term for ratio-based chord description |
-| Step-set | Chord type/quality | PhizMusic is root-agnostic; Western requires stating the root note |
+| Step-combo | Chord type/quality | PhizMusic is root-agnostic; Western requires stating the root note |
 
 ## Connections
 
-- [Intervals](intervals.md) — the step-distances that make up a chord's internal structure
+- [Intervals](intervals.md) — the step-intervals that make up a chord's internal structure
 - [Harmonic Series](harmonic-series.md) — the physical source of the ratio-sets
 - [Frequency Ratios](frequency-ratios.md) — why simple ratios produce fusion
 - [Chord Progressions](chord-progressions.md) — how chords connect in sequences over time
@@ -536,4 +538,4 @@ These choices affect the sound significantly — a closely spaced {0, 4, 7} in o
 
 ### Suggested References
 
-- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — 3D triad dissonance surface and heatmap showing why certain step-sets produce minimal roughness
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — 3D triad dissonance surface and heatmap showing why certain step-combos produce minimal roughness

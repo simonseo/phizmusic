@@ -1,6 +1,6 @@
 ---
 title: Intervals
-aliases: [step-distance, interval, musical intervals]
+aliases: [step-interval, interval, musical intervals]
 tier: 1
 category: music
 tags: [music, foundation, reference]
@@ -12,18 +12,18 @@ scope-boundary: Interval definition and catalog only. No scale construction, no 
 
 # Intervals
 
-An **interval** is the distance between two pitches, measured as a **step-distance** — the number of chromatic steps separating them. Step-distance is the PhizMusic primary measure: unambiguous, arithmetic-friendly, and independent of any scale or key. Each step-distance corresponds to a frequency ratio that explains its acoustic character.
+An **interval** is the distance between two pitches, measured as a **step-interval** — the number of chromatic steps separating them. Step-interval is the PhizMusic primary measure: unambiguous, arithmetic-friendly, and independent of any scale or key. Each step-interval corresponds to a frequency ratio that explains its acoustic character.
 
-> 🎯 **Simple version**: The distance between two notes is counted in steps (0 to 12). Each step-distance has a natural frequency ratio. Step-distance 7 (what musicians call a "fifth") is special because it's the 3:2 ratio — the simplest ratio after the octave. Small-number ratios sound smooth; big-number ratios sound rough.
+> 🎯 **Simple version**: The distance between two notes is counted in steps (0 to 12). Each step-interval has a natural frequency ratio. The 7-step-interval (what musicians call a "fifth") is special because it's the 3:2 ratio — the simplest ratio after the octave. Small-number ratios sound smooth; big-number ratios sound rough.
 
-## Dual Description: Step-Distance and Ratio
+## Dual Description: Step-Interval and Ratio
 
 Every interval has two complementary descriptions:
 
-- **Step-distance** answers: *how many chromatic steps apart?* — practical, exact in 12-TET
+- **Step-interval** answers: *how many chromatic steps apart?* — practical, exact in 12-TET
 - **Frequency ratio** answers: *why does it sound this way?* — physical, explains the acoustics
 
-Neither description alone is complete. The step-distance tells you which keys to press; the ratio tells you why the result sounds consonant, tense, or neutral.
+Neither description alone is complete. The step-interval tells you which keys to press; the ratio tells you why the result sounds consonant, tense, or neutral.
 
 ## The Complete Interval Table
 
@@ -32,7 +32,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 <table>
   <thead>
     <tr>
-      <th>Step-distance</th>
+      <th>Step-interval</th>
       <th>Just ratio</th>
       <th>Just cents</th>
       <th>12-TET cents</th>
@@ -166,17 +166,17 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 
 - **Just ratio**: the simple-integer ratio that the interval approximates, derived from the harmonic series
 - **Just cents**: the exact size of the just ratio in cents (`1200 × log₂(ratio)`)
-- **12-TET cents**: the equal-temperament size (step-distance × 100)
+- **12-TET cents**: the equal-temperament size (step-interval × 100)
 - **Error**: how far 12-TET deviates from just (positive = 12-TET is wider, negative = narrower)
 - **Character**: a brief perceptual description (not prescriptive — different musical contexts change how an interval "feels")
 
 ### Notable Observations
 
-**Step-distance 6** (the tritone) is unique: it exactly bisects the octave. Its ratio in 12-TET is √2:1 — the only irrational ratio that is exactly representable. In just intonation, there's no single "correct" ratio for this interval; it sits at the boundary between two harmonic territories (the 7:5 from below, the 10:7 from above).
+**The 6-step-interval** (the tritone) is unique: it exactly bisects the octave. Its ratio in 12-TET is √2:1 — the only irrational ratio that is exactly representable. In just intonation, there's no single "correct" ratio for this interval; it sits at the boundary between two harmonic territories (the 7:5 from below, the 10:7 from above).
 
-**Step-distances 5 and 7** are the best-approximated intervals in 12-TET (within 2 cents of just). This is not coincidence — 12-TET was designed to optimize these critical intervals.
+**Step-intervals 5 and 7** are the best-approximated intervals in 12-TET (within 2 cents of just). This is not coincidence — 12-TET was designed to optimize these critical intervals.
 
-**Step-distances 4 and 3** have the largest errors (~14-16 cents). These are the intervals most affected by the equal-temperament compromise, and the ones where the difference between 12-TET and just intonation is most audible in sustained chords.
+**Step-intervals 4 and 3** have the largest errors (~14-16 cents). These are the intervals most affected by the equal-temperament compromise, and the ones where the difference between 12-TET and just intonation is most audible in sustained chords.
 
 ## Ear Training
 
@@ -192,6 +192,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   var BASE_FREQ = 220;
   var TONE_DURATION = 0.8;
@@ -304,7 +305,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       flashButton(answerBtns[step], "red");
       flashButton(answerBtns[currentStep], "green");
       feedbackEl.style.color = "#ff1744";
-      feedbackEl.textContent = "Correct answer: step-distance " + currentStep;
+      feedbackEl.textContent = "Correct answer: step-interval " + currentStep;
       updateScore();
     }
   }
@@ -320,6 +321,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 
   updateScore();
 })();
+});
 </script>
 
 ## Interval Inversion
@@ -327,10 +329,10 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 Every interval has a **complement** (inversion) that together with it completes an octave:
 
 ```
-step-distance + inversion = 12
+step-interval + inversion = 12
 ```
 
-| Step-distance | Inversion | Ratio | Inversion ratio |
+| Step-interval | Inversion | Ratio | Inversion ratio |
 |---------------|-----------|-------|-----------------|
 | 0 | 12 | 1:1 | 2:1 |
 | 1 | 11 | 16:15 | 15:8 |
@@ -346,7 +348,7 @@ Step-6 is its own inversion — it divides the octave exactly in half.
 
 When two tones are in a simple frequency ratio, their harmonic overtones align:
 
-**Example: step-distance 7 (ratio 3:2, tones at 200 Hz and 300 Hz)**
+**Example: the 7-step-interval (ratio 3:2, tones at 200 Hz and 300 Hz)**
 
 ```
 Lower tone harmonics:  200  400  600  800  1000  1200  1400  1600 ...
@@ -357,7 +359,7 @@ Upper tone harmonics:  300  600  900  1200 1500  1800  2100  2400 ...
 
 Every 3rd harmonic of the lower tone matches every 2nd harmonic of the upper tone. These shared frequencies reinforce rather than interfere. The harmonics that don't match are well-separated — outside each other's critical bandwidth — so they don't create roughness.
 
-**Example: step-distance 1 (ratio ~16:15, tones at 200 Hz and 212 Hz)**
+**Example: the 1-step-interval (ratio ~16:15, tones at 200 Hz and 212 Hz)**
 
 ```
 Lower tone harmonics:  200  400  600  800  1000 ...
@@ -372,8 +374,8 @@ Nearly every pair of harmonics falls within critical bandwidth, creating roughne
 
 Intervals larger than 12 steps span more than one octave. They are heard as the basic interval (mod 12) at a wider spacing:
 
-- Step-distance 14 = 12 + 2 = an octave plus step-distance 2
-- Step-distance 19 = 12 + 7 = an octave plus step-distance 7
+- The 14-step-interval = 12 + 2 = an octave plus the 2-step-interval
+- The 19-step-interval = 12 + 7 = an octave plus the 7-step-interval
 
 Compound intervals are common in chords and orchestration but maintain the acoustic character of their mod-12 equivalent, colored by the additional spacing.
 
@@ -381,25 +383,25 @@ Compound intervals are common in chords and orchestration but maintain the acous
 
 | PhizMusic | Western | Notes |
 |-----------|---------|-------|
-| Step-distance 0 | Unison | — |
-| Step-distance 1 | Minor 2nd / semitone | "Half step" |
-| Step-distance 2 | Major 2nd / whole tone | "Whole step" |
-| Step-distance 3 | Minor 3rd | — |
-| Step-distance 4 | Major 3rd | — |
-| Step-distance 5 | Perfect 4th | — |
-| Step-distance 6 | Tritone / augmented 4th / diminished 5th | Multiple Western names for one interval |
-| Step-distance 7 | Perfect 5th | — |
-| Step-distance 8 | Minor 6th | — |
-| Step-distance 9 | Major 6th | — |
-| Step-distance 10 | Minor 7th | — |
-| Step-distance 11 | Major 7th | — |
-| Step-distance 12 | Octave | — |
+| The 0-step-interval | Unison | — |
+| The 1-step-interval | Minor 2nd / semitone | "Half step" |
+| The 2-step-interval | Major 2nd / whole tone | "Whole step" |
+| The 3-step-interval | Minor 3rd | — |
+| The 4-step-interval | Major 3rd | — |
+| The 5-step-interval | Perfect 4th | — |
+| The 6-step-interval | Tritone / augmented 4th / diminished 5th | Multiple Western names for one interval |
+| The 7-step-interval | Perfect 5th | — |
+| The 8-step-interval | Minor 6th | — |
+| The 9-step-interval | Major 6th | — |
+| The 10-step-interval | Minor 7th | — |
+| The 11-step-interval | Major 7th | — |
+| The 12-step-interval | Octave | — |
 
 Note: Western names count from 1 (unison = "1st"), count only diatonic steps, and use quality labels (minor, major, perfect, augmented, diminished). PhizMusic counts from 0, counts all chromatic steps, and uses no quality labels — the number IS the description.
 
 ## Connections
 
-- [Frequency Ratios](frequency-ratios.md) — the ratio mathematics underlying each step-distance
+- [Frequency Ratios](frequency-ratios.md) — the ratio mathematics underlying each step-interval
 - [Harmonic Series](harmonic-series.md) — the physical source of the just-intonation ratios
 - [Naming System](naming-system.md) — how step-numbers enable interval arithmetic
 - [Scales](scales.md) — intervals as the building blocks of scale construction

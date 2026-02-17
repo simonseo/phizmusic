@@ -94,6 +94,7 @@ Explore each waveform visually and aurally. The left canvas shows the waveform i
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function () {
   "use strict";
 
@@ -266,12 +267,9 @@ Explore each waveform visually and aurally. The left canvas shows the waveform i
     updateInfo();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  init();
 })();
+});
 </script>
 
 ## Why These Shapes Matter
@@ -295,7 +293,7 @@ These four waveforms are not just textbook abstractions — they map directly to
 | Fundamental frequency | Fundamental, root frequency | Grundton (German), fondamentale (French) |
 | Harmonic (nth) | nth partial, (n-1)th overtone | "Partial" counts from 1; "overtone" counts from the one above the fundamental |
 | Harmonic amplitude | Partial strength | — |
-| Step-distance | Interval | Intervall (German), intervalle (French), antarah (Arabic) |
+| Step-interval | Interval | Intervall (German), intervalle (French), antarah (Arabic) |
 
 ## Connections
 

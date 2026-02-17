@@ -5,17 +5,17 @@ tier: 2
 tags: [harmony, time, prediction]
 prerequisites: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md]
 related: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md, scales.md, notation-layer.md]
-scope-boundary: Step-set sequences, movement metrics, and tension-resolution only. No key modulation or full functional-harmony theory.
+scope-boundary: Step-combo sequences, movement metrics, and tension-resolution only. No key modulation or full functional-harmony theory.
 has_audio: true
 ---
 
 # Chord Progressions
 
-A chord progression is a **time-ordered sequence of step-sets**. In PhizMusic, the central question is geometric: how far does each voice move from one step-set to the next? Small total movement tends to sound smooth and coherent; larger movement tends to increase contrast and perceived tension.
+A chord progression is a **time-ordered sequence of step-combos**. In PhizMusic, the central question is geometric: how far does each voice move from one step-combo to the next? Small total movement tends to sound smooth and coherent; larger movement tends to increase contrast and perceived tension.
 
 > 🎯 **Simple version**: A chord progression is a journey from one group of notes to another. Some journeys feel like "going home" (resolution), others feel like "still traveling" (tension). The brain predicts where the music is going; surprise creates emotion.
 
-## Progressions as Step-Set Sequences
+## Progressions as Step-Combo Sequences
 
 Write each simultaneous sonority as a set (or multiset) of chromatic steps relative to a chosen root frame. A progression is then:
 
@@ -33,7 +33,7 @@ This is often labeled with Roman numerals in conventional theory, but PhizMusic 
 
 ## Voice-Leading as Distance Minimization
 
-Given two adjacent step-sets `A` and `B`, voice-leading chooses a mapping between notes in `A` and notes in `B` that minimizes total motion. Define circular step distance on the 12-step ring:
+Given two adjacent step-combos `A` and `B`, voice-leading chooses a mapping between notes in `A` and notes in `B` that minimizes total motion. Define circular step distance on the 12-step ring:
 
 ```text
 d(a,b) = min((b-a) mod 12, (a-b) mod 12)
@@ -49,7 +49,7 @@ Lower `D` usually sounds smoother because fewer spectral components move far at 
 
 ## Stability, Tension, and Resolution
 
-Step-sets that strongly match harmonic-series templates (for example {0,4,7} with 4:5:6 relation) are often perceived as stable endpoints. Moving to sets with weaker fusion or larger voice movement increases tension. Returning to stable sets with reduced movement is heard as resolution.
+Step-combos that strongly match harmonic-series templates (for example {0,4,7} with 4:5:6 relation) are often perceived as stable endpoints. Moving to sets with weaker fusion or larger voice movement increases tension. Returning to stable sets with reduced movement is heard as resolution.
 
 In this framing:
 
@@ -132,6 +132,7 @@ Click to hear each progression played as a sequence of chords. Listen for the te
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("cp-grid-canvas");
@@ -266,27 +267,24 @@ Click to hear each progression played as a sequence of chords. Listen for the te
     });
   });
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", drawGrid);
-  } else {
-    drawGrid();
-  }
+  drawGrid();
 })();
+});
 </script>
 
 ## Translation Table
 
 | PhizMusic | Western | Notes |
 |-----------|---------|-------|
-| Step-set sequence | Chord progression | Same concept, literalized representation |
+| Step-combo sequence | Chord progression | Same concept, literalized representation |
 | Total movement D | Voice-leading smoothness | Quantitative movement metric |
 | Stable high-fusion set | Tonic-like arrival | Function language avoided in core text |
 | Tension-resolution arc | Cadential motion | Framed as spectral/predictive dynamics |
 
 ## Connections
 
-- [Chords](chords.md) — defines step-sets used as progression states
-- [Intervals](intervals.md) — step-distance metric underlying movement cost
+- [Chords](chords.md) — defines step-combos used as progression states
+- [Intervals](intervals.md) — step-interval metric underlying movement cost
 - [Consonance & Dissonance](consonance-dissonance.md) — explains fusion and roughness basis of stability
 - [Rhythm](rhythm.md) — progression is always embedded in onset timing
 - [Scales](scales.md) — progression choices are constrained by selected step-subset

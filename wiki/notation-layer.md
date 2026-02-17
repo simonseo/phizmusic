@@ -6,6 +6,7 @@ tags: [notation, visualization, mapping]
 prerequisites: [naming-system.md, scales.md, twelve-tet.md]
 related: [naming-system.md, scales.md, intervals.md, twelve-tet.md, digital-audio.md, translation-tables.md]
 scope-boundary: Describes existing notation systems (Dodeka and piano roll) plus a continuous log-frequency overlay concept. No new symbols or software implementation.
+has_audio: true
 ---
 
 # Notation Layer
@@ -47,7 +48,7 @@ Traditional 5-line staff notation is tied to a 7-letter spelling system (A-B-C-D
 Key consequences:
 
 1. **Transposition is translation**: add a constant step to every note, and the shape stays identical.
-2. **Intervals are visual invariants**: step-distance 7 always looks like 7 rows, everywhere.
+2. **Intervals are visual invariants**: the 7-step-interval always looks like 7 rows, everywhere.
 3. **Rhythm is explicit geometry**: duration is literal horizontal length.
 4. **No enharmonic ambiguity**: each step has one canonical identity.
 
@@ -81,7 +82,7 @@ The chromatic grid is the discrete base layer. For tuning systems that are not l
 
 This preserves two goals at once:
 
-1. **Discrete compositional structure** (step-sets, scales, progressions)
+1. **Discrete compositional structure** (step-combos, scales, progressions)
 2. **Continuous intonation detail** (real performance frequencies)
 
 In equation form:
@@ -112,6 +113,7 @@ So the notation layer is not just simpler; it is also closer to how the auditory
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("nl-notation-canvas");
@@ -261,12 +263,9 @@ So the notation layer is not just simpler; it is also closer to how the auditory
     });
   });
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", redraw);
-  } else {
-    redraw();
-  }
+  redraw();
 })();
+});
 </script>
 
 ## Translation Table

@@ -147,6 +147,7 @@ All four examples play the same pitch (Do4 = 261.63 Hz) with different ADSR enve
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("adsr-canvas");
@@ -213,12 +214,9 @@ All four examples play the same pitch (Do4 = 261.63 Hz) with different ADSR enve
     });
   });
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", redraw);
-  } else {
-    redraw();
-  }
+  redraw();
 })();
+});
 </script>
 
 ## Translation Table

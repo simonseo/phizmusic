@@ -29,17 +29,17 @@ When two frequencies fall within the same **critical bandwidth** (see [ear-cochl
 
 Maximum roughness occurs when the frequency separation is approximately **25-30% of the critical bandwidth** — roughly 30-40 Hz for two tones around 500 Hz.
 
-This means roughness is not about the *ratio* of two frequencies but about their *absolute Hz separation relative to critical bandwidth*. A step-distance 1 (ratio ~1.06) creates strong roughness in the low-to-mid register where critical bandwidth is narrow relative to the step, but less roughness in the extreme high register.
+This means roughness is not about the *ratio* of two frequencies but about their *absolute Hz separation relative to critical bandwidth*. A 1-step-interval (ratio ~1.06) creates strong roughness in the low-to-mid register where critical bandwidth is narrow relative to the step, but less roughness in the extreme high register.
 
-Roughness also applies to **harmonic interactions**: when two complex tones sound together, every pair of nearby harmonics can contribute roughness. Step-distance 1 between two complex tones produces roughness between nearly every pair of harmonics. Step-distance 7 (3:2 ratio) produces very little, because the harmonics align or fall far apart.
+Roughness also applies to **harmonic interactions**: when two complex tones sound together, every pair of nearby harmonics can contribute roughness. The 1-step-interval between two complex tones produces roughness between nearly every pair of harmonics. The 7-step-interval (3:2 ratio) produces very little, because the harmonics align or fall far apart.
 
 ### 2. Harmonic Template Matching
 
 The auditory system continuously searches for **harmonic series patterns** in the incoming frequency data (see [harmonic-series.md](harmonic-series.md)). When two or more tones together produce a frequency pattern that fits a single harmonic series template, the brain groups them as fused — heard as "one rich sound" rather than "two separate sounds."
 
-- **Step-distance 7** (3:2): the combined harmonics closely match a harmonic series with fundamental an octave below the lower tone → strong fusion
-- **Step-distance 4** (5:4): combined harmonics match a harmonic series with fundamental two octaves below → good fusion
-- **Step-distance 1** (~16:15): no common harmonic series template fits well → weak fusion, separate percepts
+- **The 7-step-interval** (3:2): the combined harmonics closely match a harmonic series with fundamental an octave below the lower tone → strong fusion
+- **The 4-step-interval** (5:4): combined harmonics match a harmonic series with fundamental two octaves below → good fusion
+- **The 1-step-interval** (~16:15): no common harmonic series template fits well → weak fusion, separate percepts
 
 This mechanism explains why simple frequency ratios produce consonance: they are the ratios that naturally occur between harmonics of a single fundamental. The brain treats them as "one source."
 
@@ -53,8 +53,8 @@ Cubic difference:  2f₁ - f₂
 ```
 
 For consonant intervals, the combination tones fall on notes that reinforce the harmonic series implied by the two tones:
-- Step-distance 7 (frequencies 200 and 300 Hz): difference tone = 100 Hz = the implied fundamental → reinforces fusion
-- Step-distance 1 (frequencies 200 and 212 Hz): difference tone = 12 Hz → sub-audio beat, contributes to roughness
+- The 7-step-interval (frequencies 200 and 300 Hz): difference tone = 100 Hz = the implied fundamental → reinforces fusion
+- The 1-step-interval (frequencies 200 and 212 Hz): difference tone = 12 Hz → sub-audio beat, contributes to roughness
 
 For dissonant intervals, combination tones can add unwanted frequencies that increase roughness and muddy the harmonic picture.
 
@@ -82,7 +82,7 @@ Dissonance
 
 For **complex tones** (with harmonics), the total dissonance is the sum of contributions from every pair of harmonic components. This predicts the consonance ranking of intervals quite accurately:
 
-Step-distance 12 (2:1) > step-distance 7 (3:2) > step-distance 5 (4:3) > step-distance 4 (5:4) > step-distance 3 (6:5) > ...
+The 12-step-interval (2:1) > the 7-step-interval (3:2) > the 5-step-interval (4:3) > the 4-step-interval (5:4) > the 3-step-interval (6:5) > ...
 
 This ranking emerges from physics alone, without any cultural input. What cultures differ on is whether they *prefer* the consonant end, the dissonant end, or various mixtures.
 
@@ -99,14 +99,14 @@ Dissonance
     |‖    ‖   ‖                 ‖
     |      ‖ ‖   ‖     ‖   ‖ ‖
     |              ‖ ‖ ‖ ‖
-    +--+--+--+--+--+--+--+--+--+--+--+--+→ Step-distance
+    +--+--+--+--+--+--+--+--+--+--+--+--+→ Step-interval
        1  2  3  4  5  6  7  8  9  10 11 12
 
    Peaks: near step 1, 2     (maximum roughness)
    Valleys: at step 5, 7, 12 (minimum roughness — consonance)
 ```
 
-Dissonance peaks near step-distances 1 and 2 (where many harmonic pairs collide within critical bandwidth) and has valleys at step-distances 5, 7, and 12 (where harmonic pairs either align or are well-separated).
+Dissonance peaks near step-intervals 1 and 2 (where many harmonic pairs collide within critical bandwidth) and has valleys at step-intervals 5, 7, and 12 (where harmonic pairs either align or are well-separated).
 
 This curve varies with:
 - **Register**: intervals in the bass produce more roughness (critical bandwidth is narrower relative to step-size)
@@ -117,7 +117,7 @@ This curve varies with:
 
 Click any button below to hear the two tones separately and together. Listen for roughness at step 1 (maximum clash), fusion at steps 5 and 7, and the perceptual reset at step 12 (octave).
 
-| Step-distance | Interval | Character | Listen |
+| Step-interval | Interval | Character | Listen |
 |---|---|---|---|
 | 0 | Unison | Identity — same frequency | <button class="phiz-play-btn" data-freq1="220" data-freq2="220" onclick="playRatio(this)">▶ Play</button> |
 | 1 | Minor 2nd | Maximum roughness | <button class="phiz-play-btn" data-freq1="220" data-freq2="233.08" onclick="playRatio(this)">▶ Play</button> |
@@ -133,10 +133,11 @@ Click any button below to hear the two tones separately and together. Listen for
 <button id="cd-play">▶ Play at Ratio</button>
 <button id="cd-stop">■ Stop</button>
 </div>
-<div id="cd-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;">Ratio: 1.500 | Step-distance: 7.02 | Dissonance: —</div>
+<div id="cd-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;">Ratio: 1.500 | Step-interval: 7.02 | Dissonance: —</div>
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   "use strict";
   var canvas = document.getElementById("cd-curve-canvas");
@@ -144,7 +145,7 @@ Click any button below to hear the two tones separately and together. Listen for
   var ratioVal = document.getElementById("cd-ratio-val");
   var info = document.getElementById("cd-info");
   var REF = 220;
-  var spectrum = [1, 0.5, 0.33, 0.25, 0.2, 0.17];
+  var spectrum = {freq: [1, 2, 3, 4, 5, 6], amp: [1, 0.5, 0.33, 0.25, 0.2, 0.17]};
   var curveData = null;
   var osc1 = null;
   var osc2 = null;
@@ -191,7 +192,7 @@ Click any button below to hear the two tones separately and together. Listen for
     ratioVal.textContent = ratio.toFixed(3);
     var sd = 12 * Math.log(ratio) / Math.log(2);
     var diss = getDissonanceAtRatio(ratio);
-    info.textContent = "Ratio: " + ratio.toFixed(3) + " | Step-distance: " + sd.toFixed(2) + " | Dissonance: " + diss.toFixed(2);
+    info.textContent = "Ratio: " + ratio.toFixed(3) + " | Step-interval: " + sd.toFixed(2) + " | Dissonance: " + diss.toFixed(2);
     drawCurve();
   }
 
@@ -227,12 +228,9 @@ Click any button below to hear the two tones separately and together. Listen for
     updateInfo();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  init();
 })();
+});
 </script>
 
 ## The Cultural Dimension: Fusion ≠ Preference
@@ -251,17 +249,17 @@ This means:
 - PhizMusic **cannot** and **should not** prescribe which intervals are "good" or "bad"
 - Different musical traditions make different aesthetic choices about where on the consonance-dissonance spectrum their music sits
 - Gamelan music deliberately cultivates beating between detuned instrument pairs (ombak) — roughness as texture, not defect
-- Jazz and blues exploit the tension of step-distance 1 and 2 ("blue notes") as expressive resources
+- Jazz and blues exploit the tension of the 1-step-interval and 2 ("blue notes") as expressive resources
 - Medieval European music considered thirds dissonant; Romantic-era music considered them the foundation of harmony
 
 ## Consonance in Context
 
 A final complication: the same interval can sound consonant or dissonant depending on musical context.
 
-- **Step-distance 7** in isolation: maximally consonant
-- **Step-distance 7** following an expectation of step-distance 5: surprising, potentially tense
-- **Step-distance 1** in isolation: maximally dissonant
-- **Step-distance 1** resolving to step-distance 0: satisfying (the resolution of tension)
+- **The 7-step-interval** in isolation: maximally consonant
+- **The 7-step-interval** following an expectation of the 5-step-interval: surprising, potentially tense
+- **The 1-step-interval** in isolation: maximally dissonant
+- **The 1-step-interval** resolving to the 0-step-interval: satisfying (the resolution of tension)
 
 The brain processes intervals not just as isolated acoustic events but as part of a temporal sequence with built-in expectations. This temporal dimension is the domain of [chord progressions](chord-progressions.md).
 
@@ -280,7 +278,7 @@ The brain processes intervals not just as isolated acoustic events but as part o
 
 - [The Ear & Cochlea](ear-cochlea.md) — critical bandwidth and combination tones originate here
 - [Harmonic Series](harmonic-series.md) — the template that the brain matches against
-- [Intervals](intervals.md) — the step-distances whose consonance/dissonance is being explained
+- [Intervals](intervals.md) — the step-intervals whose consonance/dissonance is being explained
 - [Chords](chords.md) — how consonance/dissonance operates in multi-note contexts
 - [Frequency Ratios](frequency-ratios.md) — why simple ratios produce fusion
 - [Timbre](timbre.md) — how harmonic content affects the dissonance of intervals

@@ -28,9 +28,9 @@ The logic chain:
 4. The total dissonance is the sum of all these pairwise contributions
 5. Therefore, the **shape of the dissonance curve depends entirely on which partials are present** — that is, on the timbre
 
-For harmonic timbres (integer-multiple partials: 1f, 2f, 3f, 4f...), the dissonance minima fall at ratios like 2:1, 3:2, 4:3, 5:4 — exactly the familiar step-distances. For inharmonic timbres (non-integer partials), the minima shift to entirely different ratios. This means **tuning and timbre are coupled parameters**, not independent choices.
+For harmonic timbres (integer-multiple partials: 1f, 2f, 3f, 4f...), the dissonance minima fall at ratios like 2:1, 3:2, 4:3, 5:4 — exactly the familiar step-intervals. For inharmonic timbres (non-integer partials), the minima shift to entirely different ratios. This means **tuning and timbre are coupled parameters**, not independent choices.
 
-> 🎯 **Simple version**: Sethares proved that the reason step-distance 7 (the "perfect fifth") sounds good on a violin is because of violin overtones — not because 3:2 is inherently magical. Change the overtones, and step-distance 7 might sound terrible while some completely different ratio sounds great.
+> 🎯 **Simple version**: Sethares proved that the reason the 7-step-interval (the "perfect fifth") sounds good on a violin is because of violin overtones — not because 3:2 is inherently magical. Change the overtones, and the 7-step-interval might sound terrible while some completely different ratio sounds great.
 
 ## How Dissonance Curves Are Computed
 
@@ -56,12 +56,12 @@ where `d_PL` is the Plomp-Levelt dissonance function for a single pair of pure t
 
 **The sweep** produces a curve with peaks (maximum roughness — many partial pairs within critical bandwidth) and valleys (minimum roughness — partial pairs either aligned or well-separated). The valleys indicate the least-dissonant intervals for that spectrum.
 
-## Harmonic Spectra → Familiar Step-Distances
+## Harmonic Spectra → Familiar Step-Intervals
 
 For a tone with harmonic partials (1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f) and natural amplitude roll-off (1/n), the dissonance curve shows clear valleys at:
 
 ```
-Ratio    Step-distance    (Western name)
+Ratio    Step-interval    (Western name)
 1.000    0.00             (unison)
 1.200    ~3               (minor third)
 1.250    ~4               (major third)
@@ -71,7 +71,7 @@ Ratio    Step-distance    (Western name)
 2.000    12.00            (octave)
 ```
 
-These minima land near the step-distances that [12-TET](twelve-tet.md) approximates: 0, 3, 4, 5, 7, 9, 12. This is not coincidence — it is the **reason 12-TET works**. The 12-tone equal-temperament system was designed (over centuries of empirical refinement) to serve instruments with harmonic spectra: strings, voices, brass, woodwinds. The dissonance curve for harmonic timbres has its valleys at almost exactly the positions 12-TET places its steps.
+These minima land near the step-intervals that [12-TET](twelve-tet.md) approximates: 0, 3, 4, 5, 7, 9, 12. This is not coincidence — it is the **reason 12-TET works**. The 12-tone equal-temperament system was designed (over centuries of empirical refinement) to serve instruments with harmonic spectra: strings, voices, brass, woodwinds. The dissonance curve for harmonic timbres has its valleys at almost exactly the positions 12-TET places its steps.
 
 > 🎯 **Simple version**: If you plot "clashiness vs. interval" for violin-like sounds, the smooth spots land right where piano keys are. That's not luck — pianos were designed for violin-like sounds.
 
@@ -84,18 +84,18 @@ When partials are **not** integer multiples of the fundamental, the dissonance m
 Many percussion instruments have partials at frequencies like 1f, 2.1f, 3.15f, 4.2f... — slightly "stretched" from the harmonic series due to the stiffness of bars and plates (see [instrument-physics.md](instrument-physics.md)). For these spectra:
 
 - The dissonance minima move away from simple integer ratios
-- The valleys no longer align with 12-TET step-distances
+- The valleys no longer align with 12-TET step-intervals
 - A different tuning grid would better serve these instruments
 
 This directly explains **gamelan tuning**. The Indonesian gamelan ensemble uses metallophones and gongs with distinctly inharmonic spectra. The traditional slendro (5-note) and pelog (7-note) tuning systems are **not** "out-of-tune 12-TET" — they are tuning systems optimized for their instruments' spectral content. Sethares computed dissonance curves for measured gamelan spectra and found that the traditional tunings closely match the predicted minima.
 
 ### Pure Sine (Single Partial)
 
-A pure sine tone has only one partial (the fundamental). The dissonance curve reduces to the raw Plomp-Levelt curve for a single pair: one broad hump of dissonance near unison, then smooth consonance everywhere beyond about one critical bandwidth. There are **no** special minima at step-distances 5, 7, or 12 — those emerge only when multiple harmonics interact.
+A pure sine tone has only one partial (the fundamental). The dissonance curve reduces to the raw Plomp-Levelt curve for a single pair: one broad hump of dissonance near unison, then smooth consonance everywhere beyond about one critical bandwidth. There are **no** special minima at step-intervals 5, 7, or 12 — those emerge only when multiple harmonics interact.
 
 ### Square Wave (Odd Harmonics Only)
 
-A square wave contains only odd harmonics (1f, 3f, 5f, 7f...). Its dissonance curve has fewer valleys than a full harmonic spectrum because fewer partial pairs are present. The step-distance 7 minimum weakens (since the 2nd harmonic, crucial for the 3:2 interaction, is absent), while other minima shift subtly.
+A square wave contains only odd harmonics (1f, 3f, 5f, 7f...). Its dissonance curve has fewer valleys than a full harmonic spectrum because fewer partial pairs are present. The 7-step-interval minimum weakens (since the 2nd harmonic, crucial for the 3:2 interaction, is absent), while other minima shift subtly.
 
 ## The Explorer
 
@@ -104,7 +104,7 @@ Use the explorer below to see how different spectra produce different dissonance
 <div class="phiz-viz-container">
 <div class="phiz-viz-title">Sethares Dissonance Curve Explorer</div>
 <canvas id="dc-curve-canvas" height="280" style="width:100%;"></canvas>
-<div id="dc-info" style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:6px 0 4px;text-align:center;font-family:monospace;">Ratio: 1.500 | Step-distance: 7.02 | Dissonance: 0.00</div>
+<div id="dc-info" style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:6px 0 4px;text-align:center;font-family:monospace;">Ratio: 1.500 | Step-interval: 7.02 | Dissonance: 0.00</div>
 <div class="phiz-viz-controls">
 <button id="dc-preset-harmonic" class="active">Harmonic (1/n)</button>
 <button id="dc-preset-square">Square Wave</button>
@@ -121,6 +121,7 @@ Use the explorer below to see how different spectra produce different dissonance
 </div>
 
 <script>
+window.addEventListener('load', function() {
 (function() {
   var NUM_HARMONICS = 8;
   var REF_FREQ = 220;
@@ -266,7 +267,7 @@ Use the explorer below to see how different spectra produce different dissonance
     }
     var dissValue = currentCurveData.dissonance[closestIdx];
 
-    infoEl.textContent = "Ratio: " + ratio.toFixed(3) + " | Step-distance: " + stepDist.toFixed(2) + " | Dissonance: " + dissValue.toFixed(2);
+    infoEl.textContent = "Ratio: " + ratio.toFixed(3) + " | Step-interval: " + stepDist.toFixed(2) + " | Dissonance: " + dissValue.toFixed(2);
   }
 
   ratioSlider.addEventListener("input", function() {
@@ -356,6 +357,7 @@ Use the explorer below to see how different spectra produce different dissonance
   // Initial draw
   computeAndDraw();
 })();
+});
 </script>
 
 ## Implications for Music
@@ -376,7 +378,7 @@ The Sethares model validates what ethnomusicologists have long argued: non-Weste
 
 ### PhizMusic Connection
 
-This is precisely why the PhizMusic framework insists on physics-first vocabulary. When we say "step-distance 7 is consonant," we must qualify: consonant **for harmonic spectra**. The dissonance curve makes this qualification unavoidable and explicit, grounding music theory in measurable spectral properties rather than cultural assumption.
+This is precisely why the PhizMusic framework insists on physics-first vocabulary. When we say "the 7-step-interval is consonant," we must qualify: consonant **for harmonic spectra**. The dissonance curve makes this qualification unavoidable and explicit, grounding music theory in measurable spectral properties rather than cultural assumption.
 
 ## Translation Table
 
@@ -384,7 +386,7 @@ This is precisely why the PhizMusic framework insists on physics-first vocabular
 |-----------|---------|-------|
 | Dissonance curve | Sensory dissonance curve | Same concept |
 | Spectral content | Timbre, tone color | PhizMusic is explicit about the spectrum |
-| Step-distance of minimum | Consonant interval | Western term conflates sensory and cultural consonance |
+| Step-interval of minimum | Consonant interval | Western term conflates sensory and cultural consonance |
 | Timbre-tuning coupling | — | No standard Western theory term |
 | Inharmonic spectrum | Inharmonic partials | Same concept |
 | Stretched partials | Inharmonicity | Audio engineering term |
