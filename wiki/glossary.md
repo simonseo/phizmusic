@@ -72,11 +72,11 @@ The canonical vocabulary reference for the PhizMusic framework. Every novel term
 
 **Spectrum** — The distribution of energy across frequencies in a sound. A pure sine wave has a single-frequency spectrum. A complex tone has energy at multiple frequencies (harmonics). The spectrum determines timbre. See [fourier-analysis.md](fourier-analysis.md).
 
-**Step-distance** — The number of chromatic steps between two pitches, ranging from 0 to 11 within one octave. This is the PhizMusic measure of interval size. Step-distance 7 = 3:2 frequency ratio ≈ "perfect fifth" in Western terms. See [intervals.md](intervals.md).
+**Step-interval** — The number of chromatic steps between two pitches, ranging from 0 to 11 within one octave. This is the PhizMusic measure of interval size. The 7-step-interval = 3:2 frequency ratio ≈ "perfect fifth" in Western terms. See [intervals.md](intervals.md).
 
-**Step-number** — A pitch identified by its chromatic position (0-11) plus octave number. Formal PhizMusic pitch notation. Example: 7.4 = step 7 in octave 4 = So4 = G4. Step-numbers make transposition trivial: transpose up by 3 = add 3 (mod 12). See [naming-system.md](naming-system.md).
+**Step-number** — A pitch identified by its octave number plus chromatic position (0-11). Formal PhizMusic pitch notation. Example: 4.7 = octave 4, step 7 = So4 = G4. Step-numbers make transposition trivial: transpose up by 3 = add 3 (mod 12). See [naming-system.md](naming-system.md).
 
-**Step-set** — A chord described by the chromatic step positions of its components relative to the lowest note. Example: {0,4,7} describes a chord with root, a note 4 steps above, and a note 7 steps above. Step-sets specify *which* notes to play (practical). See [chords.md](chords.md).
+**Step-combo** — A chord described by the chromatic step positions of its components relative to the lowest note. Example: {0,4,7} describes a chord with root, a note 4 steps above, and a note 7 steps above. Step-combos specify *which* notes to play (practical). See [chords.md](chords.md).
 
 **Step-subset** — A scale defined as a selection of step-numbers from {0, 1, 2, ..., 11}. Example: pentatonic major = {0, 2, 4, 7, 9} — five notes selected from the 12 available. Different step-subsets produce different scale "flavors." See [scales.md](scales.md).
 
@@ -84,7 +84,7 @@ The canonical vocabulary reference for the PhizMusic framework. Every novel term
 
 **Timbre** — The perceptual quality of a sound determined by its spectrum — which harmonics are present and at what amplitudes. Same pitch + different spectrum = different timbre. Timbre is why a piano and violin playing the same note sound different. See [timbre.md](timbre.md).
 
-**Voice-leading** — The movement between successive chords, measured by the total step-distance traveled by individual notes. Smooth voice-leading minimizes total movement. (Western equivalent: "voice leading" or "part writing.") See [chord-progressions.md](chord-progressions.md).
+**Voice-leading** — The movement between successive chords, measured by the total step-interval traveled by individual notes. Smooth voice-leading minimizes total movement. (Western equivalent: "voice leading" or "part writing.") See [chord-progressions.md](chord-progressions.md).
 
 **Waveform** — The shape of a pressure wave plotted over time (oscillogram). Related to spectrum by Fourier transform: waveform and spectrum contain the same information in different representations. See [sound-waves.md](sound-waves.md).
 
@@ -96,6 +96,6 @@ The syllable system (**Do, Ka, Re, Xo, Mi, Fa, Hu, So, Bi, La, Ve, Si**) is adap
 
 ## Connections
 
-- [Reference Table](reference-table.md) — complete pitch mapping (step × octave → syllable → Hz)
+- [Reference Table](reference-table.md) — complete pitch mapping (octave × step → syllable → Hz)
 - [Naming System](naming-system.md) — detailed explanation of step-number and syllable notation
 - [Translation Tables](translation-tables.md) — PhizMusic ↔ Western ↔ other systems

@@ -34,7 +34,7 @@ Each concept page gets a lightweight interactive companion (embedded or linked):
 
 - Rendering/UI: HTML Canvas or SVG
 - Audio engine: Web Audio API, optionally Tone.js wrapper
-- Data model: JSON descriptions of step-sets, ratio-sets, and envelope curves
+- Data model: JSON descriptions of step-combos, ratio-sets, and envelope curves
 
 ## Integration model
 
@@ -55,7 +55,7 @@ Weekend-to-few-weeks per demo family, depending on polish and testing.
 
 ## User experience
 
-A browser-based editor using chromatic grid notation directly: create notes, audition instantly, inspect step-set and ratio-set interpretation, export MIDI/audio.
+A browser-based editor using chromatic grid notation directly: create notes, audition instantly, inspect step-combo and ratio-set interpretation, export MIDI/audio.
 
 ## Feasibility sketch
 

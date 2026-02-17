@@ -14,7 +14,7 @@ has_audio: true
 
 PhizMusic uses a dual naming system for pitches: **step-numbers** for precision and arithmetic, **Dodeka syllables** for speaking and singing. Both name all 12 chromatic steps equally — no pitch is treated as an alteration of another. There are no sharps, no flats, no enharmonic confusion.
 
-> 🎯 **Simple version**: Instead of 7 note names with sharps and flats (confusing), we use 12 names — one for each key on the piano, no exceptions. **Do, Ka, Re, Xo, Mi, Fa, Hu, So, Bi, La, Ve, Si.** For math and precision, we use numbers 0-11 plus an octave number: `7.4` means "step 7 in octave 4."
+> 🎯 **Simple version**: Instead of 7 note names with sharps and flats (confusing), we use 12 names — one for each key on the piano, no exceptions. **Do, Ka, Re, Xo, Mi, Fa, Hu, So, Bi, La, Ve, Si.** For math and precision, we use numbers 0-11 plus an octave number: `4.7` means "octave 4, step 7."
 
 ## Design Principles
 
@@ -24,24 +24,24 @@ The PhizMusic naming system solves three problems with conventional Western note
 
 **2. Enharmonic confusion.** In Western notation, C♯ and D♭ are the same frequency in 12-TET but have different names, different staff positions, and different theoretical implications. This doubles the vocabulary without adding information. PhizMusic: one step = one name, period.
 
-**3. Opaque arithmetic.** In Western names, "a major third above C" requires knowing that C + major third = E (not intuitive). In PhizMusic: step 0 + step-distance 4 = step 4. Transposition is addition. Inversion is subtraction from 12. The naming system makes the math visible.
+**3. Opaque arithmetic.** In Western names, "a major third above C" requires knowing that C + major third = E (not intuitive). In PhizMusic: step 0 + the 4-step-interval = step 4. Transposition is addition. Inversion is subtraction from 12. The naming system makes the math visible.
 
 ## Step-Numbers: Formal Notation
 
 A pitch is identified by two numbers:
 
 ```
-step.octave
+octave.step
 ```
 
-- **Step** (0-11): position within the chromatic octave
 - **Octave** (0-8): which octave register (matching the standard scientific octave numbering)
+- **Step** (0-11): position within the chromatic octave
 
 Examples:
-- `0.4` = step 0, octave 4 = "middle C" area = 261.63 Hz
-- `7.4` = step 7, octave 4 = 392.00 Hz
-- `9.4` = step 9, octave 4 = 440.00 Hz (the standard tuning reference)
-- `0.5` = step 0, octave 5 = 523.25 Hz (one octave above 0.4)
+- `4.0` = octave 4, step 0 = "middle C" area = 261.63 Hz
+- `4.7` = octave 4, step 7 = 392.00 Hz
+- `4.9` = octave 4, step 9 = 440.00 Hz (the standard tuning reference)
+- `5.0` = octave 5, step 0 = 523.25 Hz (one octave above 4.0)
 
 ### Arithmetic Properties
 
@@ -49,11 +49,11 @@ Step-numbers make musical operations trivial:
 
 | Operation | Formula | Example |
 |-----------|---------|---------|
-| Transpose up by n steps | step + n (mod 12) | `0.4` up 7 = `7.4` |
-| Transpose down by n steps | step - n (mod 12) | `3.4` down 5 = `10.3` |
-| Interval between two pitches | higher - lower (mod 12) | `7.4` to `0.5` = 5 steps |
-| Inversion | 12 - step-distance | Inversion of 7 = 5 |
-| Octave shift | change octave number | `7.4` → `7.5` (up one octave) |
+| Transpose up by n steps | step + n (mod 12) | `4.0` up 7 = `4.7` |
+| Transpose down by n steps | step - n (mod 12) | `4.3` down 5 = `3.10` |
+| Interval between two pitches | higher - lower (mod 12) | `4.7` to `5.0` = 5 steps |
+| Inversion | 12 - step-interval | Inversion of 7 = 5 |
+| Octave shift | change octave number | `4.7` → `5.7` (up one octave) |
 
 No lookup tables. No special cases. Just integer arithmetic modulo 12.
 
@@ -172,14 +172,14 @@ In casual use, a syllable plus octave number identifies a pitch: **So4** = step 
 |---------|-----|---------|
 | Computation, transposition, analysis | Step-numbers | "Transpose {0,4,7} up 5 → {5,9,0}" |
 | Speaking, singing, quick reference | Syllables | "Sing Do-Mi-So" |
-| Written notation | Either or both | "So4 (7.4) = 392.00 Hz" |
+| Written notation | Either or both | "So4 (4.7) = 392.00 Hz" |
 | Cross-cultural communication | Step-numbers + Translation Table | "Step 7 = G in Western = Sol in solfège" |
 
 ## Anchoring Convention: Do = C
 
 The assignment of step 0 (Do) to the Western pitch C is **arbitrary but conventional**. We adopt it for pragmatic compatibility:
-- Do4 (0.4) = C4 = 261.63 Hz
-- La4 (9.4) = A4 = 440.00 Hz (the universal tuning standard)
+- Do4 (4.0) = C4 = 261.63 Hz
+- La4 (4.9) = A4 = 440.00 Hz (the universal tuning standard)
 
 Nothing in the PhizMusic system depends on this choice. If you wanted to anchor Do to A (step 0 = 440 Hz), every formula and relationship would still hold — only the absolute frequencies in the [Reference Table](reference-table.md) would shift. The anchoring is a convention for interoperability, not a property of the system.
 
@@ -214,13 +214,13 @@ Note that Western notation has **17** names for 12 pitches (C, C♯, D♭, D, D�
 |-----------|---------|-------|
 | Step-number (0-11) | Note letter (C, D, E...) + accidental (♯, ♭) | PhizMusic is numeric; Western is alphabetic with modifiers |
 | Syllable (Do, Ka, Re...) | Solfège (Do, Re, Mi...) | PhizMusic has 12 unique syllables; Western solfège has 7 |
-| Step.Octave (e.g., 7.4) | Scientific pitch (e.g., G4) | Both include octave; PhizMusic is numeric |
+| Octave.Step (e.g., 4.7) | Scientific pitch (e.g., G4) | Both include octave; PhizMusic is numeric |
 | Octave number | Octave number | Same numbering convention (Do4 = C4 = middle C area) |
 
 ## Connections
 
 - [Glossary](glossary.md) — definitions of step-number and syllable
-- [Reference Table](reference-table.md) — complete step × octave → frequency mapping
-- [Intervals](intervals.md) — step-distances between pitches
+- [Reference Table](reference-table.md) — complete octave × step → frequency mapping
+- [Intervals](intervals.md) — step-intervals between pitches
 - [Scales](scales.md) — step-subsets using the naming system
 - [Translation Tables](translation-tables.md) — comprehensive cross-system lookup

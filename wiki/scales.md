@@ -28,8 +28,8 @@ A scale doesn't need a name to exist. It IS its step-subset:
 
 Each subset has properties you can analyze without any cultural context:
 - **Size**: how many pitches (5-of-12, 7-of-12, etc.)
-- **Gap pattern**: the step-distances between consecutive members
-- **Interval content**: which step-distances are available between any two members
+- **Gap pattern**: the step-intervals between consecutive members
+- **Interval content**: which step-intervals are available between any two members
 - **Symmetry**: does the subset map onto itself under transposition or inversion?
 
 ## Common Step-Subsets
@@ -45,7 +45,7 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
         ●     ●     ●        ●     ●
 ```
 
-This subset appears in Chinese (宫调 gōng diào), Japanese (Yo scale), Scottish, West African, Andean, and many other traditions independently. Why? It **maximizes step-7 and step-5 relationships**: every note has at least one partner at step-distance 5 or 7 — the most consonant intervals after the octave. It also **completely avoids** step-distances 1 and 2 between any two members — the intervals of maximum roughness.
+This subset appears in Chinese (宫调 gōng diào), Japanese (Yo scale), Scottish, West African, Andean, and many other traditions independently. Why? It **maximizes step-7 and step-5 relationships**: every note has at least one partner at the 5-step-interval or 7 — the most consonant intervals after the octave. It also **completely avoids** step-intervals 1 and 2 between any two members — the intervals of maximum roughness.
 
 See [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) for the full story.
 
@@ -62,7 +62,7 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
 
 This is the 7-of-12 subset that can be derived by stacking six step-7 intervals: start at any step, go up 7 repeatedly, and collect the results (mod 12). Starting from step 5: 5 → 0 → 7 → 2 → 9 → 4 → 11. Sort: {0, 2, 4, 5, 7, 9, 11}.
 
-The major scale includes all the consonant intervals of the pentatonic plus adds step-distances 1 and 11 (the "leading tone" — the step one chromatic step below the octave), which create tension and resolution — the engine of harmonic motion in many traditions.
+The major scale includes all the consonant intervals of the pentatonic plus adds step-intervals 1 and 11 (the "leading tone" — the step one chromatic step below the octave), which create tension and resolution — the engine of harmonic motion in many traditions.
 
 ### Natural Minor: {0, 2, 3, 5, 7, 8, 10}
 
@@ -75,7 +75,7 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
         ●     ●  ●     ●     ●  ●     ●
 ```
 
-Contains the same intervals as the major scale (it is a **rotation** — see Modes below) but reorders them, starting from a different point. The different ordering places step-distance 3 (6:5 ratio) prominently above the starting point instead of step-distance 4 (5:4 ratio), producing a "darker" character.
+Contains the same intervals as the major scale (it is a **rotation** — see Modes below) but reorders them, starting from a different point. The different ordering places the 3-step-interval (6:5 ratio) prominently above the starting point instead of the 4-step-interval (5:4 ratio), producing a "darker" character.
 
 ### Whole-Tone: {0, 2, 4, 6, 8, 10}
 
@@ -154,13 +154,13 @@ A useful mental model: the 12 chromatic steps are the complete frequency palette
 
 ## Connections
 
-- [Intervals](intervals.md) — the step-distances that define the gaps between scale members
+- [Intervals](intervals.md) — the step-intervals that define the gaps between scale members
 - [Naming System](naming-system.md) — how step-numbers label the members of a subset
 - [Chords](chords.md) — chords arise from selecting simultaneous members of a scale
 - [Frequency Ratios](frequency-ratios.md) — prime-limit classification of tuning systems
 - [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) — deep dive into the universal 5-note subset
 - [Twelve-TET](twelve-tet.md) — why all these subsets are drawn from exactly 12 steps
-- [Consonance & Dissonance](consonance-dissonance.md) — why some subsets avoid small step-distances
+- [Consonance & Dissonance](consonance-dissonance.md) — why some subsets avoid small step-intervals
 
 ### Suggested References
 

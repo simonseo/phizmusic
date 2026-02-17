@@ -38,7 +38,7 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 
 ## 2. Intervals
 
-| Step-distance | Just ratio | Western name | Western abbreviation | Character |
+| Step-interval | Just ratio | Western name | Western abbreviation | Character |
 |--------------|-----------|-------------|---------------------|-----------|
 | 0 | 1:1 | Unison | P1 | Identity |
 | 1 | 16:15 | Minor second | m2 | Maximum tension |
@@ -55,7 +55,7 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 | 12 | 2:1 | Octave | P8 | Perceptual reset |
 
 **How Western naming works** (for PhizMusic users decoding Western text):
-- "Perfect" (P): step-distances 0, 5, 7, 12 — considered maximally consonant in Western theory
+- "Perfect" (P): step-intervals 0, 5, 7, 12 — considered maximally consonant in Western theory
 - "Major" (M): the larger version of each interval pair (steps 2, 4, 9, 11)
 - "Minor" (m): the smaller version (steps 1, 3, 8, 10)
 - "Augmented" (A): one chromatic step larger than perfect/major
@@ -64,7 +64,7 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 
 ## 3. Common Chords
 
-| Step-set | Ratio-set | Western name | Western symbol | Voicing notes (from Do) |
+| Step-combo | Ratio-set | Western name | Western symbol | Voicing notes (from Do) |
 |----------|-----------|-------------|----------------|------------------------|
 | {0, 4, 7} | 4:5:6 | Major triad | C, Cmaj | Do-Mi-So |
 | {0, 3, 7} | 10:12:15 | Minor triad | Cm, Cmin | Do-Xo-So |
@@ -79,8 +79,8 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 | {0, 4, 7, 10, 14} | — | Dominant ninth | C9 | Do-Mi-So-Ve-Re |
 
 **Notes**:
-- Western chord symbols assume a root note (C in these examples). PhizMusic step-sets are root-agnostic.
-- All step-sets shown are relative to the root (step 0). To build the chord from any other root, add the root's step-number mod 12.
+- Western chord symbols assume a root note (C in these examples). PhizMusic step-combos are root-agnostic.
+- All step-combos shown are relative to the root (step 0). To build the chord from any other root, add the root's step-number mod 12.
 
 ## 4. Scales
 
@@ -150,12 +150,12 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 **PhizMusic → Western** (talking to a conventional musician):
 1. Find your PhizMusic term in the left column
 2. Use the Western equivalent
-3. Example: "The step-set {0, 4, 7} starting from La" → "An A major triad"
+3. Example: "The step-combo {0, 4, 7} starting from La" → "An A major triad"
 
 **Western → PhizMusic** (reading conventional material):
 1. Find the Western term
 2. Use the PhizMusic equivalent
-3. Example: "G major seventh chord" → "Step-set {0, 4, 7, 11} rooted at step 7 (So)"
+3. Example: "G major seventh chord" → "Step-combo {0, 4, 7, 11} rooted at step 7 (So)"
 
 ## Connections
 

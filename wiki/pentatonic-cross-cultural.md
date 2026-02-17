@@ -21,7 +21,7 @@ This step-subset has two remarkable properties:
 
 ### Property 1: Maximum Consonant Relationships
 
-Every note in {0, 2, 4, 7, 9} has at least one partner at step-distance 5 or 7 — the two most consonant intervals after the octave:
+Every note in {0, 2, 4, 7, 9} has at least one partner at the 5-step-interval or 7 — the two most consonant intervals after the octave:
 
 | Note | Step-5 partner | Step-7 partner |
 |------|---------------|----------------|
@@ -35,14 +35,14 @@ The network of step-7 (3:2) and step-5 (4:3) relationships is dense — there is
 
 ### Property 2: Complete Avoidance of Roughness Intervals
 
-The step-distances present *between any two members* of {0, 2, 4, 7, 9} are:
+The step-intervals present *between any two members* of {0, 2, 4, 7, 9} are:
 
 ```
 Available: 2, 3, 4, 5, 7, 8, 9, 10
 Missing:   1, 6, 11
 ```
 
-Step-distances 1 and 11 are the intervals of maximum roughness — two frequencies so close that they create strong beating within critical bandwidth. Step-distance 6 (the tritone) is the point of maximum harmonic ambiguity. By excluding all three, the pentatonic subset eliminates every interval that produces strong perceptual tension.
+Step-intervals 1 and 11 are the intervals of maximum roughness — two frequencies so close that they create strong beating within critical bandwidth. The 6-step-interval (the tritone) is the point of maximum harmonic ambiguity. By excluding all three, the pentatonic subset eliminates every interval that produces strong perceptual tension.
 
 This is why pentatonic melodies sound "safe" — they can't clash. Any note can follow any other note without producing roughness. This makes the pentatonic scale ideal for:
 - Group singing (everyone sounds good together)
@@ -54,7 +54,7 @@ This is why pentatonic melodies sound "safe" — they can't clash. Any note can 
 Chinese music theory derives the pentatonic from **sanfen sunyi** (三分损益) — the method of "subtract and add one-third":
 
 Starting from any frequency:
-1. Multiply by 3/2 (go up a step-distance 7): → step 7
+1. Multiply by 3/2 (go up a 7-step-interval): → step 7
 2. Multiply by 3/2 again: → step 14 = step 2 (mod 12)
 3. Again: → step 9
 4. Again: → step 4
@@ -63,7 +63,7 @@ Sort the result: **{0, 2, 4, 7, 9}**
 
 This is pure 3-limit tuning — only the prime factor 3 is used (ratios involve only powers of 2 and 3). The Chinese names (宫 gōng, 商 shāng, 角 jué, 徵 zhǐ, 羽 yǔ) predate any Western scale theory by centuries.
 
-The identical mathematical process appears in Pythagorean tuning — stack step-distance-7 intervals (3:2 ratio) and collect the notes. Same physics, different continent, different millennium, same result.
+The identical mathematical process appears in Pythagorean tuning — stack 7-step-intervals (3:2 ratio) and collect the notes. Same physics, different continent, different millennium, same result.
 
 ## Cross-Cultural Appearances
 
@@ -82,7 +82,7 @@ The **minor pentatonic** {0, 3, 5, 7, 10} is a rotation (mode) of the same set �
 
 Blues and jazz musicians routinely bend pitches away from 12-TET grid positions toward frequencies derived from the harmonic series. Two "blue notes" are particularly prominent:
 
-**The blue third** (~310-330 cents): falls between step-distance 3 (300 cents) and step-distance 4 (400 cents). This pitch region corresponds to neither the 6:5 ratio (316 cents, step-distance ~3.2) nor the 5:4 ratio (386 cents, step-distance ~3.9) — it inhabits a perceptual "between" space that is characteristic of blues expression. Some analyses relate it to the 7:6 ratio (267 cents) or the 19th harmonic.
+**The blue third** (~310-330 cents): falls between the 3-step-interval (300 cents) and the 4-step-interval (400 cents). This pitch region corresponds to neither the 6:5 ratio (316 cents, the ~3.2 step-interval) nor the 5:4 ratio (386 cents, the ~3.9 step-interval) — it inhabits a perceptual "between" space that is characteristic of blues expression. Some analyses relate it to the 7:6 ratio (267 cents) or the 19th harmonic.
 
 **The blue seventh** (~969 cents): close to the 7th harmonic (ratio 7:4 = 968.8 cents), which falls 31 cents below 12-TET step-10 (1000 cents). Blues and gospel singers naturally gravitate toward this pitch — it's a harmonic-series target that 12-TET can't reach. Barbershop quartets tune their "barbershop seventh" chords to this natural ratio.
 
@@ -114,7 +114,7 @@ How close is the 12-TET pentatonic to the just (3:2-stacked) version?
 
 Maximum error: 7.8 cents (on step 4). This is barely perceptible even to trained musicians. The pentatonic is the step-subset least damaged by the 12-TET compromise — another reason for its cross-cultural robustness.
 
-Note: step 4 in the 3-limit pentatonic has ratio 81:64 (a Pythagorean step-distance 4, ~408 cents), not 5:4 (a just step-distance 4, ~386 cents). The Chinese pentatonic is 3-limit — it uses no factor of 5. The 5-limit step-distance 4 (386 cents) is a different interval entirely. This distinction between 3-limit and 5-limit tuning is a key insight of the [prime-limit framework](frequency-ratios.md).
+Note: step 4 in the 3-limit pentatonic has ratio 81:64 (a Pythagorean 4-step-interval, ~408 cents), not 5:4 (a just 4-step-interval, ~386 cents). The Chinese pentatonic is 3-limit — it uses no factor of 5. The 5-limit 4-step-interval (386 cents) is a different interval entirely. This distinction between 3-limit and 5-limit tuning is a key insight of the [prime-limit framework](frequency-ratios.md).
 
 ## Other Cultures, Other Subsets
 
@@ -146,7 +146,7 @@ Detailed treatment of Indian raga, Arabic maqam, and Javanese gamelan is deferre
 
 - [Scales](scales.md) — the step-subset framework that pentatonic exemplifies
 - [Frequency Ratios](frequency-ratios.md) — prime-limit classification of tuning systems
-- [Intervals](intervals.md) — the step-distances that make pentatonic uniquely consonant
+- [Intervals](intervals.md) — the step-intervals that make pentatonic uniquely consonant
 - [Harmonic Series](harmonic-series.md) — the natural ratios that blue notes target
 - [Consonance & Dissonance](consonance-dissonance.md) — why avoiding step-1 and step-6 eliminates roughness
 - [Twelve-TET](twelve-tet.md) — why the pentatonic survives temperament so well

@@ -12,7 +12,7 @@ This wiki is designed for the scientifically-minded learner — someone with a s
 
 ## Design Principles
 
-- **Physics-literal vocabulary** — every term means what it says. A step-distance of 7 is always 7 chromatic steps. A frequency ratio of 3:2 is always 3:2.
+- **Physics-literal vocabulary** — every term means what it says. A step-interval of 7 is always 7 chromatic steps. A frequency ratio of 3:2 is always 3:2.
 - **Psychoacoustics woven throughout** — perceptual neuroscience isn't a separate chapter; it's integrated into every concept, explaining WHY things sound the way they do.
 - **Dual-level writing** — rigorous college-level explanations with `> 🎯 **Simple version**` blocks for quick intuitive understanding.
 - **Translation tables** — every relevant page maps PhizMusic terms to Western and other cultural equivalents. 100% internal elegance; translation tables handle external communication.
@@ -52,9 +52,9 @@ The core musical concepts derived from physics.
 | [Harmonic Series](harmonic-series.md) | The natural overtone sequence: f, 2f, 3f, 4f... |
 | [Frequency Ratios](frequency-ratios.md) | Comparing pitches by ratio, the cent system |
 | [Naming System](naming-system.md) | Step-numbers (0-11) + Dodeka syllables (Do, Ka, Re...) |
-| [Intervals](intervals.md) | Step-distances and their frequency ratio equivalents |
+| [Intervals](intervals.md) | Step-intervals and their frequency ratio equivalents |
 | [Scales](scales.md) | Step-subsets: selecting pitches from the 12 available |
-| [Chords](chords.md) | Step-sets and ratio-sets: simultaneous pitches |
+| [Chords](chords.md) | Step-combos and ratio-sets: simultaneous pitches |
 | [Rhythm](rhythm.md) | Pulse-fraction system: T, onset, duration, cycle |
 | [Missing Fundamental](missing-fundamental.md) | Virtual pitch: hearing frequencies that aren't there |
 
@@ -70,7 +70,7 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) | The universal 5-note scale and why it appears everywhere |
 | [Translation Tables](translation-tables.md) | Complete PhizMusic ↔ Western ↔ other systems mapping |
 | [Notation Layer](notation-layer.md) | Chromatic grid (Dodeka/piano roll) notation approach |
-| [Chord Progressions](chord-progressions.md) | Step-set sequences, voice-leading, tension and resolution |
+| [Chord Progressions](chord-progressions.md) | Step-combo sequences, voice-leading, tension and resolution |
 | [Timbre](timbre.md) | Spectral signatures, Sethares' timbre-tuning coupling |
 | [Instrument Physics](instrument-physics.md) | String, pipe, and membrane acoustics |
 | [ADSR Envelope](adsr-envelope.md) | Attack, decay, sustain, release — amplitude over time |
@@ -79,8 +79,8 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Equal Loudness](equal-loudness.md) | Fletcher-Munson curves, frequency-dependent hearing sensitivity |
 | [Dissonance Curves](dissonance-curves.md) | Sethares' timbre-dependent dissonance model, sensory dissonance computation |
 | [Shepard Tones](shepard-tones.md) | Auditory illusion of endlessly ascending/descending pitch |
-| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of step-distance 7, generating all 12 steps |
-| [Functional Analysis](functional-analysis.md) | Step-set positions within a step-subset, tension and resolution patterns |
+| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of the 7-step-interval, generating all 12 steps |
+| [Functional Analysis](functional-analysis.md) | Step-combo positions within a step-subset, tension and resolution patterns |
 
 ### Reference
 
@@ -102,8 +102,8 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [ADSR Envelope](adsr-envelope.md) | Amplitude envelope: attack, decay, sustain, release phases |
 | [Auditory Masking](auditory-masking.md) | How loud sounds render quiet sounds inaudible |
 | [Beating & Roughness](beating-roughness.md) | Physical beating and perceptual roughness across frequency spacing |
-| [Chords](chords.md) | Simultaneous pitches described as step-sets and ratio-sets |
-| [Chord Progressions](chord-progressions.md) | Sequences of step-sets with voice-leading analysis |
+| [Chords](chords.md) | Simultaneous pitches described as step-combos and ratio-sets |
+| [Chord Progressions](chord-progressions.md) | Sequences of step-combos with voice-leading analysis |
 | [Consonance & Dissonance](consonance-dissonance.md) | Multi-factorial perception of tonal fusion vs. clash |
 | [Digital Audio](digital-audio.md) | ADC, sampling rate, Nyquist theorem, aliasing, bit depth |
 | [Dissonance Curves](dissonance-curves.md) | Sethares' sensory dissonance model for arbitrary timbres |
@@ -111,22 +111,22 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Equal Loudness](equal-loudness.md) | Fletcher-Munson curves and frequency-dependent hearing |
 | [Fourier Analysis](fourier-analysis.md) | Decomposing waveforms into component sine waves |
 | [Frequency Ratios](frequency-ratios.md) | Pitch comparison by ratio, the cent measurement system |
-| [Functional Analysis](functional-analysis.md) | Step-set positions within a step-subset, tension and resolution |
+| [Functional Analysis](functional-analysis.md) | Step-combo positions within a step-subset, tension and resolution |
 | [Glossary](glossary.md) | Canonical PhizMusic vocabulary definitions |
 | [Harmonic Series](harmonic-series.md) | Integer-multiple overtone sequence from vibrating objects |
 | [Instrument Physics](instrument-physics.md) | Acoustics of strings, pipes, and membranes |
-| [Intervals](intervals.md) | Step-distances between pitches with ratio equivalents |
+| [Intervals](intervals.md) | Step-intervals between pitches with ratio equivalents |
 | [Missing Fundamental](missing-fundamental.md) | Perceiving pitch from harmonic pattern without the fundamental |
 | [Naming System](naming-system.md) | Step-numbers (0-11) + octave, Dodeka syllables |
 | [Notation Layer](notation-layer.md) | Chromatic grid notation based on Dodeka and piano roll |
 | [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) | The 5-note scale across world music traditions |
-| [Reference Table](reference-table.md) | Complete pitch mapping: step × octave → syllable → Hz |
+| [Reference Table](reference-table.md) | Complete pitch mapping: octave × step → syllable → Hz |
 | [Rhythm](rhythm.md) | Pulse-fraction system for temporal organization |
 | [ROADMAP](ROADMAP.md) | Future plans: interactive tools, deferred content topics |
 | [Scales](scales.md) | Step-subsets: selecting from the 12 chromatic pitches |
 | [Shepard Tones](shepard-tones.md) | Auditory illusion of endlessly ascending/descending pitch |
 | [Standing Waves](standing-waves.md) | Resonant modes in strings and pipes, nodes and antinodes |
-| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of step-distance 7, generating all 12 steps |
+| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of the 7-step-interval, generating all 12 steps |
 | [Timbre](timbre.md) | Spectral fingerprint of a sound, timbre-tuning coupling |
 | [Translation Tables](translation-tables.md) | Bidirectional PhizMusic ↔ Western ↔ other systems |
 | [Twelve-TET](twelve-tet.md) | Equal temperament: the engineering compromise |
@@ -178,9 +178,9 @@ wiki/waveform-gallery.md    — fundamental waveform + spectrum comparison
 wiki/harmonic-series.md     — the overtone sequence
 wiki/frequency-ratios.md    — pitch ratios and cents
 wiki/naming-system.md       — step-numbers + Dodeka syllables
-wiki/intervals.md           — step-distances and ratio equivalents
+wiki/intervals.md           — step-intervals and ratio equivalents
 wiki/scales.md              — step-subsets
-wiki/chords.md              — step-sets and ratio-sets
+wiki/chords.md              — step-combos and ratio-sets
 wiki/rhythm.md              — pulse-fraction temporal system
 wiki/missing-fundamental.md — virtual pitch perception
 
@@ -191,7 +191,7 @@ wiki/beating-roughness.md       — interference beating, roughness, and CB tran
 wiki/pentatonic-cross-cultural.md — universal 5-note scale
 wiki/translation-tables.md     — PhizMusic ↔ Western ↔ others
 wiki/notation-layer.md         — chromatic grid notation
-wiki/chord-progressions.md     — step-set sequences
+wiki/chord-progressions.md     — step-combo sequences
 wiki/timbre.md                 — spectral signatures
 wiki/instrument-physics.md     — string, pipe, membrane acoustics
 wiki/adsr-envelope.md          — amplitude envelope
@@ -200,8 +200,8 @@ wiki/auditory-masking.md       — frequency/temporal masking
 wiki/equal-loudness.md         — Fletcher-Munson curves
 wiki/dissonance-curves.md      — Sethares sensory dissonance model
 wiki/shepard-tones.md          — endlessly ascending/descending pitch illusion
-wiki/step-7-cycle.md           — modular arithmetic of step-distance 7
-wiki/functional-analysis.md    — step-set positions, tension and resolution
+wiki/step-7-cycle.md           — modular arithmetic of the 7-step-interval
+wiki/functional-analysis.md    — step-combo positions, tension and resolution
 
 # Future
 wiki/ROADMAP.md             — Phase 2 interactive tooling vision
