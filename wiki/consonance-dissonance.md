@@ -6,6 +6,7 @@ tags: [perception, psychoacoustics, harmony]
 prerequisites: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md]
 related: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md, frequency-ratios.md, timbre.md, twelve-tet.md]
 scope-boundary: Perceptual mechanisms only. No musical application or prescriptive ranking (see chord-progressions.md for application).
+has_audio: true
 ---
 
 # Consonance & Dissonance
@@ -111,6 +112,18 @@ This curve varies with:
 - **Register**: intervals in the bass produce more roughness (critical bandwidth is narrower relative to step-size)
 - **Timbre**: tones with fewer harmonics (flute-like) produce less dissonance at any interval
 - **Loudness**: roughness is more pronounced at higher volumes
+
+## Hear the Spectrum
+
+Click any button below to hear the two tones separately and together. Listen for roughness at step 1 (maximum clash), fusion at steps 5 and 7, and the perceptual reset at step 12 (octave).
+
+| Step-distance | Interval | Character | Listen |
+|---|---|---|---|
+| 0 | Unison | Identity — same frequency | <button class="phiz-play-btn" data-freq1="220" data-freq2="220" onclick="playRatio(this)">▶ Play</button> |
+| 1 | Minor 2nd | Maximum roughness | <button class="phiz-play-btn" data-freq1="220" data-freq2="233.08" onclick="playRatio(this)">▶ Play</button> |
+| 5 | Perfect 4th | Open, stable | <button class="phiz-play-btn" data-freq1="220" data-freq2="293.66" onclick="playRatio(this)">▶ Play</button> |
+| 7 | Perfect 5th | Maximum fusion | <button class="phiz-play-btn" data-freq1="220" data-freq2="329.63" onclick="playRatio(this)">▶ Play</button> |
+| 12 | Octave | Perceptual reset | <button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Play</button> |
 
 <!-- INTERACTIVE: Dissonance curve explorer — play two tones, sweep interval from unison to octave, see real-time roughness visualization alongside frequency spectrum showing harmonic pairs within critical bandwidth -->
 
