@@ -6,6 +6,7 @@ tags: [cross-cultural, scales, universals]
 prerequisites: [scales.md, frequency-ratios.md, intervals.md]
 related: [scales.md, frequency-ratios.md, intervals.md, harmonic-series.md, consonance-dissonance.md, twelve-tet.md]
 scope-boundary: Pentatonic analysis only. Raga, maqam, and gamelan detail is Tier 3 (brief mention and forward-link only).
+has_audio: true
 ---
 
 # Pentatonic & Cross-Cultural Scales
@@ -86,6 +87,18 @@ Blues and jazz musicians routinely bend pitches away from 12-TET grid positions 
 **The blue seventh** (~969 cents): close to the 7th harmonic (ratio 7:4 = 968.8 cents), which falls 31 cents below 12-TET step-10 (1000 cents). Blues and gospel singers naturally gravitate toward this pitch — it's a harmonic-series target that 12-TET can't reach. Barbershop quartets tune their "barbershop seventh" chords to this natural ratio.
 
 Blue notes demonstrate that **pitch is continuous**, not limited to 12 discrete steps. Performers bend, slide, and inflect toward natural ratios that the 12-TET grid only approximates. The PhizMusic framework — with its continuous log-frequency overlay on the chromatic grid (see [notation-layer.md](notation-layer.md)) — is designed to represent exactly this kind of micro-intonation.
+
+## Hear the Pentatonic
+
+Hear the major and minor pentatonic scales, then the characteristic blue notes that bend toward harmonic-series targets.
+
+<p><button class="phiz-play-btn" data-steps="[0,2,4,7,9,12]" data-octave="4" onclick="playScale(this)">▶ Major pentatonic {0,2,4,7,9}</button></p>
+
+<p><button class="phiz-play-btn" data-steps="[0,3,5,7,10,12]" data-octave="4" onclick="playScale(this)">▶ Minor pentatonic {0,3,5,7,10}</button></p>
+
+<p><button class="phiz-play-btn" data-freq="263.4" onclick="playFreq(this)">▶ Blue third (~310 cents above La3=220 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="383.2" onclick="playFreq(this)">▶ Blue seventh (~969 cents above La3=220 Hz)</button></p>
 
 ## Just vs. Tempered Pentatonic
 
