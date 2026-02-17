@@ -7,6 +7,7 @@ tags: [physics, foundation]
 prerequisites: []
 related: [ear-cochlea.md, fourier-analysis.md, harmonic-series.md, glossary.md]
 scope-boundary: No Fourier, no ear anatomy, no musical intervals
+has_audio: true
 ---
 
 # Sound Waves
@@ -118,6 +119,18 @@ An equalizer (EQ) display groups frequencies into bands — typically octave-wid
 The EQ display throws away detail (you can't see individual harmonics) but gives a quick picture of overall spectral balance — "lots of bass, moderate mids, less treble."
 
 All three representations describe the same physical event. The waveform and spectrum are connected by a mathematical operation called the Fourier transform (see [fourier-analysis.md](fourier-analysis.md)). The EQ display is a further simplification of the spectrum.
+
+## Hear It
+
+Hear pure sine waves at different frequencies, and compare ratio-based perception.
+
+<p><button class="phiz-play-btn" data-freq="100" onclick="playFreq(this)">▶ Low tone (100 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="440" onclick="playFreq(this)">▶ Concert A (440 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="1000" onclick="playFreq(this)">▶ High tone (1000 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Octave: 220 Hz → 440 Hz (2:1 ratio)</button></p>
 
 <!-- INTERACTIVE: Oscilloscope showing sine wave with adjustable frequency and amplitude sliders -->
 
