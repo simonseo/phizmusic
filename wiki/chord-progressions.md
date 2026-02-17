@@ -6,6 +6,7 @@ tags: [harmony, time, prediction]
 prerequisites: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md]
 related: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md, scales.md, notation-layer.md]
 scope-boundary: Step-set sequences, movement metrics, and tension-resolution only. No key modulation or full functional-harmony theory.
+has_audio: true
 ---
 
 # Chord Progressions
@@ -107,6 +108,16 @@ The auditory system does not evaluate each chord in isolation. It builds short-h
 - Violations create surprise and orienting response
 
 So musical emotion in progression space can be framed as **prediction error over harmonic trajectories**, not mystical harmony rules.
+
+## Hear the Progressions
+
+Click to hear each progression played as a sequence of chords. Listen for the tension-resolution arc described above.
+
+<p><button class="phiz-play-btn" data-chords="[[0,4,7],[7,11,14],[9,12,16],[5,9,12]]" data-octave="4" onclick="playProgression(this)">▶ I – V – vi – IV</button></p>
+
+<p><button class="phiz-play-btn" data-chords="[[0,4,7],[5,9,12],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ I – IV – V – I</button></p>
+
+<p><button class="phiz-play-btn" data-chords="[[2,5,9],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ ii – V – I</button></p>
 
 <!-- INTERACTIVE: Progression path visualizer — show step-sets as points/blocks on a chromatic grid timeline, compute total movement D for each transition, and audition low-vs-high movement mappings -->
 
