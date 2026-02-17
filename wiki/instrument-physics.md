@@ -113,3 +113,7 @@ So instrument construction is not downstream of theory; it co-defines theory.
 - [Timbre](timbre.md) — source physics determines spectral signature and envelope
 - [Consonance & Dissonance](consonance-dissonance.md) — harmonicity controls fusion behavior
 - [Digital Audio](digital-audio.md) — recording and analysis pipeline for these spectra
+
+### Suggested References
+
+- [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Vibrating string animation showing standing wave patterns that produce the harmonic series

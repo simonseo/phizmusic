@@ -151,3 +151,7 @@ Detailed treatment of Indian raga, Arabic maqam, and Javanese gamelan is deferre
 - [Consonance & Dissonance](consonance-dissonance.md) — why avoiding step-1 and step-6 eliminates roughness
 - [Twelve-TET](twelve-tet.md) — why the pentatonic survives temperament so well
 - [ROADMAP](ROADMAP.md) — detailed raga, maqam, and gamelan treatment (Tier 3)
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Shows pentatonic intervals as universal dissonance minima across harmonic spectra

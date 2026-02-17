@@ -173,3 +173,8 @@ For the purposes of understanding music, the periodic case — discrete harmonic
 - [Harmonic Series](harmonic-series.md) — the specific pattern of frequencies produced by vibrating strings and air columns, analyzed via Fourier
 - [Timbre](timbre.md) — how spectral content determines the perceptual "color" of a sound
 - [Digital Audio](digital-audio.md) — how computers perform Fourier analysis (sampling, FFT algorithms, practical DSP)
+
+### Suggested References
+
+- [Circles, Sines, and Signals — DFT Introduction](https://jackschaedler.github.io/circles-sines-signals/dft_introduction.html) — Animated phasor chain visualization demonstrating Fourier decomposition
+- [Circles, Sines, and Signals — Sine and Cosine](https://jackschaedler.github.io/circles-sines-signals/sincos.html) — Interactive circle-to-sine-wave animation with frequency and amplitude controls

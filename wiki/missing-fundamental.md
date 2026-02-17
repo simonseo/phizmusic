@@ -117,3 +117,7 @@ Try these demonstrations. First, hear the complete harmonic series with the fund
 - [Consonance & Dissonance](consonance-dissonance.md) — harmonic template matching also drives consonance perception
 - [Timbre](timbre.md) — the spectral content that provides the harmonics for pitch inference
 - [Auditory Masking](auditory-masking.md) — related perceptual phenomenon where sounds can be rendered inaudible
+
+### Suggested References
+
+- [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Toggle individual harmonics on/off to experience how the brain infers pitch from partial patterns

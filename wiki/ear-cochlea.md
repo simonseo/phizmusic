@@ -139,3 +139,7 @@ The cochlea's output is not a single signal — it is an array of ~3,500 channel
 - [Auditory Masking](auditory-masking.md) — how the cochlea's frequency resolution limits determine which sounds mask others
 - [Equal Loudness](equal-loudness.md) — frequency-dependent sensitivity arising from outer/middle ear resonances and cochlear mechanics
 - [Missing Fundamental](missing-fundamental.md) — pitch perception when the fundamental frequency is absent, requiring pattern matching beyond the cochlea
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Visualizes critical bandwidth effects on consonance perception, directly related to cochlear frequency analysis

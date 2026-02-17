@@ -149,3 +149,7 @@ So "accurate audio" is not only mathematical reconstruction; it is reconstructio
 - [Auditory Masking](auditory-masking.md) — perceptual basis of lossy compression
 - [Equal Loudness](equal-loudness.md) — frequency-dependent hearing sensitivity for monitoring decisions
 - [Instrument Physics](instrument-physics.md) — source spectra entering the capture chain
+
+### Suggested References
+
+- [Circles, Sines, and Signals](https://jackschaedler.github.io/circles-sines-signals/) — Comprehensive visual guide to digital signal processing, sampling, aliasing, and the DFT

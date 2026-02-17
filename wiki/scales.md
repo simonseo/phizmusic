@@ -161,3 +161,7 @@ A useful mental model: the 12 chromatic steps are the complete frequency palette
 - [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) — deep dive into the universal 5-note subset
 - [Twelve-TET](twelve-tet.md) — why all these subsets are drawn from exactly 12 steps
 - [Consonance & Dissonance](consonance-dissonance.md) — why some subsets avoid small step-distances
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Shows how scale intervals emerge as dissonance minima for harmonic spectra

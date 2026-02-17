@@ -177,3 +177,8 @@ The brain processes intervals not just as isolated acoustic events but as part o
 - [Frequency Ratios](frequency-ratios.md) — why simple ratios produce fusion
 - [Timbre](timbre.md) — how harmonic content affects the dissonance of intervals
 - [Twelve-TET](twelve-tet.md) — how temperament error affects consonance purity
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Interactive dissonance curve explorer based on Sethares' model, with click-to-hear intervals and 3D triad dissonance surfaces
+- [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Interactive harmonic series with per-harmonic volume sliders and vibrating string visualization

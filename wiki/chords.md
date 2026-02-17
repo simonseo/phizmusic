@@ -214,3 +214,7 @@ These choices affect the sound significantly — a closely spaced {0, 4, 7} in o
 - [Chord Progressions](chord-progressions.md) — how chords connect in sequences over time
 - [Consonance & Dissonance](consonance-dissonance.md) — the perceptual mechanism behind chord "stability" and "tension"
 - [Scales](scales.md) — chords as simultaneous selections from a step-subset
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — 3D triad dissonance surface and heatmap showing why certain step-sets produce minimal roughness

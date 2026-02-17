@@ -254,3 +254,8 @@ Shepard tones demonstrate that chroma (step position 0-11) and height (octave nu
 - [Instrument Physics](instrument-physics.md) — why strings produce all harmonics but closed pipes produce only odd ones
 - [Consonance & Dissonance](consonance-dissonance.md) — how harmonic alignment explains tonal fusion
 - [Missing Fundamental](missing-fundamental.md) — what happens when the brain infers a fundamental from its harmonics
+
+### Suggested References
+
+- [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Interactive harmonic series explorer with individual harmonic volume sliders and vibrating string animation
+- [Circles, Sines, and Signals — Sine and Cosine](https://jackschaedler.github.io/circles-sines-signals/sincos.html) — Animated phasor diagrams showing how circular motion generates sine waves

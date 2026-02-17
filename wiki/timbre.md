@@ -124,3 +124,8 @@ All four buttons play the same pitch (Do4 = 261.63 Hz) with different oscillator
 - [Consonance & Dissonance](consonance-dissonance.md) — timbre modulates interval roughness and fusion
 - [Instrument Physics](instrument-physics.md) — physical source class determines spectral signature
 - [Twelve-TET](twelve-tet.md) — temperament fit depends on source spectrum
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Demonstrates Sethares' timbre-tuning coupling: how spectral content determines which intervals are consonant
+- [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Mix individual harmonics to hear how spectral recipe shapes timbre

@@ -262,3 +262,8 @@ Note: Western names count from 1 (unison = "1st"), count only diatonic steps, an
 - [Chords](chords.md) — intervals stacked simultaneously
 - [Consonance & Dissonance](consonance-dissonance.md) — the perceptual mechanism behind interval character
 - [Twelve-TET](twelve-tet.md) — why the "Error" column exists
+
+### Suggested References
+
+- [Intervals (muted.io)](https://muted.io/intervals/) — Visual piano-based interval explorer with ear training exercises
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Hear and see the dissonance landscape across all intervals from unison to octave

@@ -182,3 +182,7 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
 - [Consonance & Dissonance](consonance-dissonance.md) — how temperament errors affect perceptual fusion
 - [Instrument Physics](instrument-physics.md) — string inharmonicity and the Railsback curve
 - [Timbre](timbre.md) — Sethares' timbre-tuning coupling
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Interactive demonstration of how 12-TET intervals approximate just ratios, with audible comparison

@@ -187,3 +187,8 @@ Wavelength matters for acoustics and instrument design (see [instrument-physics.
 - [Harmonic Series](harmonic-series.md) — the specific frequency pattern produced by vibrating strings and air columns
 - [Equal Loudness](equal-loudness.md) — why perceived loudness depends on frequency, not just amplitude
 - [Instrument Physics](instrument-physics.md) — how physical objects generate specific waveforms and spectra
+
+### Suggested References
+
+- [Circles, Sines, and Signals — Introduction](https://jackschaedler.github.io/circles-sines-signals/) — Visual primer on digital signal processing with animated diagrams of sine waves and sampling
+- [Circles, Sines, and Signals — Sine and Cosine](https://jackschaedler.github.io/circles-sines-signals/sincos.html) — Animated phasor showing how circular motion produces sinusoidal pressure waves

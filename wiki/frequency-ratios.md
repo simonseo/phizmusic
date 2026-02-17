@@ -196,3 +196,7 @@ The mathematical constraint underlying all ratio-based tuning: **log₂(3) is ir
 - [Twelve-TET](twelve-tet.md) — the equal-temperament compromise that approximates just ratios
 - [Consonance & Dissonance](consonance-dissonance.md) — why simple ratios produce perceptual fusion
 - [Sound Waves](sound-waves.md) — logarithmic perception as the basis for ratio-based hearing
+
+### Suggested References
+
+- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Click anywhere on the dissonance curve to hear frequency ratios and their perceived consonance/dissonance
