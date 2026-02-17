@@ -3,7 +3,7 @@ title: Rhythm
 aliases: [pulse-fraction system, beat, tempo, meter]
 tier: 1
 category: music
-sidebar_order: 6
+sidebar_order: 4
 tags: [music, foundation, time]
 prerequisites: [naming-system.md]
 related: [chord-progressions.md, translation-tables.md]
