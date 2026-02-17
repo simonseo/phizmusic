@@ -6,6 +6,7 @@ tags: [tuning, system, compromise]
 prerequisites: [frequency-ratios.md, intervals.md, scales.md]
 related: [frequency-ratios.md, intervals.md, scales.md, harmonic-series.md, consonance-dissonance.md, instrument-physics.md]
 scope-boundary: 12-TET only. No meantone, well-temperament, or microtonal systems in depth.
+has_audio: true
 ---
 
 # Twelve-Tone Equal Temperament (12-TET)
@@ -113,6 +114,53 @@ Is the ~14-cent error on thirds audible? It depends on context:
 The perceptual threshold for interval mistuning is roughly 5-10 cents for trained musicians in sustained harmonic contexts. The 2-cent fifth error is essentially imperceptible. The 14-cent third error is above this threshold — barely, and context-dependently.
 
 This is why 12-TET won: the errors are *just small enough* to be tolerable in most musical contexts, while the transposition freedom is indispensable for modern music's harmonic complexity.
+
+## Hear the Difference
+
+Compare just intonation intervals (pure ratios) with their 12-TET approximations. The difference is most audible on sustained thirds.
+
+<table>
+<tr>
+  <th>Interval</th>
+  <th>Just (ratio)</th>
+  <th>12-TET</th>
+  <th>Error</th>
+  <th>Listen Just</th>
+  <th>Listen 12-TET</th>
+</tr>
+<tr>
+  <td>Perfect fifth</td>
+  <td>3:2 → 330.00 Hz</td>
+  <td>2^(7/12) → 329.63 Hz</td>
+  <td>−2.0 cents</td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="330.00" onclick="playRatio(this)">▶ Just</button></td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="329.63" onclick="playRatio(this)">▶ 12-TET</button></td>
+</tr>
+<tr>
+  <td>Major third</td>
+  <td>5:4 → 275.00 Hz</td>
+  <td>2^(4/12) → 277.18 Hz</td>
+  <td>+13.7 cents</td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="275.00" onclick="playRatio(this)">▶ Just</button></td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="277.18" onclick="playRatio(this)">▶ 12-TET</button></td>
+</tr>
+<tr>
+  <td>Minor third</td>
+  <td>6:5 → 264.00 Hz</td>
+  <td>2^(3/12) → 261.63 Hz</td>
+  <td>−15.6 cents</td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="264.00" onclick="playRatio(this)">▶ Just</button></td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="261.63" onclick="playRatio(this)">▶ 12-TET</button></td>
+</tr>
+<tr>
+  <td>Perfect fourth</td>
+  <td>4:3 → 293.33 Hz</td>
+  <td>2^(5/12) → 293.66 Hz</td>
+  <td>+2.0 cents</td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.33" onclick="playRatio(this)">▶ Just</button></td>
+  <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.66" onclick="playRatio(this)">▶ 12-TET</button></td>
+</tr>
+</table>
 
 <!-- INTERACTIVE: Comparison player — hear the same chord in just intonation vs. 12-TET, with adjustable sustain time to make the difference more or less apparent -->
 
