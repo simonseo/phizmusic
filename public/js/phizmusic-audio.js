@@ -91,5 +91,129 @@
     }
   }
 
+  /* ---------- Scale playback (sequential ascending, no chord) ---------- */
+
+  var SCALE_NOTE_DURATION = 0.35;
+  var SCALE_NOTE_SPACING = 0.38;
+
+  async function playScale(button) {
+    var synth;
+    var cleanupTimeout;
+
+    setPlayButtonsDisabled(true);
+
+    try {
+      var steps = JSON.parse(button.dataset.steps || "[]");
+      if (!Array.isArray(steps) || steps.length === 0) {
+        throw new Error("Invalid or empty step set");
+      }
+
+      var octave =
+        button.dataset.octave !== undefined
+          ? parseInt(button.dataset.octave, 10)
+          : DEFAULT_OCTAVE;
+      var freqs = stepsToFreqs(steps, octave);
+
+      await Tone.start();
+
+      synth = new Tone.Synth({
+        oscillator: { type: "sine" },
+      }).toDestination();
+
+      var startTime = Tone.now();
+
+      freqs.forEach(function (freq, index) {
+        synth.triggerAttackRelease(
+          freq,
+          SCALE_NOTE_DURATION,
+          startTime + index * SCALE_NOTE_SPACING
+        );
+      });
+
+      var totalPlaybackSeconds =
+        (freqs.length - 1) * SCALE_NOTE_SPACING + SCALE_NOTE_DURATION;
+
+      cleanupTimeout = setTimeout(function () {
+        setPlayButtonsDisabled(false);
+        if (synth) {
+          synth.dispose();
+          synth = null;
+        }
+      }, Math.ceil(totalPlaybackSeconds * 1000) + 100);
+    } catch (error) {
+      if (cleanupTimeout) {
+        clearTimeout(cleanupTimeout);
+      }
+      if (synth) {
+        synth.dispose();
+      }
+      setPlayButtonsDisabled(false);
+      console.warn("PhizMusic scale playback failed:", error);
+    }
+  }
+
+  /* ---------- Harmonic series playback (frequency-based) ---------- */
+
+  var HARMONIC_NOTE_DURATION = 0.5;
+  var HARMONIC_NOTE_SPACING = 0.55;
+
+  async function playHarmonic(button) {
+    var synth;
+    var cleanupTimeout;
+
+    setPlayButtonsDisabled(true);
+
+    try {
+      var fundamental = parseFloat(button.dataset.fundamental || "100");
+      var harmonicNumber = parseInt(button.dataset.harmonic || "1", 10);
+      if (isNaN(fundamental) || isNaN(harmonicNumber) || harmonicNumber < 1) {
+        throw new Error("Invalid harmonic parameters");
+      }
+
+      var freqFundamental = fundamental;
+      var freqHarmonic = fundamental * harmonicNumber;
+
+      await Tone.start();
+
+      synth = new Tone.Synth({
+        oscillator: { type: "sine" },
+      }).toDestination();
+
+      var startTime = Tone.now();
+
+      synth.triggerAttackRelease(
+        freqFundamental,
+        HARMONIC_NOTE_DURATION,
+        startTime
+      );
+      synth.triggerAttackRelease(
+        freqHarmonic,
+        HARMONIC_NOTE_DURATION,
+        startTime + HARMONIC_NOTE_SPACING
+      );
+
+      var totalPlaybackSeconds = HARMONIC_NOTE_SPACING + HARMONIC_NOTE_DURATION;
+
+      cleanupTimeout = setTimeout(function () {
+        setPlayButtonsDisabled(false);
+        if (synth) {
+          synth.dispose();
+          synth = null;
+        }
+      }, Math.ceil(totalPlaybackSeconds * 1000) + 100);
+    } catch (error) {
+      if (cleanupTimeout) {
+        clearTimeout(cleanupTimeout);
+      }
+      if (synth) {
+        synth.dispose();
+      }
+      setPlayButtonsDisabled(false);
+      console.warn("PhizMusic harmonic playback failed:", error);
+    }
+  }
+
   window.playStepSet = playStepSet;
+  window.playScale = playScale;
+  window.playHarmonic = playHarmonic;
 })();
