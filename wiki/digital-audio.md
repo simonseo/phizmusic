@@ -322,10 +322,11 @@ window.addEventListener('load', function() {
 
   function stopAudio() {
     if (synth) {
-      try { synth.triggerRelease(); } catch (e) {}
+      var old = synth;
+      synth = null;
+      try { old.triggerRelease(); } catch (e) {}
       setTimeout(function() {
-        try { synth.dispose(); } catch (e) {}
-        synth = null;
+        try { old.dispose(); } catch (e) {}
       }, 300);
     }
   }
