@@ -56,6 +56,40 @@ In "Key of step 0 major," Do4 = 261.63 Hz is home. The most consonant interval i
 
 **Modulation = changing the root = reorienting the listener's harmonic template around a new reference frequency.** If a piece moves from "step-subset rooted at step 0" to "step-subset rooted at step 7," every position relationship is preserved — but the listener's sense of "home" shifts from 261.63 Hz to 392.00 Hz. The brain's harmonic template matcher recalibrates, and what was Position 7 becomes Position 0 in the new key.
 
+### How Musicians Use "Key of…" in Practice
+
+The phrase "key of…" appears constantly in real musical situations. Each usage maps to specific PhizMusic operations — choosing a step-subset pattern, a root step-number, or both. Here are five common scenarios with their PhizMusic translations.
+
+**1. Band rehearsal: "Let's play this in G"**
+
+A guitarist says "let's play in G" before a jam. What they mean: use the major step-subset {0,2,4,5,7,9,11} with root at step 7 (So). The reference frequency is So4 = 392.00 Hz. Every instrument orients around this anchor — the bass player's home note is 392.00 Hz (or 196.00 Hz an octave below), the keyboard player builds Position 0's step-combo {7,11,2} as the home chord, and Position 7 relative to this root (step 2, Re, 293.66 Hz) provides the strongest pull back to the 392.00 Hz anchor.
+
+> PhizMusic: step-subset {0,2,4,5,7,9,11} rooted at step 7 (So, 392.00 Hz). Absolute step-subset members: {7,9,11,0,2,4,6}.
+
+**2. Singer asks to change key: "Can we do it in a lower key — maybe D?"**
+
+A singer finds that the melody's highest note is uncomfortable. Moving from "key of G" to "key of D" means: keep the same step-subset pattern {0,2,4,5,7,9,11} but change the root from step 7 (So, 392.00 Hz) to step 2 (Re, 293.66 Hz). Every pitch in the song drops by 5 chromatic steps. The melody that peaked at 4.11 (Si4, 493.88 Hz) now peaks at 4.6 (Hu4, 369.99 Hz) — a difference of 123.89 Hz that may sit comfortably in the singer's range. All internal relationships are identical: Position 7's pull toward Position 0, leading-tone resolution, voice-leading distances — nothing changes except the absolute frequencies.
+
+> PhizMusic: same step-subset geometry, root changes from step 7 (392.00 Hz) to step 2 (293.66 Hz). This is transposition, not modulation — the listener never hears the shift as a reorientation because the song restarts in the new root.
+
+**3. Reading a lead sheet: "Cm7 — F7 — BbMaj7"**
+
+A jazz musician reads chord symbols on a lead sheet. The symbols encode both the root step-numbers and the step-combo structures. "Cm7" means: root at step 0 (Do, 261.63 Hz), step-combo {0,3,7,10} — a 4-note structure with intervals 3+4+3. "F7" means: root at step 5 (Fa, 349.23 Hz), step-combo {5,9,0,3} — intervals 4+3+3. "BbMaj7" means: root at step 10 (Ve, 466.16 Hz), step-combo {10,2,5,9} — intervals 4+3+4. The lead sheet implies the step-subset context: these three chords belong to the step-subset {0,2,3,5,7,8,10} rooted at step 10 (Ve, 466.16 Hz) — a major step-subset where the Cm7 functions as Position 2 (the "ii" in Western terms), F7 as Position 7 (the "dominant"), and BbMaj7 as Position 0 (home). The musician infers the full tonal context from three chord symbols.
+
+> PhizMusic: step-subset {0,2,4,5,7,9,11} rooted at step 10 (Ve, 466.16 Hz). The progression is Position 2 → Position 7 → Position 0 — the strongest cadential approach pattern.
+
+**4. Transposing for a different instrument: "The concert pitch is Eb, so you play in F"**
+
+A trumpet player (whose instrument sounds a step-interval of 2 lower than written) receives a part written "in F" while the rest of the ensemble plays in "Eb." The physics: the ensemble's reference frequency is step 3 (Xo, 311.13 Hz). The trumpet's notation is shifted up by 2 chromatic steps to compensate for the instrument's built-in transposition. When the trumpet player reads and fingers step 5 (Fa), the instrument produces step 3 (Xo, 311.13 Hz) — matching the ensemble. In PhizMusic terms, both players are operating in step-subset {0,2,4,5,7,9,11} rooted at step 3 (Xo, 311.13 Hz). The trumpet's written part simply applies an offset of +2 to every step-number so that the sounding output aligns. The geometry is identical; only the notation layer differs.
+
+> PhizMusic: the sounding step-subset is rooted at step 3 (Xo, 311.13 Hz) for all instruments. Transposing instruments apply a fixed step-number offset in their notation — the acoustic result is the same root, same step-subset, same Positions.
+
+**5. Identifying a song's key by ear: "This song is in A minor"**
+
+A musician listens to a recording and identifies the tonal center. What their auditory system is doing: [harmonic template matching](ear-cochlea.md) locks onto the frequency that the melody and harmony most consistently resolve toward. If that frequency is 440.00 Hz (La4, step 9) and the pitch collection sounds dark and warm (step-combo at the root has interval structure 3+4, ratio ≈ 10:12:15), the musician concludes: step-subset {0,2,3,5,7,8,10} rooted at step 9 (La, 440.00 Hz) — the natural minor pattern. The absolute step-subset members are {9,11,0,2,4,5,7}. Position 0 is La4 = 440.00 Hz. Position 7 is step 4 (Mi, 329.63 Hz), which in the natural minor produces a dark 3+4 step-combo rather than the bright 4+3 that would create a strong leading-tone pull — explaining why minor-key resolutions often feel less decisive than major-key ones.
+
+> PhizMusic: the ear identifies the root step-number (step 9, La, 440.00 Hz) by detecting which frequency functions as the perceptual anchor, then infers the step-subset pattern from the quality of the intervals surrounding it.
+
 ## Positions Within a Step-Subset
 
 Given a 7-member step-subset, each member can generate a **triad** by stacking every-other member of the subset. This is the PhizMusic equivalent of "building a chord on each scale degree."
@@ -564,6 +598,114 @@ Notice: Position 7 in the natural minor produces a 10:12:15 ratio-set instead of
 | 11 (Si) | ✓ | {11, 2, 5} | 3 + 3 | Tense, unstable — diminished |
 
 The key difference: Position 7 now contains step 11 (the leading-tone), restoring the Position 7 → Position 0 resolution pull that defines tonal music.
+
+## Modes: Same Pitches, Different Root
+
+A **mode** in PhizMusic is nothing more than the same step-subset with a different root step-number. The set of absolute pitches — the actual Hz values played — remains identical. What changes is which pitch the listener's brain treats as the perceptual anchor, the reference frequency for the harmonic template matcher.
+
+This is where Western terminology becomes most confusing. "C major" and "A minor" are said to be "related keys," yet conventional theory obscures the deep physical truth: **they use exactly the same seven frequencies**. The only difference is which frequency your ear treats as "home."
+
+### The Canonical Example: C Major vs A Minor
+
+Consider step-subset {0,2,4,5,7,9,11} rooted at step 0 (Do4 = 261.63 Hz). This is "C major" in Western terminology:
+
+| Step | Syllable | Hz (octave 4) |
+|------|----------|---------------|
+| 0 | Do | 261.63 |
+| 2 | Re | 293.66 |
+| 4 | Mi | 329.63 |
+| 5 | Fa | 349.23 |
+| 7 | So | 392.00 |
+| 9 | La | 440.00 |
+| 11 | Si | 493.88 |
+
+Root triad at Position 0: {0, 4, 7} = Do-Mi-So = 261.63 Hz, 329.63 Hz, 392.00 Hz
+- Step-interval structure: 4 + 3
+- Ratio approximation: 1 : 1.26 : 1.50 ≈ 4:5:6 (bright, major quality)
+
+Now take these **exact same seven frequencies** and re-root at step 9 (La4 = 440.00 Hz). This is "A minor" in Western terminology. From La's perspective as step 0, the step-subset becomes {0,2,3,5,7,8,10}:
+
+| Step (from La) | Syllable | Hz (octave 4) | Original step (from Do) |
+|----------------|----------|---------------|------------------------|
+| 0 | La | 440.00 | 9 |
+| 2 | Si | 493.88 | 11 |
+| 3 | Do | 523.25 (octave 5) | 0 |
+| 5 | Re | 587.33 (octave 5) | 2 |
+| 7 | Mi | 659.26 (octave 5) | 4 |
+| 8 | Fa | 698.46 (octave 5) | 5 |
+| 10 | So | 783.99 (octave 5) | 7 |
+
+Root triad at Position 0: {9, 0, 4} = La-Do-Mi = 440.00 Hz, 523.25 Hz, 659.26 Hz
+- Step-interval structure: 3 + 4
+- Ratio approximation: 1 : 1.19 : 1.50 ≈ 10:12:15 (dark, minor quality)
+
+> 🎯 **Simple version**: "C major" and "A minor" use the same 7 piano keys. The only difference: in C major, you treat C as home; in A minor, you treat A as home. Same physical frequencies, different perceptual anchor.
+
+### What Changes at the Hz Level
+
+**The frequencies don't change.** What changes:
+
+1. **Which frequency the brain's harmonic template matcher treats as the reference** — the perceptual "root"
+2. **The gap pattern heard FROM the root** — C major starting from Do hears 2-2-1-2-2-2-1; A minor starting from La hears 2-1-2-2-1-2-2
+3. **The interval structure of the root triad** — same three pitches appear somewhere in the system, but the ROOT triad has different intervals
+4. **The ratio-set at each position** — Position 0's triad in C major has intervals 4+3 (bright); Position 0's triad in A minor has intervals 3+4 (dark)
+
+Crucially, the **Position 7 triad** also changes:
+
+- **C major Position 7**: {7, 11, 2} = So-Si-Re = 4 + 3 intervals = bright, with leading-tone at step 11
+- **A minor (natural) Position 7**: {7, 10, 2} = Mi-So-Si = 3 + 4 intervals = dark, lacks leading-tone at step 11
+
+This is why Western music treats them as distinct keys. The root triad's quality changes, and critically, the tension-resolution pattern at Position 7 → Position 0 changes. In major, Position 7 is bright and contains the leading-tone (step 11, a half-step below step 0). In natural minor, Position 7 is dark and lacks that leading-tone pull.
+
+### Why Different Modes Sound Different
+
+If the frequencies are identical, why do modes produce different emotional qualities?
+
+The answer lies in **harmonic template matching**. When you hear a sequence of pitches, your brain attempts to fit them onto a harmonic series template rooted at some fundamental frequency. The pitch you treat as "root" determines which template your brain tries to use.
+
+When the root changes:
+- **Different overtones align** — a 440 Hz root has overtones at 880 Hz, 1320 Hz, 1760 Hz, etc. A 261.63 Hz root has overtones at 523.26 Hz, 784.89 Hz, 1046.52 Hz, etc. The subset members align differently with these overtone grids.
+- **Different interval ratios from root** — in C major, the interval from root (Do, 261.63 Hz) to the third member (Mi, 329.63 Hz) is 261.63 × 2^(4/12) ≈ 329.63 Hz, a ratio of ~1.26 (≈5:4, bright). In A minor, the interval from root (La, 440 Hz) to the third member (Do, 523.25 Hz) is 440 × 2^(3/12) ≈ 523.25 Hz, a ratio of ~1.19 (≈6:5, dark).
+- **Different tension fields** — the distances between root and each other member create different patterns of tension and stability. Major's 4+3 root triad matches low harmonics (4:5:6). Minor's 3+4 root triad matches higher harmonics (10:12:15), producing a darker, more complex quality.
+
+Perceptually, the listener's brain locks onto different reference frequencies, producing genuinely different emotional landscapes despite identical pitch material. The physics is the same; the neuroscience is different.
+
+See [Scales — Modes](scales.md#modes-rotation-of-a-subset) for the gap-pattern perspective on this same phenomenon.
+
+### The Seven Modes of {0,2,4,5,7,9,11}
+
+The major step-subset {0,2,4,5,7,9,11} generates seven modes, one rooted at each member. Here they are with their physical characteristics:
+
+| Mode name (Western) | Root step | Root Hz (octave 4) | Root triad steps | Root triad intervals | Root triad quality | Position 7 has leading-tone? |
+|---------------------|-----------|-------------------|------------------|---------------------|-------------------|------------------------------|
+| Ionian (major) | 0 (Do) | 261.63 | {0, 4, 7} | 4 + 3 | Bright | ✓ (step 11 → 0) |
+| Dorian | 2 (Re) | 293.66 | {2, 5, 9} | 3 + 4 | Dark | ✗ (step 0 not adjacent) |
+| Phrygian | 4 (Mi) | 329.63 | {4, 7, 11} | 3 + 4 | Dark | ✗ (step 2 not adjacent) |
+| Lydian | 5 (Fa) | 349.23 | {5, 9, 0} | 4 + 3 | Bright | ✗ (step 4 not adjacent) |
+| Mixolydian | 7 (So) | 392.00 | {7, 11, 2} | 4 + 3 | Bright | ✗ (step 5 not adjacent) |
+| Aeolian (natural minor) | 9 (La) | 440.00 | {9, 0, 4} | 3 + 4 | Dark | ✗ (step 7 not adjacent) |
+| Locrian | 11 (Si) | 493.88 | {11, 2, 5} | 3 + 3 | Diminished | ✗ (step 9 not adjacent) |
+
+Notice:
+- Only Ionian (major) has both a bright root triad (4+3) AND a leading-tone at Position 7
+- Lydian and Mixolydian have bright root triads but lack the leading-tone resolution
+- Dorian, Phrygian, and Aeolian (minor) have dark root triads (3+4)
+- Locrian has a diminished root triad (3+3), making it unstable as a tonal center
+
+The "leading-tone" criterion checks whether Position 7 (the chromatic step 7 steps above the root) contains a step-subset member that is 1 chromatic step below the root. In Ionian (major) rooted at step 0, Position 7 contains step 7, and the step-subset includes step 11, which is 1 step below step 0 (mod 12). This creates strong directional pull: step 11 "wants" to resolve up by 1 step to step 0.
+
+In the other modes, either Position 7 doesn't contain a bright triad, or the step-subset doesn't include a member 1 step below the root, so the leading-tone pull is absent.
+
+### Practical Implications
+
+When you compose or analyze music:
+
+1. **Same subset, different emotional quality** — you can shift the entire emotional character of a piece by changing which pitch is treated as root, without changing the available pitches
+2. **Modal mixture** — Western music often "borrows" chords from parallel modes (e.g., using minor's dark Position 6 triad in a major-key piece) to add color
+3. **Cross-cultural patterns** — many non-Western traditions use modes that aren't Ionian or Aeolian. PhizMusic's framework handles them identically: same subset, different root
+4. **"Relative" vs "parallel"** — Western theory distinguishes "relative minor" (same subset, different root) from "parallel minor" (different subset, same root). In PhizMusic: relative = same step-subset, different root step-number; parallel = different step-subset, same root step-number. Both are just parameter changes in the `(step-subset, root)` tuple.
+
+The deep insight: **modes are a perceptual phenomenon, not a physical one**. The acoustics are identical. The neuroscience — which harmonic template your brain locks onto — is what changes. This is why modes can evoke such different emotions while using the same collection of physical frequencies.
 
 ## Translation Table
 

@@ -115,13 +115,7 @@ So musical emotion in progression space can be framed as **prediction error over
 
 ## Hear the Progressions
 
-Click to hear each progression played as a sequence of step-combos. Position numbers indicate the chromatic step of each triad's root (e.g., Position 7 = root at step 7, the dominant in Western terms). Listen for the tension-resolution arc described above.
-
-<p><button class="phiz-play-btn" data-chords="[[0,4,7],[7,11,14],[9,12,16],[5,9,12]]" data-octave="4" onclick="playProgression(this)">▶ Pos 0 → Pos 7 → Pos 9 → Pos 5 (I–V–vi–IV) | {0,4,7}→{7,11,2}→{9,0,4}→{5,9,0}</button></p>
-
-<p><button class="phiz-play-btn" data-chords="[[0,4,7],[5,9,12],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ Pos 0 → Pos 5 → Pos 7 → Pos 0 (I–IV–V–I) | {0,4,7}→{5,9,0}→{7,11,2}→{0,4,7}</button></p>
-
-<p><button class="phiz-play-btn" data-chords="[[2,5,9],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ Pos 2 → Pos 7 → Pos 0 (ii–V–I) | {2,5,9}→{7,11,2}→{0,4,7}</button></p>
+Select a progression preset below, then click **▶ Play** to hear the step-combos in sequence. Position numbers indicate the chromatic step of each triad's root (e.g., Position 7 = root at step 7, the "dominant" in Western terms). Listen for the tension-resolution arc described above.
 
 <div class="phiz-viz-container" id="cp-visualizer">
 <div class="phiz-viz-title">Progression Path Visualizer</div>
@@ -174,6 +168,17 @@ window.addEventListener('load', function() {
     return d;
   }
 
+  // Compute the maximum step value across all progressions for Y-axis range
+  var maxStep = 0;
+  for (var pi = 0; pi < progressions.length; pi++) {
+    for (var ci = 0; ci < progressions[pi].chords.length; ci++) {
+      for (var ni = 0; ni < progressions[pi].chords[ci].length; ni++) {
+        if (progressions[pi].chords[ci][ni] > maxStep) maxStep = progressions[pi].chords[ci][ni];
+      }
+    }
+  }
+  var gridMax = maxStep + 1; // Add 1 step of padding above highest note
+
   function drawGrid() {
     var fit = fitCanvas();
     var ctx = fit.ctx;
@@ -188,8 +193,8 @@ window.addEventListener('load', function() {
     ctx.fillStyle = "#111";
     ctx.fillRect(0, 0, w, h);
 
-    for (var s = 0; s <= 14; s++) {
-      var y = pad.top + gh - (s / 14) * gh;
+    for (var s = 0; s <= gridMax; s++) {
+      var y = pad.top + gh - (s / gridMax) * gh;
       ctx.beginPath();
       ctx.moveTo(pad.left, y);
       ctx.lineTo(w - pad.right, y);
@@ -214,7 +219,7 @@ window.addEventListener('load', function() {
 
       for (var n = 0; n < chord.length; n++) {
         var step = chord[n];
-        var ny = pad.top + gh - (step / 14) * gh;
+        var ny = pad.top + gh - (step / gridMax) * gh;
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.8;
         ctx.fillRect(cx - 14, ny - 8, 28, 16);
@@ -229,8 +234,8 @@ window.addEventListener('load', function() {
         var prev = chords[c - 1];
         var pcx = pad.left + (c - 1) * colW + colW / 2;
         for (var v = 0; v < Math.min(prev.length, chord.length); v++) {
-          var py = pad.top + gh - (prev[v] / 14) * gh;
-          var cy2 = pad.top + gh - (chord[v] / 14) * gh;
+          var py = pad.top + gh - (prev[v] / gridMax) * gh;
+          var cy2 = pad.top + gh - (chord[v] / gridMax) * gh;
           ctx.beginPath();
           ctx.moveTo(pcx + 14, py);
           ctx.lineTo(cx - 14, cy2);
@@ -247,7 +252,7 @@ window.addEventListener('load', function() {
     }
 
     var D = totalMovement(chords);
-    info.textContent = prog.label + " (" + prog.western + ") | " + chords.map(function(ch) { return "{" + ch.map(function(s) { return s % 12; }).join(",") + "}"; }).join(" \u2192 ") + " | Total D: " + D;
+    info.innerHTML = prog.label + " (" + prog.western + ")<br>" + chords.map(function(ch) { return "{" + ch.map(function(s) { return s % 12; }).join(",") + "}"; }).join(" \u2192 ") + "<br>Total D: " + D;
   }
 
   var presetBtns = document.querySelectorAll(".cp-preset");
