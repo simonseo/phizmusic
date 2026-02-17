@@ -211,6 +211,10 @@
 
     this._build();
     this.setPreset(this.currentPreset);
+
+    /* Deferred draw: layout isn't done until after this call stack unwinds */
+    var selfRef = this;
+    requestAnimationFrame(function () { selfRef._drawSpectrum(); });
   }
 
   /* ── DOM construction ───────────────────────────────────────── */
@@ -243,6 +247,9 @@
       self.collapsed = !self.collapsed;
       body.style.display = self.collapsed ? "none" : "";
       toggleEl.textContent = self.collapsed ? "\u25B6 expand" : "\u25BC collapse";
+      if (!self.collapsed) {
+        requestAnimationFrame(function () { self._drawSpectrum(); });
+      }
     });
 
     /* ── Spectrum canvas ── */
@@ -403,9 +410,6 @@
     wrapper.appendChild(body);
     root.appendChild(wrapper);
 
-    /* initial draw (deferred to allow layout) */
-    var selfRef = this;
-    setTimeout(function () { selfRef._drawSpectrum(); }, 0);
   };
 
   /* ── Preset application ─────────────────────────────────────── */
@@ -493,7 +497,9 @@
     var dpr = window.devicePixelRatio || 1;
     var rect = canvas.getBoundingClientRect();
     var w = rect.width;
-    var h = parseInt(canvas.getAttribute("height"), 10) || 140;
+    if (w <= 0) return;
+    var h = 140; /* fixed logical height — never read from the mutated attribute */
+    canvas.style.height = h + "px";
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     var ctx = canvas.getContext("2d");

@@ -123,7 +123,7 @@ Click to hear each progression played as a sequence of chords. Listen for the te
 
 <div class="phiz-viz-container" id="cp-visualizer">
 <div class="phiz-viz-title">Progression Path Visualizer</div>
-<canvas id="cp-grid-canvas" height="260" style="width:100%;"></canvas>
+<canvas id="cp-grid-canvas" height="280" style="width:100%; height:280px;"></canvas>
 <div class="phiz-viz-controls">
 <button class="cp-preset active" data-idx="0">0→3→4→0</button>
 <button class="cp-preset" data-idx="1">0→4→5→3</button>
@@ -151,11 +151,13 @@ window.addEventListener('load', function() {
     if (typeof PhizViz !== "undefined" && PhizViz.fitCanvas) return PhizViz.fitCanvas(canvas);
     var dpr = window.devicePixelRatio || 1;
     var rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    var w = rect.width;
+    var h = 280;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
     var ctx = canvas.getContext("2d");
     ctx.scale(dpr, dpr);
-    return {w: rect.width, h: rect.height, ctx: ctx};
+    return {w: w, h: h, ctx: ctx};
   }
 
   function totalMovement(chords) {
@@ -177,7 +179,7 @@ window.addEventListener('load', function() {
     var h = fit.h;
     var prog = progressions[currentIdx];
     var chords = prog.chords;
-    var pad = {left: 40, right: 20, top: 15, bottom: 25};
+    var pad = {left: 40, right: 20, top: 25, bottom: 25};
     var gw = w - pad.left - pad.right;
     var gh = h - pad.top - pad.bottom;
 
