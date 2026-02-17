@@ -2,7 +2,7 @@
 title: Chord Progressions
 aliases: [progressions, harmonic motion, voice-leading]
 tier: 2
-category: music
+category: systems
 sidebar_order: 4
 tags: [harmony, time, prediction]
 prerequisites: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md]
@@ -13,9 +13,9 @@ has_audio: true
 
 # Chord Progressions
 
-A chord progression is a **time-ordered sequence of step-combos**. In PhizMusic, the central question is geometric: how far does each voice move from one step-combo to the next? Small total movement tends to sound smooth and coherent; larger movement tends to increase contrast and perceived tension.
+A chord progression is a **time-ordered sequence of step-combos**. Each step-combo is identified by its root's chromatic step-number (Position 0 through Position 11). In PhizMusic, the central question is geometric: how far does each voice move from one step-combo to the next? Small total movement tends to sound smooth and coherent; larger movement tends to increase contrast and perceived tension.
 
-> 🎯 **Simple version**: A chord progression is a journey from one group of notes to another. Some journeys feel like "going home" (resolution), others feel like "still traveling" (tension). The brain predicts where the music is going; surprise creates emotion.
+> 🎯 **Simple version**: A chord progression is a journey from one group of notes to another, labeled by root position (e.g., Position 0 → Position 7 → Position 0). Some journeys feel like "going home" (resolution), others feel like "still traveling" (tension). The brain predicts where the music is going; surprise creates emotion.
 
 ## Progressions as Step-Combo Sequences
 
@@ -31,7 +31,7 @@ Example sequence:
 {0,4,7} -> {0,5,9} -> {2,7,11} -> {0,4,7}
 ```
 
-This is often labeled with Roman numerals in conventional theory, but PhizMusic keeps the representation literal: actual step content over time.
+This is often labeled with Roman numerals in conventional theory (e.g., this sequence is I–IV–V–I), but PhizMusic identifies each step-combo by its root's chromatic step-number: Position 0 → Position 5 → Position 7 → Position 0. The representation stays literal: actual step content over time.
 
 ## Voice-Leading as Distance Minimization
 
@@ -60,9 +60,11 @@ In this framing:
 
 This avoids culturally specific rule language while still capturing the perceptual dynamics.
 
+> **Concrete Hz example**: Using Do4 = 261.63 Hz as reference, the Position 0 step-combo {0,4,7} produces frequencies 261.63, 329.63, 392.00 Hz (ratio ≈ 4:5:6). Position 7 step-combo {7,11,2} produces 392.00, 493.88, 293.66 Hz. When these two step-combos are played in sequence, the shared frequency 392.00 Hz provides continuity while the moving voices create directional pull.
+
 ## Example 1: Closed Loop with Minimal Return Cost
 
-Sequence:
+Sequence (Pos 0 → Pos 5 → Pos 7 → Pos 0, i.e., I–IV–V–I in Western terms):
 
 ```text
 {0,4,7} -> {0,5,9} -> {2,7,11} -> {0,4,7}
@@ -113,21 +115,21 @@ So musical emotion in progression space can be framed as **prediction error over
 
 ## Hear the Progressions
 
-Click to hear each progression played as a sequence of chords. Listen for the tension-resolution arc described above.
+Click to hear each progression played as a sequence of step-combos. Position numbers indicate the chromatic step of each triad's root (e.g., Position 7 = root at step 7, the dominant in Western terms). Listen for the tension-resolution arc described above.
 
-<p><button class="phiz-play-btn" data-chords="[[0,4,7],[7,11,14],[9,12,16],[5,9,12]]" data-octave="4" onclick="playProgression(this)">▶ I – V – vi – IV</button></p>
+<p><button class="phiz-play-btn" data-chords="[[0,4,7],[7,11,14],[9,12,16],[5,9,12]]" data-octave="4" onclick="playProgression(this)">▶ Pos 0 → Pos 7 → Pos 9 → Pos 5 (I–V–vi–IV) | {0,4,7}→{7,11,2}→{9,0,4}→{5,9,0}</button></p>
 
-<p><button class="phiz-play-btn" data-chords="[[0,4,7],[5,9,12],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ I – IV – V – I</button></p>
+<p><button class="phiz-play-btn" data-chords="[[0,4,7],[5,9,12],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ Pos 0 → Pos 5 → Pos 7 → Pos 0 (I–IV–V–I) | {0,4,7}→{5,9,0}→{7,11,2}→{0,4,7}</button></p>
 
-<p><button class="phiz-play-btn" data-chords="[[2,5,9],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ ii – V – I</button></p>
+<p><button class="phiz-play-btn" data-chords="[[2,5,9],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ Pos 2 → Pos 7 → Pos 0 (ii–V–I) | {2,5,9}→{7,11,2}→{0,4,7}</button></p>
 
 <div class="phiz-viz-container" id="cp-visualizer">
 <div class="phiz-viz-title">Progression Path Visualizer</div>
 <canvas id="cp-grid-canvas" height="280" style="width:100%; height:280px;"></canvas>
 <div class="phiz-viz-controls">
-<button class="cp-preset active" data-idx="0">0→3→4→0</button>
-<button class="cp-preset" data-idx="1">0→4→5→3</button>
-<button class="cp-preset" data-idx="2">1→4→0</button>
+<button class="cp-preset active" data-idx="0">Pos 0→5→7→0</button>
+<button class="cp-preset" data-idx="1">Pos 0→7→9→5</button>
+<button class="cp-preset" data-idx="2">Pos 2→7→0</button>
 <button id="cp-play">▶ Play</button>
 </div>
 <div id="cp-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;"></div>
@@ -141,9 +143,9 @@ window.addEventListener('load', function() {
   var info = document.getElementById("cp-info");
   var SYLLABLES = ["Do","Ka","Re","Xo","Mi","Fa","Hu","So","Bi","La","Ve","Si"];
   var progressions = [
-    {label: "0\u21923\u21924\u21920", western: "I\u2013IV\u2013V\u2013I", chords: [[0,4,7],[5,9,12],[7,11,14],[0,4,7]]},
-    {label: "0\u21924\u21925\u21923", western: "I\u2013V\u2013vi\u2013IV", chords: [[0,4,7],[7,11,14],[9,12,16],[5,9,12]]},
-    {label: "1\u21924\u21920", western: "ii\u2013V\u2013I", chords: [[2,5,9],[7,11,14],[0,4,7]]}
+    {label: "Pos 0\u21925\u21927\u21920", western: "I\u2013IV\u2013V\u2013I", chords: [[0,4,7],[5,9,12],[7,11,14],[0,4,7]]},
+    {label: "Pos 0\u21927\u21929\u21925", western: "I\u2013V\u2013vi\u2013IV", chords: [[0,4,7],[7,11,14],[9,12,16],[5,9,12]]},
+    {label: "Pos 2\u21927\u21920", western: "ii\u2013V\u2013I", chords: [[2,5,9],[7,11,14],[0,4,7]]}
   ];
   var currentIdx = 0;
 
@@ -245,7 +247,7 @@ window.addEventListener('load', function() {
     }
 
     var D = totalMovement(chords);
-    info.textContent = "Progression: " + chords.map(function(ch) { return "{" + ch.map(function(s) { return s % 12; }).join(",") + "}"; }).join(" \u2192 ") + " | Total D: " + D + " (" + prog.western + ")";
+    info.textContent = prog.label + " (" + prog.western + ") | " + chords.map(function(ch) { return "{" + ch.map(function(s) { return s % 12; }).join(",") + "}"; }).join(" \u2192 ") + " | Total D: " + D;
   }
 
   var presetBtns = document.querySelectorAll(".cp-preset");
@@ -281,9 +283,12 @@ window.addEventListener('load', function() {
 | PhizMusic | Western | Notes |
 |-----------|---------|-------|
 | Step-combo sequence | Chord progression | Same concept, literalized representation |
+| Position N (chromatic step-number of root) | Roman numeral (I, ii, iii, IV, V, vi, vii°) | Position = root's chromatic step; e.g., Pos 7 = V, Pos 5 = IV |
 | Total movement D | Voice-leading smoothness | Quantitative movement metric |
-| Stable high-fusion set | Tonic-like arrival | Function language avoided in core text |
+| Stable high-fusion set (e.g., Pos 0 {0,4,7}) | Tonic chord (I) | Function language avoided in core text |
 | Tension-resolution arc | Cadential motion | Framed as spectral/predictive dynamics |
+| Pos 7 → Pos 0 | V → I (authentic cadence) | The 7-step-interval root relationship + leading-tone resolution |
+| Pos 5 → Pos 0 | IV → I (plagal cadence) | The 5-step-interval root relationship |
 
 ## Connections
 
