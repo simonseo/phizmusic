@@ -4,6 +4,7 @@ aliases: [overtone series, harmonics, partials]
 tier: 1
 category: music
 tags: [physics, foundation, acoustics]
+has_audio: true
 prerequisites: [sound-waves.md, fourier-analysis.md]
 related: [frequency-ratios.md, fourier-analysis.md, chords.md, intervals.md, timbre.md, instrument-physics.md, consonance-dissonance.md, missing-fundamental.md]
 scope-boundary: The mathematical/physical pattern only. No instrument-specific spectra, no interval naming, no scale construction.
@@ -37,24 +38,165 @@ The same principle applies to air columns in pipes (see [instrument-physics.md](
 
 For a fundamental of 100 Hz (chosen for easy arithmetic — the pattern scales to any frequency):
 
-| Harmonic | Frequency | Ratio to fundamental | Nearest step-distance | Cents from step | Notes |
-|----------|-----------|---------------------|-----------------------|-----------------|-------|
-| 1 | 100 Hz | 1:1 | 0 | 0 | Fundamental |
-| 2 | 200 Hz | 2:1 | 12 (octave up) | 0 | Octave |
-| 3 | 300 Hz | 3:1 | 19 (~7 above oct) | +2.0 | Step-7 above octave |
-| 4 | 400 Hz | 4:1 | 24 (2 octaves) | 0 | 2nd octave |
-| 5 | 500 Hz | 5:1 | 28 (~4 above 2 oct) | -13.7 | Step-4 above 2nd octave |
-| 6 | 600 Hz | 6:1 | 31 (~7 above 2 oct) | +2.0 | Step-7 above 2nd octave |
-| 7 | 700 Hz | 7:1 | 34 (~10 above 2 oct) | -31.2 | Between step-9 and step-10 |
-| 8 | 800 Hz | 8:1 | 36 (3 octaves) | 0 | 3rd octave |
-| 9 | 900 Hz | 9:1 | 38 (~2 above 3 oct) | +3.9 | Step-2 above 3rd octave |
-| 10 | 1000 Hz | 10:1 | 40 (~4 above 3 oct) | -13.7 | Step-4 above 3rd octave |
-| 11 | 1100 Hz | 11:1 | 42 (~6 above 3 oct) | -48.7 | Between step-5 and step-6 |
-| 12 | 1200 Hz | 12:1 | 43 (~7 above 3 oct) | +2.0 | Step-7 above 3rd octave |
-| 13 | 1300 Hz | 13:1 | 44 (~8 above 3 oct) | +40.5 | Between step-8 and step-9 |
-| 14 | 1400 Hz | 14:1 | 46 (~10 above 3 oct) | -31.2 | Between step-9 and step-10 |
-| 15 | 1500 Hz | 15:1 | 47 (~11 above 3 oct) | -11.7 | Step-11 above 3rd octave |
-| 16 | 1600 Hz | 16:1 | 48 (4 octaves) | 0 | 4th octave |
+<table>
+  <thead>
+    <tr>
+      <th>Harmonic</th>
+      <th>Frequency</th>
+      <th>Ratio to fundamental</th>
+      <th>Nearest step-distance</th>
+      <th>Cents from step</th>
+      <th>Notes</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>100 Hz</td>
+      <td>1:1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Fundamental</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="1" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>200 Hz</td>
+      <td>2:1</td>
+      <td>12 (octave up)</td>
+      <td>0</td>
+      <td>Octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="2" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>300 Hz</td>
+      <td>3:1</td>
+      <td>19 (~7 above oct)</td>
+      <td>+2.0</td>
+      <td>Step-7 above octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="3" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>400 Hz</td>
+      <td>4:1</td>
+      <td>24 (2 octaves)</td>
+      <td>0</td>
+      <td>2nd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="4" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>500 Hz</td>
+      <td>5:1</td>
+      <td>28 (~4 above 2 oct)</td>
+      <td>-13.7</td>
+      <td>Step-4 above 2nd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="5" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>600 Hz</td>
+      <td>6:1</td>
+      <td>31 (~7 above 2 oct)</td>
+      <td>+2.0</td>
+      <td>Step-7 above 2nd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="6" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>700 Hz</td>
+      <td>7:1</td>
+      <td>34 (~10 above 2 oct)</td>
+      <td>-31.2</td>
+      <td>Between step-9 and step-10</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="7" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>800 Hz</td>
+      <td>8:1</td>
+      <td>36 (3 octaves)</td>
+      <td>0</td>
+      <td>3rd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="8" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>900 Hz</td>
+      <td>9:1</td>
+      <td>38 (~2 above 3 oct)</td>
+      <td>+3.9</td>
+      <td>Step-2 above 3rd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="9" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1000 Hz</td>
+      <td>10:1</td>
+      <td>40 (~4 above 3 oct)</td>
+      <td>-13.7</td>
+      <td>Step-4 above 3rd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="10" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1100 Hz</td>
+      <td>11:1</td>
+      <td>42 (~6 above 3 oct)</td>
+      <td>-48.7</td>
+      <td>Between step-5 and step-6</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="11" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1200 Hz</td>
+      <td>12:1</td>
+      <td>43 (~7 above 3 oct)</td>
+      <td>+2.0</td>
+      <td>Step-7 above 3rd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="12" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1300 Hz</td>
+      <td>13:1</td>
+      <td>44 (~8 above 3 oct)</td>
+      <td>+40.5</td>
+      <td>Between step-8 and step-9</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="13" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1400 Hz</td>
+      <td>14:1</td>
+      <td>46 (~10 above 3 oct)</td>
+      <td>-31.2</td>
+      <td>Between step-9 and step-10</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="14" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1500 Hz</td>
+      <td>15:1</td>
+      <td>47 (~11 above 3 oct)</td>
+      <td>-11.7</td>
+      <td>Step-11 above 3rd octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="15" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>1600 Hz</td>
+      <td>16:1</td>
+      <td>48 (4 octaves)</td>
+      <td>0</td>
+      <td>4th octave</td>
+      <td><button class="phiz-play-btn" data-fundamental="100" data-harmonic="16" onclick="playHarmonic(this)">▶</button></td>
+    </tr>
+  </tbody>
+</table>
 
 Key observations:
 - **Harmonics 1, 2, 4, 8, 16** are exact octaves (powers of 2) — they land perfectly on 12-TET grid points
