@@ -2,6 +2,7 @@
 title: Intervals
 aliases: [step-distance, interval, musical intervals]
 tier: 1
+category: music
 tags: [music, foundation, reference]
 prerequisites: [naming-system.md, frequency-ratios.md, harmonic-series.md]
 related: [frequency-ratios.md, harmonic-series.md, naming-system.md, scales.md, chords.md, consonance-dissonance.md, twelve-tet.md]

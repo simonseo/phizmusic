@@ -2,6 +2,7 @@
 title: Rhythm
 aliases: [pulse-fraction system, beat, tempo, meter]
 tier: 1
+category: music
 tags: [music, foundation, time]
 prerequisites: [naming-system.md]
 related: [chord-progressions.md, translation-tables.md]

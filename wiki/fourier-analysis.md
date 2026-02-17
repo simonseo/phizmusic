@@ -2,6 +2,7 @@
 title: Fourier Analysis
 aliases: [Fourier transform, spectral decomposition, frequency decomposition]
 tier: 1
+category: physics
 tags: [physics, math, foundation]
 prerequisites: [sound-waves.md]
 related: [sound-waves.md, ear-cochlea.md, timbre.md, digital-audio.md, harmonic-series.md]

@@ -2,6 +2,7 @@
 title: Missing Fundamental
 aliases: [virtual pitch, residue pitch, phantom fundamental]
 tier: 1
+category: music
 tags: [perception, psychoacoustics, foundation]
 prerequisites: [harmonic-series.md, ear-cochlea.md]
 related: [harmonic-series.md, ear-cochlea.md, consonance-dissonance.md, timbre.md, auditory-masking.md]

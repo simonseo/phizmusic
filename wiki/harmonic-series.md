@@ -2,6 +2,7 @@
 title: Harmonic Series
 aliases: [overtone series, harmonics, partials]
 tier: 1
+category: music
 tags: [physics, foundation, acoustics]
 prerequisites: [sound-waves.md, fourier-analysis.md]
 related: [frequency-ratios.md, fourier-analysis.md, chords.md, intervals.md, timbre.md, instrument-physics.md, consonance-dissonance.md, missing-fundamental.md]

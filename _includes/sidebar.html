@@ -1,0 +1,92 @@
+<div class="sidebar">
+  <div class="container sidebar-scrollable">
+    <div class="sidebar-about">
+      <a href="{{ '/' | relative_url }}">
+        <img class="sidebar-logo" src="{{ '/public/img/logo.png' | relative_url }}" alt="{{ site.title }}">
+      </a>
+      <p class="lead">{{ site.description }}</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item{% if page.url == '/' or page.url == site.baseurl %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
+      <a class="sidebar-nav-item{% if page.path == 'wiki/README.md' %} active{% endif %}" href="{{ '/wiki/README/' | relative_url }}">Wiki Overview</a>
+
+      {% comment %}
+        Group wiki pages by tier+category for collapsible sidebar navigation.
+        Pages must have `tier` in front matter. Tier 1 pages also need `category: physics|music`.
+      {% endcomment %}
+
+      {% assign wiki_pages = site.pages | where_exp: "p", "p.path contains 'wiki/'" %}
+
+      {% comment %} === Tier 1 — Physics Primitives === {% endcomment %}
+      {% assign tier1_pages = wiki_pages | where_exp: "p", "p.tier == 1" %}
+      {% assign physics_pages = tier1_pages | where: "category", "physics" | sort: "title" %}
+      {% if physics_pages.size > 0 %}
+        {% assign physics_active = false %}
+        {% for p in physics_pages %}
+          {% if page.url == p.url %}{% assign physics_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if physics_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Physics Primitives</summary>
+          {% for p in physics_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Tier 1 — Music Primitives === {% endcomment %}
+      {% assign music_pages = tier1_pages | where: "category", "music" | sort: "title" %}
+      {% if music_pages.size > 0 %}
+        {% assign music_active = false %}
+        {% for p in music_pages %}
+          {% if page.url == p.url %}{% assign music_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if music_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Music Primitives</summary>
+          {% for p in music_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Tier 2 — Essential Context === {% endcomment %}
+      {% assign tier2_all = wiki_pages | where_exp: "p", "p.tier == 2" | sort: "title" %}
+      {% assign tier2_pages = "" | split: "" %}
+      {% for p in tier2_all %}
+        {% unless p.path == "wiki/ROADMAP.md" %}
+          {% assign tier2_pages = tier2_pages | push: p %}
+        {% endunless %}
+      {% endfor %}
+      {% if tier2_pages.size > 0 %}
+        {% assign tier2_active = false %}
+        {% for p in tier2_pages %}
+          {% if page.url == p.url %}{% assign tier2_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if tier2_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Essential Context</summary>
+          {% for p in tier2_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Reference === {% endcomment %}
+      {% assign ref_pages = wiki_pages | where: "tier", "structural" | sort: "title" %}
+      {% if ref_pages.size > 0 %}
+        {% assign ref_active = false %}
+        {% for p in ref_pages %}
+          {% if page.url == p.url %}{% assign ref_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if ref_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Reference</summary>
+          {% for p in ref_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+    </nav>
+
+    <p class="sidebar-footer">&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
+  </div>
+</div>

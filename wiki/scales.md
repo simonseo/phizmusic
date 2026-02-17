@@ -2,6 +2,7 @@
 title: Scales
 aliases: [step-subsets, scale, modes]
 tier: 1
+category: music
 tags: [music, foundation]
 prerequisites: [naming-system.md, intervals.md, frequency-ratios.md]
 related: [intervals.md, naming-system.md, chords.md, frequency-ratios.md, pentatonic-cross-cultural.md, twelve-tet.md, consonance-dissonance.md]

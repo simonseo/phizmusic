@@ -2,6 +2,7 @@
 title: Frequency Ratios
 aliases: [pitch ratios, interval ratios, cent system, cents]
 tier: 1
+category: music
 tags: [physics, math, foundation]
 prerequisites: [sound-waves.md, harmonic-series.md]
 related: [harmonic-series.md, intervals.md, scales.md, twelve-tet.md, consonance-dissonance.md]
