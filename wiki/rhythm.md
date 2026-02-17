@@ -337,7 +337,10 @@ window.addEventListener("load", function () {
   }
 
   /* ── audio ─────────────────────────────────────── */
-  function clickSound(freq) {
+  var audioStartTime = 0; /* Tone.js audio-clock time when playback started */
+  var scheduledEvents = []; /* Tone.Transport event IDs for cleanup */
+
+  function clickSound(freq, time) {
     if (typeof Tone === "undefined") return;
     if (!gain) {
       gain = new Tone.Gain(0.35);
@@ -352,13 +355,69 @@ window.addEventListener("load", function () {
     });
     osc.connect(env);
     env.connect(gain);
-    osc.start();
-    env.triggerAttackRelease(0.05);
+    osc.start(time);
+    env.triggerAttackRelease(0.05, time);
+    /* auto-cleanup after envelope completes */
     setTimeout(function () {
       osc.stop();
       osc.dispose();
       env.dispose();
-    }, 200);
+    }, ((time - Tone.now()) * 1000) + 300);
+  }
+
+  function scheduleAllClicks() {
+    /* Pre-schedule all clicks for a repeating super-cycle using Tone.js clock */
+    var scDurSec = superCycleDuration();
+    var sc = superCycleLength();
+    var hitsA = sc / cycleA;
+    var hitsB = sc / cycleB;
+    var intervalA = scDurSec / hitsA;
+    var intervalB = scDurSec / hitsB;
+    var i, evtId;
+
+    /* Schedule Cycle A clicks — repeat every super-cycle */
+    for (i = 0; i < hitsA; i++) {
+      (function (idx, offset) {
+        evtId = Tone.Transport.scheduleRepeat(function (time) {
+          clickSound(800, time);
+          beatIndexA = idx;
+        }, scDurSec, offset);
+        scheduledEvents.push(evtId);
+      })(i, i * intervalA);
+    }
+
+    /* Schedule Cycle B clicks — repeat every super-cycle */
+    for (i = 0; i < hitsB; i++) {
+      (function (idx, offset) {
+        evtId = Tone.Transport.scheduleRepeat(function (time) {
+          clickSound(400, time);
+          beatIndexB = idx;
+        }, scDurSec, offset);
+        scheduledEvents.push(evtId);
+      })(i, i * intervalB);
+    }
+  }
+
+  function clearScheduledEvents() {
+    for (var i = 0; i < scheduledEvents.length; i++) {
+      Tone.Transport.clear(scheduledEvents[i]);
+    }
+    scheduledEvents = [];
+  }
+
+  /* ── visual animation loop (rAF only — no audio here) ── */
+  function animationLoop() {
+    if (!isPlaying) return;
+
+    var scDurSec = superCycleDuration();
+    /* Derive visual state from Tone.Transport position */
+    var transportSec = Tone.Transport.seconds;
+    var elapsed = transportSec % scDurSec;
+    var fraction = elapsed / scDurSec;
+    playheadAngle = -Math.PI / 2 + fraction * 2 * Math.PI;
+
+    drawStatic();
+    animId = requestAnimationFrame(animationLoop);
   }
 
   /* ── playback loop ─────────────────────────────── */
@@ -370,52 +429,25 @@ window.addEventListener("load", function () {
       playBtn.classList.add("active");
       beatIndexA = -1;
       beatIndexB = -1;
-      startTime = performance.now();
 
-      var scDur = superCycleDuration() * 1000; /* ms */
-      var sc = superCycleLength();
-      var hitsA = sc / cycleA;
-      var hitsB = sc / cycleB;
-      var intervalA = scDur / hitsA;
-      var intervalB = scDur / hitsB;
-      var nextA = 0;
-      var nextB = 0;
+      /* Reset transport and schedule clicks */
+      Tone.Transport.stop();
+      Tone.Transport.cancel();
+      Tone.Transport.position = 0;
+      clearScheduledEvents();
+      scheduleAllClicks();
+      Tone.Transport.start();
 
-      function scheduler() {
-        if (!isPlaying) return;
-        var elapsed = (performance.now() - startTime) % scDur;
-
-        /* wrap indices on new super-cycle */
-        var cycleNumber = Math.floor((performance.now() - startTime) / scDur);
-
-        /* Cycle A scheduling */
-        var idxA = Math.floor(elapsed / intervalA);
-        if (idxA !== beatIndexA) {
-          beatIndexA = idxA % hitsA;
-          clickSound(800);
-        }
-
-        /* Cycle B scheduling */
-        var idxB = Math.floor(elapsed / intervalB);
-        if (idxB !== beatIndexB) {
-          beatIndexB = idxB % hitsB;
-          clickSound(400);
-        }
-
-        /* playhead */
-        var fraction = elapsed / scDur;
-        playheadAngle = -Math.PI / 2 + fraction * 2 * Math.PI;
-
-        drawStatic();
-        animId = requestAnimationFrame(scheduler);
-      }
-
-      animId = requestAnimationFrame(scheduler);
+      /* Start visual loop */
+      animId = requestAnimationFrame(animationLoop);
     });
   }
 
   function stopPlayback() {
     isPlaying = false;
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
+    clearScheduledEvents();
     if (animId) {
       cancelAnimationFrame(animId);
       animId = null;
@@ -485,6 +517,11 @@ window.addEventListener("load", function () {
   window.addEventListener("beforeunload", function () {
     stopPlayback();
     if (gain) { gain.dispose(); gain = null; }
+  });
+
+  /* Stop transport if user navigates away (SPA-like) */
+  window.addEventListener("pagehide", function () {
+    stopPlayback();
   });
 
   /* ── initial state: 3:4 selected, static draw ─── */

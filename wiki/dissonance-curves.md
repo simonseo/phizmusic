@@ -101,6 +101,8 @@ A square wave contains only odd harmonics (1f, 3f, 5f, 7f...). Its dissonance cu
 
 Use the explorer below to see how different spectra produce different dissonance curves. Select a preset or adjust individual harmonic amplitudes, then use the ratio slider to hear any interval with that timbre.
 
+> **Attribution**: The interactive dissonance curve visualization below is heavily inspired by and based on Aatish Bhatia's excellent [Dissonance Curve Explorer](https://aatishb.com/dissonance/). The underlying algorithm follows William Sethares' model from *Tuning, Timbre, Spectrum, Scale*. We gratefully acknowledge Bhatia's work in making this concept accessible and interactive — much of the visualization approach, including the spectral editing concept and curve rendering, was adapted from that project.
+
 <div class="phiz-viz-container">
 <div class="phiz-viz-title">Sethares Dissonance Curve Explorer</div>
 <canvas id="dc-curve-canvas" height="280" style="width:100%;"></canvas>
@@ -400,4 +402,5 @@ This is precisely why the PhizMusic framework insists on physics-first vocabular
 
 ### Suggested References
 
-- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Interactive dissonance curve explorer based on Sethares' model, with click-to-hear intervals and 3D triad dissonance surfaces
+- **[Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/)** — The interactive dissonance curve explorer by Aatish Bhatia that inspired this page's visualization. Features editable spectra, click-to-hear intervals, and 3D triad dissonance surfaces. Much of our visualization approach was adapted from this work.
+- Sethares, W. A. (1993). *Tuning, Timbre, Spectrum, Scale*. Springer-Verlag. — The foundational text on timbre-dependent dissonance.

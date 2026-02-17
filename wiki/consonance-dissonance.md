@@ -127,6 +127,9 @@ Click any button below to hear the two tones separately and together. Listen for
 
 <div class="phiz-viz-container" id="cd-explorer">
 <div class="phiz-viz-title">Dissonance Curve Explorer</div>
+
+> **Attribution**: This dissonance curve visualization is inspired by and based on Aatish Bhatia's [Dissonance Curve Explorer](https://aatishb.com/dissonance/), which implements William Sethares' sensory dissonance model. See [Dissonance Curves](dissonance-curves.md) for the full treatment.
+
 <canvas id="cd-curve-canvas" height="280" style="width:100%;"></canvas>
 <div class="phiz-viz-controls">
 <label>Ratio: <input type="range" id="cd-ratio" min="1000" max="2000" step="1" value="1500"> <span class="slider-value" id="cd-ratio-val">1.500</span></label>
@@ -286,5 +289,6 @@ The brain processes intervals not just as isolated acoustic events but as part o
 
 ### Suggested References
 
-- [Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/) — Interactive dissonance curve explorer based on Sethares' model, with click-to-hear intervals and 3D triad dissonance surfaces
+- **[Sethares Dissonance Curves (aatishb.com)](https://aatishb.com/dissonance/)** — The interactive dissonance curve explorer by Aatish Bhatia that inspired this page's dissonance visualization. Much of our curve computation and rendering approach was adapted from this work.
 - [Overtone Series (muted.io)](https://muted.io/overtone-series/) — Interactive harmonic series with per-harmonic volume sliders and vibrating string visualization
+- Sethares, W. A. (1993). *Tuning, Timbre, Spectrum, Scale*. Springer-Verlag.

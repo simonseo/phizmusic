@@ -96,9 +96,9 @@ Hear the major and minor pentatonic scales, then the characteristic blue notes t
 
 <p><button class="phiz-play-btn" data-steps="[0,3,5,7,10,12]" data-octave="4" onclick="playScale(this)">▶ Minor pentatonic {0,3,5,7,10}</button></p>
 
-<p><button class="phiz-play-btn" data-freq="263.4" onclick="playFreq(this)">▶ Blue third (~310 cents above La3=220 Hz)</button></p>
+<p><button class="phiz-play-btn" data-freq="263.4" data-scale-steps="[0,3,5,7,10]" data-octave="4" data-root-freq="220" onclick="playBlueNote(this)">▶ Blue third (~310 cents above La3=220 Hz)</button></p>
 
-<p><button class="phiz-play-btn" data-freq="383.2" onclick="playFreq(this)">▶ Blue seventh (~969 cents above La3=220 Hz)</button></p>
+<p><button class="phiz-play-btn" data-freq="383.2" data-scale-steps="[0,3,5,7,10]" data-octave="4" data-root-freq="220" onclick="playBlueNote(this)">▶ Blue seventh (~969 cents above La3=220 Hz)</button></p>
 
 ## Just vs. Tempered Pentatonic
 

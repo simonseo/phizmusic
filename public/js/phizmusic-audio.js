@@ -324,6 +324,83 @@
   var FREQSET_CHORD_DELAY = 0.5;
   var FREQSET_CHORD_DURATION = 1.5;
 
+  var BLUE_NOTE_SOLO_DURATION = 1.0;
+  var BLUE_NOTE_GAP = 0.5;
+  var BLUE_NOTE_CHORD_DURATION = 1.5;
+
+  async function playBlueNote(button) {
+    var synth;
+    var cleanupTimeout;
+
+    setPlayButtonsDisabled(true);
+
+    try {
+      var blueFreq = parseFloat(button.dataset.freq || "0");
+      if (isNaN(blueFreq) || blueFreq <= 0) {
+        throw new Error("Invalid blue note frequency");
+      }
+
+      var scaleSteps = JSON.parse(button.dataset.scaleSteps || "[]");
+      if (!Array.isArray(scaleSteps) || scaleSteps.length === 0) {
+        throw new Error("Invalid or empty blue scale step set");
+      }
+
+      var octave =
+        button.dataset.octave !== undefined
+          ? parseInt(button.dataset.octave, 10)
+          : DEFAULT_OCTAVE;
+
+      var rootFreq =
+        button.dataset.rootFreq !== undefined
+          ? parseFloat(button.dataset.rootFreq)
+          : NaN;
+
+      var scaleFreqs;
+      if (!isNaN(rootFreq) && rootFreq > 0) {
+        scaleFreqs = scaleSteps.map(function (step) {
+          return rootFreq * Math.pow(2, step / 12);
+        });
+      } else {
+        scaleFreqs = scaleSteps.map(function (step) {
+          return stepToFreq(step, octave);
+        });
+      }
+
+      var chordFreqs = scaleFreqs.slice();
+      chordFreqs.push(blueFreq);
+
+      await Tone.start();
+
+      synth = new Tone.PolySynth(Tone.Synth, {
+        oscillator: { type: "sine" },
+      }).toDestination();
+
+      var startTime = Tone.now();
+      synth.triggerAttackRelease(blueFreq, BLUE_NOTE_SOLO_DURATION, startTime);
+
+      var chordStartTime = startTime + BLUE_NOTE_SOLO_DURATION + BLUE_NOTE_GAP;
+      chordFreqs.forEach(function (freq) {
+        synth.triggerAttackRelease(freq, BLUE_NOTE_CHORD_DURATION, chordStartTime);
+      });
+
+      var totalPlaybackSeconds =
+        BLUE_NOTE_SOLO_DURATION + BLUE_NOTE_GAP + BLUE_NOTE_CHORD_DURATION;
+
+      cleanupTimeout = setTimeout(function () {
+        setPlayButtonsDisabled(false);
+        if (synth) {
+          synth.dispose();
+          synth = null;
+        }
+      }, Math.ceil(totalPlaybackSeconds * 1000) + 200);
+    } catch (error) {
+      if (cleanupTimeout) clearTimeout(cleanupTimeout);
+      if (synth) synth.dispose();
+      setPlayButtonsDisabled(false);
+      console.warn("PhizMusic blue-note playback failed:", error);
+    }
+  }
+
   async function playFreqSet(button) {
     var synth;
     var cleanupTimeout;
@@ -621,6 +698,7 @@
   window.playFreq = playFreq;
   window.playRatio = playRatio;
   window.playFreqSet = playFreqSet;
+  window.playBlueNote = playBlueNote;
   window.playWaveform = playWaveform;
   window.playEnvelope = playEnvelope;
   window.playProgression = playProgression;
