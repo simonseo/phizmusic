@@ -7,6 +7,7 @@ tags: [notation, foundation, reference]
 prerequisites: []
 related: [glossary.md, reference-table.md, intervals.md, scales.md, translation-tables.md]
 scope-boundary: Naming convention only. No interval, scale, or chord application.
+has_audio: true
 ---
 
 # Naming System
@@ -71,20 +72,92 @@ See [Reference Table](reference-table.md) for the complete mapping.
 
 For speaking, singing, and informal reference, each step has a unique syllable adapted from the [Dodeka Music](https://dodekamusic.com/) system by Jacques-Daniel Rochat:
 
-| Step | Syllable | Pronunciation hint |
-|------|----------|--------------------|
-| 0 | **Do** | "doh" |
-| 1 | **Ka** | "kah" |
-| 2 | **Re** | "ray" |
-| 3 | **Xo** | "zoh" |
-| 4 | **Mi** | "mee" |
-| 5 | **Fa** | "fah" |
-| 6 | **Hu** | "hoo" |
-| 7 | **So** | "soh" |
-| 8 | **Bi** | "bee" |
-| 9 | **La** | "lah" |
-| 10 | **Ve** | "vay" |
-| 11 | **Si** | "see" |
+Click any row to hear the pitch for that step in octave 4.
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Syllable</th>
+      <th>Pronunciation hint</th>
+      <th>Listen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td><strong>Do</strong></td>
+      <td>"doh"</td>
+      <td><button class="phiz-play-btn" data-freq="261.63" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><strong>Ka</strong></td>
+      <td>"kah"</td>
+      <td><button class="phiz-play-btn" data-freq="277.18" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Re</strong></td>
+      <td>"ray"</td>
+      <td><button class="phiz-play-btn" data-freq="293.66" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>Xo</strong></td>
+      <td>"zoh"</td>
+      <td><button class="phiz-play-btn" data-freq="311.13" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>Mi</strong></td>
+      <td>"mee"</td>
+      <td><button class="phiz-play-btn" data-freq="329.63" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>Fa</strong></td>
+      <td>"fah"</td>
+      <td><button class="phiz-play-btn" data-freq="349.23" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>Hu</strong></td>
+      <td>"hoo"</td>
+      <td><button class="phiz-play-btn" data-freq="369.99" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><strong>So</strong></td>
+      <td>"soh"</td>
+      <td><button class="phiz-play-btn" data-freq="392.00" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><strong>Bi</strong></td>
+      <td>"bee"</td>
+      <td><button class="phiz-play-btn" data-freq="415.30" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><strong>La</strong></td>
+      <td>"lah"</td>
+      <td><button class="phiz-play-btn" data-freq="440.00" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><strong>Ve</strong></td>
+      <td>"vay"</td>
+      <td><button class="phiz-play-btn" data-freq="466.16" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><strong>Si</strong></td>
+      <td>"see"</td>
+      <td><button class="phiz-play-btn" data-freq="493.88" onclick="playFreq(this)">▶ Play</button></td>
+    </tr>
+  </tbody>
+</table>
 
 In casual use, a syllable plus octave number identifies a pitch: **So4** = step 7, octave 4 = G4 in Western notation.
 
