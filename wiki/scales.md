@@ -4,6 +4,7 @@ aliases: [step-subsets, scale, modes]
 tier: 1
 category: music
 tags: [music, foundation]
+has_audio: true
 prerequisites: [naming-system.md, intervals.md, frequency-ratios.md]
 related: [intervals.md, naming-system.md, chords.md, frequency-ratios.md, pentatonic-cross-cultural.md, twelve-tet.md, consonance-dissonance.md]
 scope-boundary: Step-subset definition, prime-limit concept, major scale families only. No raga, maqam, or gamelan detail (Tier 3). No key signatures or extended modal theory.
@@ -35,6 +36,8 @@ Each subset has properties you can analyze without any cultural context:
 
 ### Pentatonic Major: {0, 2, 4, 7, 9}
 
+<button class="phiz-play-btn" data-steps="[0,2,4,7,9,12]" onclick="playScale(this)">▶ Play</button>
+
 **Gap pattern**: 2-2-3-2-3 (five gaps, all either 2 or 3 steps)
 
 ```
@@ -47,6 +50,8 @@ This subset appears in Chinese (宫调 gōng diào), Japanese (Yo scale), Scotti
 See [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) for the full story.
 
 ### Major Scale: {0, 2, 4, 5, 7, 9, 11}
+
+<button class="phiz-play-btn" data-steps="[0,2,4,5,7,9,11,12]" onclick="playScale(this)">▶ Play</button>
 
 **Gap pattern**: 2-2-1-2-2-2-1 (seven gaps)
 
@@ -61,6 +66,8 @@ The major scale includes all the consonant intervals of the pentatonic plus adds
 
 ### Natural Minor: {0, 2, 3, 5, 7, 8, 10}
 
+<button class="phiz-play-btn" data-steps="[0,2,3,5,7,8,10,12]" onclick="playScale(this)">▶ Play</button>
+
 **Gap pattern**: 2-1-2-2-1-2-2
 
 ```
@@ -72,6 +79,8 @@ Contains the same intervals as the major scale (it is a **rotation** — see Mod
 
 ### Whole-Tone: {0, 2, 4, 6, 8, 10}
 
+<button class="phiz-play-btn" data-steps="[0,2,4,6,8,10,12]" onclick="playScale(this)">▶ Play</button>
+
 **Gap pattern**: 2-2-2-2-2-2 (perfectly uniform)
 
 ```
@@ -82,6 +91,8 @@ Steps:  0  1  2  3  4  5  6  7  8  9  10  11
 The most symmetrical 6-of-12 subset — every gap is identical. This means it has no "home" note (every starting point sounds equivalent). Used for dreamlike, floating passages because the uniform spacing removes the tension-resolution relationships that anchor tonality.
 
 ### Chromatic: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+<button class="phiz-play-btn" data-steps="[0,1,2,3,4,5,6,7,8,9,10,11,12]" onclick="playScale(this)">▶ Play</button>
 
 **Gap pattern**: 1-1-1-1-1-1-1-1-1-1-1-1
 
