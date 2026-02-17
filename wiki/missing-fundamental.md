@@ -7,6 +7,7 @@ tags: [perception, psychoacoustics, foundation]
 prerequisites: [harmonic-series.md, ear-cochlea.md]
 related: [harmonic-series.md, ear-cochlea.md, consonance-dissonance.md, timbre.md, auditory-masking.md]
 scope-boundary: Missing fundamental phenomenon, harmonic template evidence, real-world examples. No computational pitch perception models (autocorrelation, etc.) — Tier 3.
+has_audio: true
 ---
 
 # Missing Fundamental
@@ -88,6 +89,16 @@ The missing fundamental reveals several deep truths about pitch perception:
 **2. The harmonic series is perceptually fundamental.** The brain's pitch inference machinery is built around harmonic series templates. This is strong evidence that the harmonic series is not just a mathematical curiosity — it is the organizing principle of auditory perception, likely because natural sound sources (voices, vibrating strings, resonating cavities) produce harmonic spectra, and our auditory systems evolved to decode them.
 
 **3. Audio reproduction is more forgiving than you'd think.** Because the brain infers fundamentals from harmonics, you don't need perfect bass reproduction for listeners to hear bass *pitch*. You do need it for bass *weight* and *feel*, but pitch perception is robust to missing lower frequencies.
+
+## Hear It
+
+Try these demonstrations. First, hear the complete harmonic series with the fundamental present. Then hear the same series with the fundamental removed — notice how the perceived pitch stays the same.
+
+<p><button class="phiz-play-btn" data-freqs="[100,200,300,400,500,600]" data-nochord="true" onclick="playFreqSet(this)">▶ Complete series (100–600 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freqs="[200,300,400,500,600]" data-nochord="true" onclick="playFreqSet(this)">▶ Missing fundamental (200–600 Hz)</button></p>
+
+<p><button class="phiz-play-btn" data-freqs="[100]" data-nochord="true" onclick="playFreqSet(this)">▶ Just the fundamental (100 Hz)</button></p>
 
 <!-- INTERACTIVE: Missing fundamental demo — play a harmonic series with the fundamental present, then remove it and hear how the pitch percept remains. Add a slider to filter out progressively lower harmonics and observe when the pitch percept finally breaks down. -->
 
