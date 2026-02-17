@@ -6,6 +6,7 @@ tags: [time-domain, timbre, dynamics]
 prerequisites: [sound-waves.md, timbre.md, rhythm.md]
 related: [sound-waves.md, timbre.md, rhythm.md, digital-audio.md, instrument-physics.md]
 scope-boundary: Envelope concept and instrument profiles only. No synthesizer patch design or dynamic processor tutorials.
+has_audio: true
 ---
 
 # ADSR Envelope
@@ -111,6 +112,18 @@ ADSR is a foundational control in audio tools:
 - Mixing decisions often target envelope regions (for example preserving attack while controlling sustain)
 
 This is where source physics and production practice meet.
+
+## Hear Different Envelopes
+
+All four examples play the same pitch (Do4 = 261.63 Hz) with different ADSR envelopes. Listen for how the time-profile changes the character of the sound.
+
+<p><button class="phiz-play-btn" data-freq="261.63" data-envelope='{"attack":0.001,"decay":0.2,"sustain":0.0,"release":0.1}' data-hold="0.3" onclick="playEnvelope(this)">▶ Percussive (fast attack, no sustain)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="261.63" data-envelope='{"attack":0.01,"decay":0.1,"sustain":0.8,"release":0.3}' data-hold="1.5" onclick="playEnvelope(this)">▶ Organ-like (instant attack, long sustain)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="261.63" data-envelope='{"attack":0.8,"decay":0.3,"sustain":0.6,"release":1.0}' data-hold="1.5" onclick="playEnvelope(this)">▶ Slow strings (gradual attack, long release)</button></p>
+
+<p><button class="phiz-play-btn" data-freq="261.63" data-envelope='{"attack":0.001,"decay":0.5,"sustain":0.1,"release":0.3}' data-hold="0.8" onclick="playEnvelope(this)">▶ Plucked (sharp attack, fast decay)</button></p>
 
 <!-- INTERACTIVE: Envelope sketchpad — adjust A, D, S, R sliders and audition one fixed pitch through multiple source models (piano-like, organ-like, bowed-string-like, drum-like) -->
 
