@@ -2,6 +2,8 @@
 title: Instrument Physics
 aliases: [acoustic sources, strings pipes membranes, source archetypes]
 tier: 2
+category: sound
+sidebar_order: 2
 tags: [acoustics, instruments, spectra]
 prerequisites: [sound-waves.md, harmonic-series.md, timbre.md]
 related: [sound-waves.md, harmonic-series.md, timbre.md, consonance-dissonance.md, digital-audio.md]

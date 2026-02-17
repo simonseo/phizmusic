@@ -2,6 +2,8 @@
 title: Auditory Masking
 aliases: [masking, frequency masking, temporal masking, psychoacoustic masking]
 tier: 2
+category: perception
+sidebar_order: 5
 tags: [psychoacoustics, perception, compression]
 prerequisites: [ear-cochlea.md, sound-waves.md, missing-fundamental.md, digital-audio.md]
 related: [ear-cochlea.md, sound-waves.md, missing-fundamental.md, digital-audio.md, equal-loudness.md, consonance-dissonance.md]

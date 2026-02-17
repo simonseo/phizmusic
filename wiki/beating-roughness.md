@@ -3,6 +3,7 @@ title: Beating & Roughness
 aliases: [beat frequency, interference beating, sensory roughness]
 tier: 2
 category: perception
+sidebar_order: 1
 tags: [psychoacoustics, perception, interference]
 prerequisites: [sound-waves.md, consonance-dissonance.md]
 related: [consonance-dissonance.md, dissonance-curves.md, ear-cochlea.md]

@@ -2,6 +2,8 @@
 title: Consonance & Dissonance
 aliases: [consonance, dissonance, roughness, tonal fusion]
 tier: 2
+category: perception
+sidebar_order: 2
 tags: [perception, psychoacoustics, harmony]
 prerequisites: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md]
 related: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md, frequency-ratios.md, timbre.md, twelve-tet.md]

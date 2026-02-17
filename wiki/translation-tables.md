@@ -2,6 +2,8 @@
 title: Translation Tables
 aliases: [translation, Western equivalents, cross-system mapping]
 tier: 2
+category: systems
+sidebar_order: 5
 tags: [reference, cross-system]
 prerequisites: [naming-system.md, intervals.md, scales.md, chords.md, rhythm.md]
 related: [glossary.md, reference-table.md, naming-system.md, intervals.md, scales.md, chords.md, rhythm.md]

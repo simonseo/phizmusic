@@ -2,6 +2,8 @@
 title: Equal Loudness
 aliases: [Fletcher-Munson, ISO 226, phon scale, frequency sensitivity]
 tier: 2
+category: perception
+sidebar_order: 4
 tags: [psychoacoustics, loudness, perception]
 prerequisites: [sound-waves.md, ear-cochlea.md]
 related: [sound-waves.md, ear-cochlea.md, auditory-masking.md, digital-audio.md, instrument-physics.md]

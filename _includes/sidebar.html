@@ -49,22 +49,64 @@
         </details>
       {% endif %}
 
-      {% comment %} === Tier 2 — Essential Context === {% endcomment %}
-      {% assign tier2_all = wiki_pages | where_exp: "p", "p.tier == 2" | sort: "title" %}
-      {% assign tier2_pages = "" | split: "" %}
-      {% for p in tier2_all %}
-        {% unless p.path == "wiki/ROADMAP.md" %}
-          {% assign tier2_pages = tier2_pages | push: p %}
-        {% endunless %}
-      {% endfor %}
-      {% if tier2_pages.size > 0 %}
-        {% assign tier2_active = false %}
-        {% for p in tier2_pages %}
-          {% if page.url == p.url %}{% assign tier2_active = true %}{% endif %}
+      {% comment %} === Tier 2 — Sub-grouped by category, ordered low→high level === {% endcomment %}
+      {% assign tier2_all = wiki_pages | where_exp: "p", "p.tier == 2" %}
+
+      {% comment %} === How We Hear (perception) === {% endcomment %}
+      {% assign perception_pages = tier2_all | where: "category", "perception" | sort: "sidebar_order" %}
+      {% if perception_pages.size > 0 %}
+        {% assign perception_active = false %}
+        {% for p in perception_pages %}
+          {% if page.url == p.url %}{% assign perception_active = true %}{% endif %}
         {% endfor %}
-        <details class="sidebar-group"{% if tier2_active %} open{% endif %}>
-          <summary class="sidebar-group-heading">Essential Context</summary>
-          {% for p in tier2_pages %}
+        <details class="sidebar-group"{% if perception_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">How We Hear</summary>
+          {% for p in perception_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Sound Sources (sound) === {% endcomment %}
+      {% assign sound_pages = tier2_all | where: "category", "sound" | sort: "sidebar_order" %}
+      {% if sound_pages.size > 0 %}
+        {% assign sound_active = false %}
+        {% for p in sound_pages %}
+          {% if page.url == p.url %}{% assign sound_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if sound_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Sound Sources</summary>
+          {% for p in sound_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Organizing Pitch (systems) === {% endcomment %}
+      {% assign systems_pages = tier2_all | where: "category", "systems" | sort: "sidebar_order" %}
+      {% if systems_pages.size > 0 %}
+        {% assign systems_active = false %}
+        {% for p in systems_pages %}
+          {% if page.url == p.url %}{% assign systems_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if systems_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Organizing Pitch</summary>
+          {% for p in systems_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Applied Theory (harmony) === {% endcomment %}
+      {% assign harmony_pages = tier2_all | where: "category", "harmony" | sort: "sidebar_order" %}
+      {% if harmony_pages.size > 0 %}
+        {% assign harmony_active = false %}
+        {% for p in harmony_pages %}
+          {% if page.url == p.url %}{% assign harmony_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if harmony_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Applied Theory</summary>
+          {% for p in harmony_pages %}
             <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
           {% endfor %}
         </details>

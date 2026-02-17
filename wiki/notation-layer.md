@@ -2,6 +2,8 @@
 title: Notation Layer
 aliases: [notation, chromatic grid, piano roll, Dodeka]
 tier: 2
+category: systems
+sidebar_order: 4
 tags: [notation, visualization, mapping]
 prerequisites: [naming-system.md, scales.md, twelve-tet.md]
 related: [naming-system.md, scales.md, intervals.md, twelve-tet.md, digital-audio.md, translation-tables.md]

@@ -3,6 +3,7 @@ title: Dissonance Curves
 aliases: [Sethares dissonance, timbre-specific dissonance]
 tier: 2
 category: perception
+sidebar_order: 3
 tags: [psychoacoustics, perception, timbre]
 prerequisites: [consonance-dissonance.md, timbre.md, harmonic-series.md]
 related: [consonance-dissonance.md, timbre.md, twelve-tet.md, harmonic-series.md]

@@ -3,6 +3,7 @@ title: Shepard Tones
 aliases: [Shepard scale, auditory barber pole, pitch circularity]
 tier: 2
 category: perception
+sidebar_order: 6
 tags: [psychoacoustics, perception, illusion]
 prerequisites: [missing-fundamental.md, harmonic-series.md, equal-loudness.md]
 related: [missing-fundamental.md, ear-cochlea.md, frequency-ratios.md]

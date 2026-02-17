@@ -2,6 +2,8 @@
 title: Twelve-Tone Equal Temperament (12-TET)
 aliases: [12-TET, equal temperament, ET, twelve-tone equal temperament]
 tier: 2
+category: systems
+sidebar_order: 1
 tags: [tuning, system, compromise]
 prerequisites: [frequency-ratios.md, intervals.md, scales.md]
 related: [frequency-ratios.md, intervals.md, scales.md, harmonic-series.md, consonance-dissonance.md, instrument-physics.md]

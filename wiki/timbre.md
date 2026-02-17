@@ -2,6 +2,8 @@
 title: Timbre
 aliases: [tone color, spectral signature, auditory scene analysis]
 tier: 2
+category: sound
+sidebar_order: 1
 tags: [spectrum, perception, instrumentation]
 prerequisites: [fourier-analysis.md, harmonic-series.md, ear-cochlea.md, consonance-dissonance.md]
 related: [fourier-analysis.md, harmonic-series.md, ear-cochlea.md, consonance-dissonance.md, instrument-physics.md, twelve-tet.md]
