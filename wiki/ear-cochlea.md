@@ -56,7 +56,285 @@ When a pressure wave enters the cochlea at the oval window, it creates a traveli
 
 When a complex sound arrives — one containing many frequencies simultaneously — each frequency component excites its own region of the basilar membrane. The membrane physically separates the mixture into its constituent frequencies, just as a prism separates white light into colors. This is a **biological Fourier transform** performed by mechanical resonance, not computation.
 
-<!-- INTERACTIVE: Animated basilar membrane showing frequency decomposition of a complex tone — input a chord, see separate peaks form at positions corresponding to each frequency component -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Basilar Membrane Frequency Decomposition</div>
+<canvas id="ec-membrane-canvas" height="200" style="width:100%;"></canvas>
+<div id="ec-info" style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:6px 0 4px;"></div>
+<div class="phiz-viz-controls" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px 16px;">
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="color:#ff6090;font-family:monospace;font-size:0.8rem;min-width:3.2em;" id="ec-freq1-label">440 Hz</span>
+    <input type="range" id="ec-freq1" min="100" max="4000" value="440" style="flex:1;accent-color:#ff6090;">
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="color:#40c4ff;font-family:monospace;font-size:0.8rem;min-width:3.2em;" id="ec-freq2-label">554 Hz</span>
+    <input type="range" id="ec-freq2" min="100" max="4000" value="554" style="flex:1;accent-color:#40c4ff;">
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="color:#69f0ae;font-family:monospace;font-size:0.8rem;min-width:3.2em;" id="ec-freq3-label">659 Hz</span>
+    <input type="range" id="ec-freq3" min="100" max="4000" value="659" style="flex:1;accent-color:#69f0ae;">
+  </div>
+</div>
+<div class="phiz-viz-controls" style="margin-top:8px;">
+  <button id="ec-play">&#9654; Play</button>
+</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var canvas = document.getElementById("ec-membrane-canvas");
+  var infoEl = document.getElementById("ec-info");
+  var slider1 = document.getElementById("ec-freq1");
+  var slider2 = document.getElementById("ec-freq2");
+  var slider3 = document.getElementById("ec-freq3");
+  var label1 = document.getElementById("ec-freq1-label");
+  var label2 = document.getElementById("ec-freq2-label");
+  var label3 = document.getElementById("ec-freq3-label");
+  var playBtn = document.getElementById("ec-play");
+
+  var COLORS = ["#ff6090", "#40c4ff", "#69f0ae"];
+  var oscillators = [];
+  var gainNodes = [];
+  var playing = false;
+
+  function freqToX(freq, w) {
+    // Logarithmic mapping: position = log2(freq/20) / log2(20000/20) * width
+    var logMin = Math.log(20) / Math.LN2;
+    var logMax = Math.log(20000) / Math.LN2;
+    var logF = Math.log(freq) / Math.LN2;
+    return ((logF - logMin) / (logMax - logMin)) * w;
+  }
+
+  function getFreqs() {
+    return [
+      parseInt(slider1.value, 10),
+      parseInt(slider2.value, 10),
+      parseInt(slider3.value, 10)
+    ];
+  }
+
+  function draw() {
+    if (typeof PhizViz === "undefined") return;
+    var fit = PhizViz.fitCanvas(canvas);
+    var w = fit.w;
+    var h = fit.h;
+    var ctx = fit.ctx;
+
+    // Background
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, h);
+
+    var memTop = 60;
+    var memBot = h - 30;
+    var memH = memBot - memTop;
+
+    // Draw membrane — tapered shape (wide at left/apex/low-freq, narrow at right/base/high-freq)
+    // Note: cochlea unrolled has base(high-freq) at left, apex(low-freq) at right
+    // But task says: "20 Hz (apex)" on left, "20,000 Hz (base)" on right
+    // So left = low freq (wide), right = high freq (narrow)
+    var taperTop = 0.15; // fraction of memH for the narrow end
+    var taperBot = 0.85; // fraction of memH for the wide end
+
+    ctx.beginPath();
+    // Top edge: goes from memTop + memH*(1-taperBot)/2 at left to memTop + memH*(1-taperTop)/2 at right
+    var leftHalfH = memH * taperBot;
+    var rightHalfH = memH * taperTop;
+    var leftTopY = memTop + (memH - leftHalfH) / 2;
+    var leftBotY = leftTopY + leftHalfH;
+    var rightTopY = memTop + (memH - rightHalfH) / 2;
+    var rightBotY = rightTopY + rightHalfH;
+
+    // Gradient fill for membrane
+    var grad = ctx.createLinearGradient(0, 0, w, 0);
+    grad.addColorStop(0, "rgba(100,120,140,0.35)");
+    grad.addColorStop(1, "rgba(100,120,140,0.15)");
+
+    ctx.beginPath();
+    ctx.moveTo(0, leftTopY);
+    ctx.lineTo(w, rightTopY);
+    ctx.lineTo(w, rightBotY);
+    ctx.lineTo(0, leftBotY);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Membrane outline
+    ctx.strokeStyle = "rgba(255,255,255,0.25)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Center line of membrane
+    var centerY = function(x) {
+      var t = x / w;
+      var topY = leftTopY + (rightTopY - leftTopY) * t;
+      var botY = leftBotY + (rightBotY - leftBotY) * t;
+      return (topY + botY) / 2;
+    };
+
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(0, centerY(0));
+    for (var px = 1; px <= w; px++) {
+      ctx.lineTo(px, centerY(px));
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Draw frequency peaks
+    var freqs = getFreqs();
+    for (var i = 0; i < 3; i++) {
+      var freq = freqs[i];
+      var x = freqToX(freq, w);
+      var cy = centerY(x);
+      // Local membrane half-height at this x
+      var t = x / w;
+      var topAtX = leftTopY + (rightTopY - leftTopY) * t;
+      var botAtX = leftBotY + (rightBotY - leftBotY) * t;
+      var localHalfH = (botAtX - topAtX) / 2;
+      var peakAmp = localHalfH * 0.7;
+      var peakWidth = 30;
+
+      // Draw bump as a Gaussian-like displacement
+      ctx.beginPath();
+      ctx.strokeStyle = COLORS[i];
+      ctx.lineWidth = 2.5;
+      var started = false;
+      for (var dx = -peakWidth * 2; dx <= peakWidth * 2; dx++) {
+        var px2 = x + dx;
+        if (px2 < 0 || px2 > w) continue;
+        var gauss = Math.exp(-(dx * dx) / (2 * peakWidth * peakWidth / 4));
+        var yOff = -peakAmp * gauss;
+        if (!started) {
+          ctx.moveTo(px2, centerY(px2) + yOff);
+          started = true;
+        } else {
+          ctx.lineTo(px2, centerY(px2) + yOff);
+        }
+      }
+      ctx.stroke();
+
+      // Fill under the bump
+      ctx.beginPath();
+      ctx.globalAlpha = 0.15;
+      ctx.fillStyle = COLORS[i];
+      started = false;
+      var firstPx = null;
+      var lastPx = null;
+      for (var dx2 = -peakWidth * 2; dx2 <= peakWidth * 2; dx2++) {
+        var px3 = x + dx2;
+        if (px3 < 0 || px3 > w) continue;
+        if (firstPx === null) firstPx = px3;
+        lastPx = px3;
+        var gauss2 = Math.exp(-(dx2 * dx2) / (2 * peakWidth * peakWidth / 4));
+        var yOff2 = -peakAmp * gauss2;
+        if (!started) {
+          ctx.moveTo(px3, centerY(px3));
+          started = true;
+        }
+        ctx.lineTo(px3, centerY(px3) + yOff2);
+      }
+      // Close back along the center line
+      if (lastPx !== null) {
+        ctx.lineTo(lastPx, centerY(lastPx));
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+
+      // Frequency label above peak
+      ctx.fillStyle = COLORS[i];
+      ctx.font = "bold 11px PT Sans, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "bottom";
+      var labelY = centerY(x) - peakAmp - 6;
+      if (labelY < 12) labelY = 12;
+      ctx.fillText(freq + " Hz", x, labelY);
+    }
+
+    // End labels
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    ctx.font = "10px PT Sans, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("20 Hz (apex)", 4, h - 4);
+    ctx.textAlign = "right";
+    ctx.fillText("20,000 Hz (base)", w - 4, h - 4);
+
+    // Info
+    infoEl.textContent = "Frequencies: " + freqs[0] + " Hz, " + freqs[1] + " Hz, " + freqs[2] + " Hz";
+  }
+
+  function onSliderInput() {
+    label1.textContent = slider1.value + " Hz";
+    label2.textContent = slider2.value + " Hz";
+    label3.textContent = slider3.value + " Hz";
+    draw();
+    updateAudio();
+  }
+
+  slider1.addEventListener("input", onSliderInput);
+  slider2.addEventListener("input", onSliderInput);
+  slider3.addEventListener("input", onSliderInput);
+
+  function updateAudio() {
+    if (!playing) return;
+    var freqs = getFreqs();
+    for (var i = 0; i < oscillators.length; i++) {
+      if (oscillators[i]) {
+        oscillators[i].frequency.value = freqs[i];
+      }
+    }
+  }
+
+  function startAudio() {
+    Tone.start().then(function() {
+      var freqs = getFreqs();
+      for (var i = 0; i < 3; i++) {
+        var gain = new Tone.Gain(0.15).toDestination();
+        var osc = new Tone.Oscillator(freqs[i], "sine").connect(gain);
+        osc.start();
+        oscillators.push(osc);
+        gainNodes.push(gain);
+      }
+      playing = true;
+      playBtn.textContent = "\u25A0 Stop";
+      playBtn.classList.add("active");
+    });
+  }
+
+  function stopAudio() {
+    for (var i = 0; i < oscillators.length; i++) {
+      oscillators[i].stop();
+      oscillators[i].dispose();
+    }
+    for (var j = 0; j < gainNodes.length; j++) {
+      gainNodes[j].dispose();
+    }
+    oscillators = [];
+    gainNodes = [];
+    playing = false;
+    playBtn.textContent = "\u25B6 Play";
+    playBtn.classList.remove("active");
+  }
+
+  playBtn.addEventListener("click", function() {
+    if (playing) {
+      stopAudio();
+    } else {
+      startAudio();
+    }
+  });
+
+  // Initial draw
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", draw);
+  } else {
+    draw();
+  }
+})();
+</script>
 
 ## Hair Cells: Converting Motion to Nerve Signals
 

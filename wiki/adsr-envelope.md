@@ -125,7 +125,101 @@ All four examples play the same pitch (Do4 = 261.63 Hz) with different ADSR enve
 
 <p><button class="phiz-play-btn" data-freq="261.63" data-envelope='{"attack":0.001,"decay":0.5,"sustain":0.1,"release":0.3}' data-hold="0.8" onclick="playEnvelope(this)">▶ Plucked (sharp attack, fast decay)</button></p>
 
-<!-- INTERACTIVE: Envelope sketchpad — adjust A, D, S, R sliders and audition one fixed pitch through multiple source models (piano-like, organ-like, bowed-string-like, drum-like) -->
+<div class="phiz-viz-container" id="adsr-sketchpad">
+<div class="phiz-viz-title">ADSR Envelope Sketchpad</div>
+<canvas id="adsr-canvas" height="200" style="width:100%;"></canvas>
+<div class="phiz-viz-controls" style="flex-wrap:wrap;">
+<label>A: <input type="range" id="adsr-a" min="0" max="200" step="1" value="1"> <span class="slider-value" id="adsr-a-val">0.01</span>s</label>
+<label>D: <input type="range" id="adsr-d" min="0" max="200" step="1" value="20"> <span class="slider-value" id="adsr-d-val">0.20</span>s</label>
+<label>S: <input type="range" id="adsr-s" min="0" max="100" step="1" value="70"> <span class="slider-value" id="adsr-s-val">0.70</span></label>
+<label>R: <input type="range" id="adsr-r" min="0" max="300" step="1" value="30"> <span class="slider-value" id="adsr-r-val">0.30</span>s</label>
+<label>Hold: <input type="range" id="adsr-hold" min="0" max="30" step="1" value="10"> <span class="slider-value" id="adsr-hold-val">1.0</span>s</label>
+</div>
+<div class="phiz-viz-controls">
+<button class="adsr-preset" data-a="1" data-d="50" data-s="10" data-r="80">Piano</button>
+<button class="adsr-preset" data-a="1" data-d="10" data-s="80" data-r="30">Organ</button>
+<button class="adsr-preset" data-a="80" data-d="30" data-s="60" data-r="100">Strings</button>
+<button class="adsr-preset" data-a="1" data-d="30" data-s="0" data-r="20">Plucked</button>
+<button class="adsr-preset" data-a="150" data-d="50" data-s="70" data-r="200">Pad</button>
+<button id="adsr-play">▶ Play</button>
+</div>
+<div id="adsr-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;">A: 0.01s | D: 0.20s | S: 0.70 | R: 0.30s | Hold: 1.0s</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+  var canvas = document.getElementById("adsr-canvas");
+  var sliderA = document.getElementById("adsr-a");
+  var sliderD = document.getElementById("adsr-d");
+  var sliderS = document.getElementById("adsr-s");
+  var sliderR = document.getElementById("adsr-r");
+  var sliderH = document.getElementById("adsr-hold");
+  var info = document.getElementById("adsr-info");
+
+  function getVals() {
+    return {
+      attack: sliderA.value / 100,
+      decay: sliderD.value / 100,
+      sustain: sliderS.value / 100,
+      release: sliderR.value / 100,
+      hold: sliderH.value / 10
+    };
+  }
+
+  function redraw() {
+    var v = getVals();
+    document.getElementById("adsr-a-val").textContent = v.attack.toFixed(2);
+    document.getElementById("adsr-d-val").textContent = v.decay.toFixed(2);
+    document.getElementById("adsr-s-val").textContent = v.sustain.toFixed(2);
+    document.getElementById("adsr-r-val").textContent = v.release.toFixed(2);
+    document.getElementById("adsr-hold-val").textContent = v.hold.toFixed(1);
+    info.textContent = "A: " + v.attack.toFixed(2) + "s | D: " + v.decay.toFixed(2) + "s | S: " + v.sustain.toFixed(2) + " | R: " + v.release.toFixed(2) + "s | Hold: " + v.hold.toFixed(1) + "s";
+    if (typeof PhizViz !== "undefined" && PhizViz.drawADSR) {
+      PhizViz.drawADSR(canvas, {attack: v.attack, decay: v.decay, sustain: v.sustain, release: v.release}, {color: "#00e5ff", bg: "#111", hold: v.hold});
+    }
+  }
+
+  sliderA.addEventListener("input", redraw);
+  sliderD.addEventListener("input", redraw);
+  sliderS.addEventListener("input", redraw);
+  sliderR.addEventListener("input", redraw);
+  sliderH.addEventListener("input", redraw);
+
+  var presets = document.querySelectorAll(".adsr-preset");
+  for (var i = 0; i < presets.length; i++) {
+    presets[i].addEventListener("click", function() {
+      sliderA.value = this.dataset.a;
+      sliderD.value = this.dataset.d;
+      sliderS.value = this.dataset.s;
+      sliderR.value = this.dataset.r;
+      redraw();
+    });
+  }
+
+  document.getElementById("adsr-play").addEventListener("click", function() {
+    var v = getVals();
+    Tone.start().then(function() {
+      var synth = new Tone.Synth({
+        oscillator: {type: "sine"},
+        envelope: {attack: v.attack, decay: v.decay, sustain: v.sustain, release: v.release}
+      }).toDestination();
+      synth.triggerAttack(261.63);
+      var holdMs = Math.round(v.hold * 1000) + Math.round(v.attack * 1000) + Math.round(v.decay * 1000);
+      setTimeout(function() {
+        synth.triggerRelease();
+        setTimeout(function() { synth.dispose(); }, Math.round(v.release * 1000) + 200);
+      }, holdMs);
+    });
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", redraw);
+  } else {
+    redraw();
+  }
+})();
+</script>
 
 ## Translation Table
 

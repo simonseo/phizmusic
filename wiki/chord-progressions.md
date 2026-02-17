@@ -119,7 +119,160 @@ Click to hear each progression played as a sequence of chords. Listen for the te
 
 <p><button class="phiz-play-btn" data-chords="[[2,5,9],[7,11,14],[0,4,7]]" data-octave="4" onclick="playProgression(this)">▶ ii – V – I</button></p>
 
-<!-- INTERACTIVE: Progression path visualizer — show step-sets as points/blocks on a chromatic grid timeline, compute total movement D for each transition, and audition low-vs-high movement mappings -->
+<div class="phiz-viz-container" id="cp-visualizer">
+<div class="phiz-viz-title">Progression Path Visualizer</div>
+<canvas id="cp-grid-canvas" height="260" style="width:100%;"></canvas>
+<div class="phiz-viz-controls">
+<button class="cp-preset active" data-idx="0">0→3→4→0</button>
+<button class="cp-preset" data-idx="1">0→4→5→3</button>
+<button class="cp-preset" data-idx="2">1→4→0</button>
+<button id="cp-play">▶ Play</button>
+</div>
+<div id="cp-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;"></div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+  var canvas = document.getElementById("cp-grid-canvas");
+  var info = document.getElementById("cp-info");
+  var SYLLABLES = ["Do","Ka","Re","Xo","Mi","Fa","Hu","So","Bi","La","Ve","Si"];
+  var progressions = [
+    {label: "0\u21923\u21924\u21920", western: "I\u2013IV\u2013V\u2013I", chords: [[0,4,7],[5,9,12],[7,11,14],[0,4,7]]},
+    {label: "0\u21924\u21925\u21923", western: "I\u2013V\u2013vi\u2013IV", chords: [[0,4,7],[7,11,14],[9,12,16],[5,9,12]]},
+    {label: "1\u21924\u21920", western: "ii\u2013V\u2013I", chords: [[2,5,9],[7,11,14],[0,4,7]]}
+  ];
+  var currentIdx = 0;
+
+  function fitCanvas() {
+    if (typeof PhizViz !== "undefined" && PhizViz.fitCanvas) return PhizViz.fitCanvas(canvas);
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    var ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+    return {w: rect.width, h: rect.height, ctx: ctx};
+  }
+
+  function totalMovement(chords) {
+    var d = 0;
+    for (var i = 1; i < chords.length; i++) {
+      var prev = chords[i - 1].slice().sort(function(a, b) { return a - b; });
+      var curr = chords[i].slice().sort(function(a, b) { return a - b; });
+      for (var v = 0; v < Math.min(prev.length, curr.length); v++) {
+        d += Math.abs(curr[v] - prev[v]);
+      }
+    }
+    return d;
+  }
+
+  function drawGrid() {
+    var fit = fitCanvas();
+    var ctx = fit.ctx;
+    var w = fit.w;
+    var h = fit.h;
+    var prog = progressions[currentIdx];
+    var chords = prog.chords;
+    var pad = {left: 40, right: 20, top: 15, bottom: 25};
+    var gw = w - pad.left - pad.right;
+    var gh = h - pad.top - pad.bottom;
+
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, h);
+
+    for (var s = 0; s <= 14; s++) {
+      var y = pad.top + gh - (s / 14) * gh;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(w - pad.right, y);
+      ctx.strokeStyle = (s % 12 === 0) ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.07)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      if (s <= 11) {
+        ctx.fillStyle = "#666";
+        ctx.font = "10px monospace";
+        ctx.textAlign = "right";
+        ctx.fillText(String(s), pad.left - 4, y + 3);
+      }
+    }
+
+    var colW = gw / chords.length;
+    var colors = ["#00e5ff", "#ff6090", "#66ff66", "#ffcc00", "#cc99ff"];
+
+    for (var c = 0; c < chords.length; c++) {
+      var cx = pad.left + c * colW + colW / 2;
+      var chord = chords[c];
+      var color = colors[c % colors.length];
+
+      for (var n = 0; n < chord.length; n++) {
+        var step = chord[n];
+        var ny = pad.top + gh - (step / 14) * gh;
+        ctx.fillStyle = color;
+        ctx.globalAlpha = 0.8;
+        ctx.fillRect(cx - 14, ny - 8, 28, 16);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#111";
+        ctx.font = "bold 10px monospace";
+        ctx.textAlign = "center";
+        ctx.fillText(String(step % 12), cx, ny + 4);
+      }
+
+      if (c > 0) {
+        var prev = chords[c - 1];
+        var pcx = pad.left + (c - 1) * colW + colW / 2;
+        for (var v = 0; v < Math.min(prev.length, chord.length); v++) {
+          var py = pad.top + gh - (prev[v] / 14) * gh;
+          var cy2 = pad.top + gh - (chord[v] / 14) * gh;
+          ctx.beginPath();
+          ctx.moveTo(pcx + 14, py);
+          ctx.lineTo(cx - 14, cy2);
+          ctx.strokeStyle = "rgba(255,255,255,0.3)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      ctx.fillStyle = "#aaa";
+      ctx.font = "11px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("{" + chord.map(function(s) { return s % 12; }).join(",") + "}", cx, h - 6);
+    }
+
+    var D = totalMovement(chords);
+    info.textContent = "Progression: " + chords.map(function(ch) { return "{" + ch.map(function(s) { return s % 12; }).join(",") + "}"; }).join(" \u2192 ") + " | Total D: " + D + " (" + prog.western + ")";
+  }
+
+  var presetBtns = document.querySelectorAll(".cp-preset");
+  for (var i = 0; i < presetBtns.length; i++) {
+    presetBtns[i].addEventListener("click", function() {
+      for (var j = 0; j < presetBtns.length; j++) presetBtns[j].classList.remove("active");
+      this.classList.add("active");
+      currentIdx = parseInt(this.dataset.idx);
+      drawGrid();
+    });
+  }
+
+  document.getElementById("cp-play").addEventListener("click", function() {
+    var prog = progressions[currentIdx];
+    Tone.start().then(function() {
+      var synth = new Tone.PolySynth(Tone.Synth, {oscillator: {type: "sine"}, envelope: {attack: 0.05, decay: 0.1, sustain: 0.6, release: 0.3}}).toDestination();
+      var now = Tone.now();
+      for (var c = 0; c < prog.chords.length; c++) {
+        var freqs = prog.chords[c].map(function(step) { return 261.63 * Math.pow(2, step / 12); });
+        synth.triggerAttackRelease(freqs, 0.7, now + c * 0.85);
+      }
+      setTimeout(function() { synth.dispose(); }, Math.round(prog.chords.length * 850) + 800);
+    });
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", drawGrid);
+  } else {
+    drawGrid();
+  }
+})();
+</script>
 
 ## Translation Table
 

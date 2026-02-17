@@ -190,7 +190,326 @@ The step-set {0, 4, 7} specifies pitch *classes* — which of the 12 chromatic s
 
 These choices affect the sound significantly — a closely spaced {0, 4, 7} in one octave sounds different from a widely spaced version across three octaves — but the harmonic identity (4:5:6 ratio relationship) is preserved. Voicing is an expressive dimension beyond the step-set itself.
 
-<!-- INTERACTIVE: Chord explorer — select step-numbers on a chromatic grid, hear the result, see the ratio-set and harmonic-series alignment displayed -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Chord Explorer — Build a Step-Set</div>
+<div id="ch-step-buttons" class="phiz-viz-controls" style="flex-wrap:nowrap;justify-content:center;"></div>
+<div id="ch-step-info" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin:8px 0 4px;text-align:center;font-family:monospace;"></div>
+<div id="ch-ratio-info" style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin:2px 0 8px;text-align:center;font-family:monospace;"></div>
+<canvas id="ch-spectrum-canvas" height="150" style="width:100%;"></canvas>
+<div class="phiz-viz-controls" style="margin-top:8px;">
+  <button id="ch-play">&#9654; Play</button>
+</div>
+<div class="phiz-viz-controls" style="margin-top:4px;">
+  <span style="color:rgba(255,255,255,0.4);font-size:0.75rem;margin-right:6px;">Presets:</span>
+  <button class="ch-preset" data-steps="0,4,7">{0,4,7}</button>
+  <button class="ch-preset" data-steps="0,3,7">{0,3,7}</button>
+  <button class="ch-preset" data-steps="0,4,7,10">{0,4,7,10}</button>
+  <button class="ch-preset" data-steps="0,3,6,9">{0,3,6,9}</button>
+  <button class="ch-preset" data-steps="0,4,8">{0,4,8}</button>
+</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var ROOT_FREQ = 261.63; // Do4
+  var DODEKA = ["Do", "Ka", "Re", "Xo", "Mi", "Fa", "Hu", "So", "Bi", "La", "Ve", "Si", "Do\u2032"];
+  var selectedSteps = {};
+  var canvas = document.getElementById("ch-spectrum-canvas");
+  var stepInfo = document.getElementById("ch-step-info");
+  var ratioInfo = document.getElementById("ch-ratio-info");
+  var playBtn = document.getElementById("ch-play");
+  var stepBtnContainer = document.getElementById("ch-step-buttons");
+  var stepButtons = [];
+
+  var oscillators = [];
+  var gainNodes = [];
+  var playing = false;
+
+  // Build 13 step buttons (0-12)
+  for (var i = 0; i <= 12; i++) {
+    var btn = document.createElement("button");
+    btn.textContent = String(i);
+    btn.setAttribute("data-step", String(i));
+    btn.style.minWidth = "32px";
+    btn.addEventListener("click", (function(step) {
+      return function() { toggleStep(step); };
+    })(i));
+    stepBtnContainer.appendChild(btn);
+    stepButtons.push(btn);
+  }
+
+  // Default: select {0,4,7}
+  selectedSteps[0] = true;
+  selectedSteps[4] = true;
+  selectedSteps[7] = true;
+
+  function getSelectedArray() {
+    var arr = [];
+    for (var s = 0; s <= 12; s++) {
+      if (selectedSteps[s]) arr.push(s);
+    }
+    return arr;
+  }
+
+  function toggleStep(step) {
+    if (selectedSteps[step]) {
+      delete selectedSteps[step];
+    } else {
+      selectedSteps[step] = true;
+    }
+    updateUI();
+  }
+
+  function applyPreset(steps) {
+    selectedSteps = {};
+    for (var i = 0; i < steps.length; i++) {
+      selectedSteps[steps[i]] = true;
+    }
+    updateUI();
+  }
+
+  // Approximate ratio-set for common chords
+  var KNOWN_RATIOS = {
+    "0,4,7": "4:5:6",
+    "0,3,7": "10:12:15",
+    "0,3,6": "\u224825:30:36",
+    "0,4,8": "\u224816:20:25",
+    "0,4,7,10": "4:5:6:7",
+    "0,4,7,11": "8:10:12:15",
+    "0,3,7,10": "10:12:15:18",
+    "0,3,6,9": "\u224810:12:14:17",
+    "0,4,7,10,14": "\u22484:5:6:7:9"
+  };
+
+  function getRatioLabel(steps) {
+    var key = steps.join(",");
+    if (KNOWN_RATIOS[key]) return KNOWN_RATIOS[key];
+    if (steps.length < 2) return "\u2014";
+    // Compute approximate ratios from 12-TET frequencies
+    var baseFreq = ROOT_FREQ * Math.pow(2, steps[0] / 12);
+    var ratios = [];
+    for (var i = 0; i < steps.length; i++) {
+      ratios.push(ROOT_FREQ * Math.pow(2, steps[i] / 12) / baseFreq);
+    }
+    // Try to find small integer approximation
+    // Multiply by increasing denominators and check if close to integers
+    for (var denom = 1; denom <= 20; denom++) {
+      var intRatios = [];
+      var allClose = true;
+      for (var j = 0; j < ratios.length; j++) {
+        var val = ratios[j] * denom;
+        var rounded = Math.round(val);
+        if (Math.abs(val - rounded) > 0.08) {
+          allClose = false;
+          break;
+        }
+        intRatios.push(rounded);
+      }
+      if (allClose && intRatios.length === ratios.length) {
+        return "\u2248" + intRatios.join(":");
+      }
+    }
+    return "complex";
+  }
+
+  function updateUI() {
+    var arr = getSelectedArray();
+
+    // Update button styles
+    for (var i = 0; i <= 12; i++) {
+      if (selectedSteps[i]) {
+        stepButtons[i].className = "active";
+      } else {
+        stepButtons[i].className = "";
+      }
+    }
+
+    // Step-set display
+    if (arr.length === 0) {
+      stepInfo.textContent = "Step-set: (none selected)";
+      ratioInfo.textContent = "";
+    } else {
+      stepInfo.textContent = "Step-set: {" + arr.join(", ") + "}";
+      ratioInfo.textContent = "Ratio-set: " + getRatioLabel(arr);
+    }
+
+    drawSpectrum(arr);
+    if (playing) stopAudio();
+  }
+
+  function drawSpectrum(steps) {
+    if (typeof PhizViz === "undefined") return;
+    if (steps.length === 0) {
+      // Clear canvas
+      var fit0 = PhizViz.fitCanvas(canvas);
+      fit0.ctx.fillStyle = "#111";
+      fit0.ctx.fillRect(0, 0, fit0.w, fit0.h);
+      return;
+    }
+
+    // Build combined harmonic spectrum
+    var NUM_HARMONICS = 16;
+    var maxHarmonicFreq = 5000; // limit display
+    var freqs = [];
+    for (var i = 0; i < steps.length; i++) {
+      freqs.push(ROOT_FREQ * Math.pow(2, steps[i] / 12));
+    }
+
+    // Collect all harmonic partials with amplitudes
+    var partials = []; // {freq, amp}
+    for (var n = 0; n < freqs.length; n++) {
+      for (var h = 1; h <= NUM_HARMONICS; h++) {
+        var hf = freqs[n] * h;
+        if (hf > maxHarmonicFreq) break;
+        partials.push({ freq: hf, amp: 1.0 / h });
+      }
+    }
+
+    // Draw custom bar chart
+    var fit = PhizViz.fitCanvas(canvas);
+    var w = fit.w;
+    var ht = fit.h;
+    var ctx = fit.ctx;
+
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, ht);
+
+    if (partials.length === 0) return;
+
+    var padL = 30;
+    var padR = 10;
+    var padT = 10;
+    var padB = 20;
+    var plotW = w - padL - padR;
+    var plotH = ht - padT - padB;
+
+    // Find max freq for x-axis
+    var maxFreq = 0;
+    for (var p = 0; p < partials.length; p++) {
+      if (partials[p].freq > maxFreq) maxFreq = partials[p].freq;
+    }
+    maxFreq = Math.min(maxFreq * 1.1, maxHarmonicFreq);
+
+    // X axis
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH);
+    ctx.lineTo(padL + plotW, padT + plotH);
+    ctx.stroke();
+
+    // Frequency labels on x-axis
+    ctx.fillStyle = "rgba(255,255,255,0.35)";
+    ctx.font = "9px PT Sans, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    var freqMarks = [500, 1000, 2000, 3000, 4000, 5000];
+    for (var fm = 0; fm < freqMarks.length; fm++) {
+      if (freqMarks[fm] > maxFreq) break;
+      var fmX = padL + (freqMarks[fm] / maxFreq) * plotW;
+      ctx.fillText(freqMarks[fm] + "", fmX, padT + plotH + 4);
+    }
+
+    // Draw bars
+    var barW = Math.max(2, plotW / partials.length * 0.4);
+    if (barW > 6) barW = 6;
+
+    // Color based on which note the fundamental belongs to
+    var noteColors = ["#ff6090", "#40c4ff", "#69f0ae", "#ffab40", "#ce93d8"];
+    for (var b = 0; b < partials.length; b++) {
+      var px = padL + (partials[b].freq / maxFreq) * plotW;
+      var barH = partials[b].amp * plotH * 0.9;
+
+      // Determine which note this partial belongs to
+      var colorIdx = 0;
+      for (var ci = freqs.length - 1; ci >= 0; ci--) {
+        var ratio = partials[b].freq / freqs[ci];
+        var rounded = Math.round(ratio);
+        if (rounded >= 1 && Math.abs(ratio - rounded) < 0.01) {
+          colorIdx = ci;
+          break;
+        }
+      }
+
+      ctx.fillStyle = noteColors[colorIdx % noteColors.length];
+      ctx.globalAlpha = 0.7;
+      ctx.fillRect(px - barW / 2, padT + plotH - barH, barW, barH);
+      ctx.globalAlpha = 1.0;
+    }
+
+    // Y-axis label
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.35)";
+    ctx.font = "9px PT Sans, sans-serif";
+    ctx.textAlign = "center";
+    ctx.translate(8, padT + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText("Amplitude", 0, 0);
+    ctx.restore();
+  }
+
+  // Audio
+  function startAudio() {
+    var steps = getSelectedArray();
+    if (steps.length === 0) return;
+
+    Tone.start().then(function() {
+      for (var i = 0; i < steps.length; i++) {
+        var freq = ROOT_FREQ * Math.pow(2, steps[i] / 12);
+        var gain = new Tone.Gain(0.15).toDestination();
+        var osc = new Tone.Oscillator(freq, "sine").connect(gain);
+        osc.start();
+        oscillators.push(osc);
+        gainNodes.push(gain);
+      }
+      playing = true;
+      playBtn.textContent = "\u25A0 Stop";
+      playBtn.classList.add("active");
+    });
+  }
+
+  function stopAudio() {
+    for (var i = 0; i < oscillators.length; i++) {
+      oscillators[i].stop();
+      oscillators[i].dispose();
+    }
+    for (var j = 0; j < gainNodes.length; j++) {
+      gainNodes[j].dispose();
+    }
+    oscillators = [];
+    gainNodes = [];
+    playing = false;
+    playBtn.textContent = "\u25B6 Play";
+    playBtn.classList.remove("active");
+  }
+
+  playBtn.addEventListener("click", function() {
+    if (playing) {
+      stopAudio();
+    } else {
+      startAudio();
+    }
+  });
+
+  // Preset buttons
+  var presetBtns = document.querySelectorAll(".ch-preset");
+  for (var p = 0; p < presetBtns.length; p++) {
+    presetBtns[p].addEventListener("click", (function(btn) {
+      return function() {
+        var steps = btn.getAttribute("data-steps").split(",").map(function(s) {
+          return parseInt(s, 10);
+        });
+        applyPreset(steps);
+      };
+    })(presetBtns[p]));
+  }
+
+  // Initial render
+  updateUI();
+})();
+</script>
 
 ## Translation Table
 

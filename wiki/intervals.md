@@ -178,6 +178,150 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 
 **Step-distances 4 and 3** have the largest errors (~14-16 cents). These are the intervals most affected by the equal-temperament compromise, and the ones where the difference between 12-TET and just intonation is most audible in sustained chords.
 
+## Ear Training
+
+<div class="phiz-viz-container" id="et-game">
+<div class="phiz-viz-title">Interval Ear Training</div>
+<div id="et-score" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-bottom:8px;">Score: 0 / 0 correct</div>
+<div id="et-feedback" style="min-height:1.4em;font-size:0.85rem;margin-bottom:8px;">&nbsp;</div>
+<div class="phiz-viz-controls" style="margin-bottom:8px;">
+  <button id="et-new">New Interval</button>
+  <button id="et-replay">Replay</button>
+</div>
+<div class="phiz-viz-controls" id="et-answers" style="flex-wrap:wrap;"></div>
+</div>
+
+<script>
+(function() {
+  var BASE_FREQ = 220;
+  var TONE_DURATION = 0.8;
+  var GAP = 0.3;
+  var correct = 0;
+  var total = 0;
+  var currentStep = -1;
+  var answered = false;
+  var playing = false;
+  var answerBtns = [];
+
+  var scoreEl = document.getElementById("et-score");
+  var feedbackEl = document.getElementById("et-feedback");
+  var newBtn = document.getElementById("et-new");
+  var replayBtn = document.getElementById("et-replay");
+  var answersContainer = document.getElementById("et-answers");
+
+  // Build 13 answer buttons (0-12)
+  for (var i = 0; i <= 12; i++) {
+    var btn = document.createElement("button");
+    btn.textContent = String(i);
+    btn.setAttribute("data-step", String(i));
+    btn.addEventListener("click", (function(step) {
+      return function() { handleAnswer(step); };
+    })(i));
+    answersContainer.appendChild(btn);
+    answerBtns.push(btn);
+  }
+
+  function updateScore() {
+    scoreEl.textContent = "Score: " + correct + " / " + total + " correct";
+  }
+
+  function clearButtonStyles() {
+    for (var j = 0; j < answerBtns.length; j++) {
+      answerBtns[j].className = "";
+      answerBtns[j].style.background = "";
+      answerBtns[j].style.borderColor = "";
+      answerBtns[j].style.color = "";
+    }
+  }
+
+  function flashButton(btn, color) {
+    if (color === "green") {
+      btn.style.background = "#00c853";
+      btn.style.borderColor = "#00c853";
+      btn.style.color = "#111";
+    } else {
+      btn.style.background = "#ff1744";
+      btn.style.borderColor = "#ff1744";
+      btn.style.color = "#fff";
+    }
+  }
+
+  function playInterval(step, callback) {
+    if (playing) return;
+    playing = true;
+    var secondFreq = BASE_FREQ * Math.pow(2, step / 12);
+
+    Tone.start().then(function() {
+      // First tone
+      var gain1 = new Tone.Gain(0.3).toDestination();
+      var osc1 = new Tone.Oscillator(BASE_FREQ, "sine").connect(gain1);
+      osc1.start();
+
+      setTimeout(function() {
+        osc1.stop();
+        osc1.dispose();
+        gain1.dispose();
+
+        // Gap then second tone
+        setTimeout(function() {
+          var gain2 = new Tone.Gain(0.3).toDestination();
+          var osc2 = new Tone.Oscillator(secondFreq, "sine").connect(gain2);
+          osc2.start();
+
+          setTimeout(function() {
+            osc2.stop();
+            osc2.dispose();
+            gain2.dispose();
+            playing = false;
+            if (callback) callback();
+          }, TONE_DURATION * 1000);
+        }, GAP * 1000);
+      }, TONE_DURATION * 1000);
+    });
+  }
+
+  function newRound() {
+    answered = false;
+    clearButtonStyles();
+    feedbackEl.innerHTML = "&nbsp;";
+    currentStep = Math.floor(Math.random() * 13);
+    playInterval(currentStep);
+  }
+
+  function handleAnswer(step) {
+    if (answered || currentStep < 0 || playing) return;
+    answered = true;
+    total++;
+
+    if (step === currentStep) {
+      correct++;
+      flashButton(answerBtns[step], "green");
+      feedbackEl.style.color = "#00c853";
+      feedbackEl.textContent = "Correct!";
+      updateScore();
+      setTimeout(function() { newRound(); }, 1000);
+    } else {
+      flashButton(answerBtns[step], "red");
+      flashButton(answerBtns[currentStep], "green");
+      feedbackEl.style.color = "#ff1744";
+      feedbackEl.textContent = "Correct answer: step-distance " + currentStep;
+      updateScore();
+    }
+  }
+
+  newBtn.addEventListener("click", function() {
+    newRound();
+  });
+
+  replayBtn.addEventListener("click", function() {
+    if (currentStep < 0 || playing) return;
+    playInterval(currentStep);
+  });
+
+  updateScore();
+})();
+</script>
+
 ## Interval Inversion
 
 Every interval has a **complement** (inversion) that together with it completes an octave:

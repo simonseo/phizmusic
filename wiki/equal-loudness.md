@@ -71,7 +71,226 @@ A physically flat playback chain can still sound mid-forward or bass-light depen
 
 Equal-loudness contours prove that "volume" is not a single physical scalar in perception. Loudness is frequency-dependent and level-dependent. This is a core reason why engineering metrics (energy, SPL, flat transfer) must always be interpreted through auditory perception models.
 
-<!-- INTERACTIVE: Equal-loudness curve overlay — show how perceived loudness changes with frequency at different SPL levels, let user toggle between curves -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Equal-Loudness Contours (ISO 226 approximate)</div>
+<canvas id="el-curves-canvas" height="280" style="width:100%;"></canvas>
+<div class="phiz-viz-controls" style="margin-top:8px;" id="el-phon-toggles"></div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var canvas = document.getElementById("el-curves-canvas");
+  var toggleContainer = document.getElementById("el-phon-toggles");
+
+  // Approximate equal-loudness contour data (ISO 226-like)
+  // Each curve: array of [freq, SPL_dB] pairs
+  // Frequencies: 20, 50, 100, 200, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000, 15000, 20000
+
+  var CURVE_FREQS = [20, 50, 100, 200, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000, 15000, 20000];
+
+  var CURVES = {
+    20: [78, 53, 40, 32, 24, 20, 14, 8, 6, 12, 16, 22, 56, 80],
+    40: [96, 70, 56, 47, 42, 40, 36, 30, 28, 34, 38, 44, 68, 94],
+    60: [110, 85, 72, 64, 62, 60, 56, 52, 50, 54, 58, 64, 82, 106],
+    80: [120, 98, 88, 82, 80, 80, 77, 74, 73, 76, 78, 84, 96, 116],
+    100: [130, 112, 104, 100, 100, 100, 98, 96, 96, 98, 100, 104, 112, 126]
+  };
+
+  var PHON_LEVELS = [20, 40, 60, 80, 100];
+  var PHON_COLORS = ["#69f0ae", "#40c4ff", "#ffab40", "#ff6090", "#ce93d8"];
+  var phonVisible = {};
+  var toggleButtons = [];
+
+  // Initialize all visible
+  for (var i = 0; i < PHON_LEVELS.length; i++) {
+    phonVisible[PHON_LEVELS[i]] = true;
+  }
+
+  // Build toggle buttons
+  for (var p = 0; p < PHON_LEVELS.length; p++) {
+    var btn = document.createElement("button");
+    btn.textContent = PHON_LEVELS[p] + " phon";
+    btn.className = "active";
+    btn.style.borderColor = PHON_COLORS[p];
+    btn.style.color = PHON_COLORS[p];
+    btn.setAttribute("data-phon", String(PHON_LEVELS[p]));
+    btn.addEventListener("click", (function(level, idx) {
+      return function() {
+        phonVisible[level] = !phonVisible[level];
+        if (phonVisible[level]) {
+          toggleButtons[idx].className = "active";
+        } else {
+          toggleButtons[idx].className = "";
+        }
+        draw();
+      };
+    })(PHON_LEVELS[p], p));
+    toggleContainer.appendChild(btn);
+    toggleButtons.push(btn);
+  }
+
+  // Axis helpers
+  var FREQ_MIN = 20;
+  var FREQ_MAX = 20000;
+  var DB_MIN = 0;
+  var DB_MAX = 130;
+
+  function freqToX(freq, plotX, plotW) {
+    var logMin = Math.log(FREQ_MIN) / Math.LN10;
+    var logMax = Math.log(FREQ_MAX) / Math.LN10;
+    var logF = Math.log(freq) / Math.LN10;
+    return plotX + ((logF - logMin) / (logMax - logMin)) * plotW;
+  }
+
+  function dBToY(db, plotY, plotH) {
+    // Higher dB = lower Y (top of canvas)
+    return plotY + plotH - ((db - DB_MIN) / (DB_MAX - DB_MIN)) * plotH;
+  }
+
+  function draw() {
+    if (typeof PhizViz === "undefined") return;
+    var fit = PhizViz.fitCanvas(canvas);
+    var w = fit.w;
+    var h = fit.h;
+    var ctx = fit.ctx;
+
+    // Background
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 42;
+    var padR = 15;
+    var padT = 15;
+    var padB = 28;
+    var plotX = padL;
+    var plotY = padT;
+    var plotW = w - padL - padR;
+    var plotH = h - padT - padB;
+
+    // Highlight 2-4 kHz region (most sensitive)
+    var x2k = freqToX(2000, plotX, plotW);
+    var x4k = freqToX(4000, plotX, plotW);
+    ctx.fillStyle = "rgba(255,255,255,0.04)";
+    ctx.fillRect(x2k, plotY, x4k - x2k, plotH);
+    ctx.fillStyle = "rgba(255,255,255,0.2)";
+    ctx.font = "9px PT Sans, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("2\u20134 kHz (most sensitive)", (x2k + x4k) / 2, plotY + 2);
+
+    // Grid lines — frequency
+    ctx.strokeStyle = "rgba(255,255,255,0.08)";
+    ctx.lineWidth = 0.5;
+    var gridFreqs = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+    for (var gf = 0; gf < gridFreqs.length; gf++) {
+      var gx = freqToX(gridFreqs[gf], plotX, plotW);
+      ctx.beginPath();
+      ctx.moveTo(gx, plotY);
+      ctx.lineTo(gx, plotY + plotH);
+      ctx.stroke();
+    }
+
+    // Grid lines — dB
+    var gridDBs = [0, 20, 40, 60, 80, 100, 120];
+    for (var gd = 0; gd < gridDBs.length; gd++) {
+      var gy = dBToY(gridDBs[gd], plotY, plotH);
+      ctx.beginPath();
+      ctx.moveTo(plotX, gy);
+      ctx.lineTo(plotX + plotW, gy);
+      ctx.stroke();
+    }
+
+    // Axis labels — frequency
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    ctx.font = "9px PT Sans, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    var labelFreqs = [20, 50, 100, 200, 500, "1k", "2k", "5k", "10k", "20k"];
+    var labelFreqVals = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+    for (var lf = 0; lf < labelFreqs.length; lf++) {
+      var lx = freqToX(labelFreqVals[lf], plotX, plotW);
+      ctx.fillText(String(labelFreqs[lf]), lx, plotY + plotH + 4);
+    }
+    ctx.fillText("Frequency (Hz)", plotX + plotW / 2, plotY + plotH + 16);
+
+    // Axis labels — dB
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (var ld = 0; ld < gridDBs.length; ld++) {
+      var ly = dBToY(gridDBs[ld], plotY, plotH);
+      ctx.fillText(gridDBs[ld] + "", plotX - 4, ly);
+    }
+    ctx.save();
+    ctx.translate(10, plotY + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("SPL (dB)", 0, 0);
+    ctx.restore();
+
+    // Draw curves
+    for (var ci = 0; ci < PHON_LEVELS.length; ci++) {
+      var phon = PHON_LEVELS[ci];
+      if (!phonVisible[phon]) continue;
+
+      var data = CURVES[phon];
+      ctx.beginPath();
+      ctx.strokeStyle = PHON_COLORS[ci];
+      ctx.lineWidth = 2;
+
+      // Smooth curve through data points using quadratic bezier
+      for (var di = 0; di < CURVE_FREQS.length; di++) {
+        var cx2 = freqToX(CURVE_FREQS[di], plotX, plotW);
+        var cy2 = dBToY(data[di], plotY, plotH);
+        if (di === 0) {
+          ctx.moveTo(cx2, cy2);
+        } else {
+          // Use midpoint smoothing
+          var prevX = freqToX(CURVE_FREQS[di - 1], plotX, plotW);
+          var prevY = dBToY(data[di - 1], plotY, plotH);
+          var midX = (prevX + cx2) / 2;
+          var midY = (prevY + cy2) / 2;
+          ctx.quadraticCurveTo(prevX, prevY, midX, midY);
+          if (di === CURVE_FREQS.length - 1) {
+            ctx.lineTo(cx2, cy2);
+          }
+        }
+      }
+      ctx.stroke();
+
+      // Label at 1 kHz position
+      var labelX = freqToX(1000, plotX, plotW);
+      var labelYVal = dBToY(data[5], plotY, plotH); // index 5 = 1000 Hz
+      ctx.fillStyle = PHON_COLORS[ci];
+      ctx.font = "bold 9px PT Sans, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(phon + " phon", labelX + 4, labelYVal - 3);
+    }
+
+    // Border
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(plotX, plotY, plotW, plotH);
+  }
+
+  // Initial draw
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", draw);
+  } else {
+    draw();
+  }
+
+  // Redraw on resize
+  var resizeTimer = null;
+  window.addEventListener("resize", function() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(draw, 150);
+  });
+})();
+</script>
 
 ## Translation Table
 

@@ -345,27 +345,36 @@
       }).toDestination();
 
       var startTime = Tone.now();
+      var totalPlaybackSeconds;
 
-      /* Play each frequency sequentially */
-      freqs.forEach(function (freq, index) {
-        synth.triggerAttackRelease(
-          freq,
-          FREQSET_NOTE_DURATION,
-          startTime + index * FREQSET_NOTE_SPACING
-        );
-      });
-
-      var arpeggioEnd =
-        (freqs.length - 1) * FREQSET_NOTE_SPACING + FREQSET_NOTE_DURATION;
-      var totalPlaybackSeconds = arpeggioEnd;
-
-      if (!noChord && freqs.length > 1) {
-        var chordStart = startTime + arpeggioEnd + FREQSET_CHORD_DELAY;
+      if (noChord) {
+        /* Play all frequencies simultaneously (chord only, no arpeggio) */
         freqs.forEach(function (freq) {
-          synth.triggerAttackRelease(freq, FREQSET_CHORD_DURATION, chordStart);
+          synth.triggerAttackRelease(freq, FREQSET_CHORD_DURATION, startTime);
         });
-        totalPlaybackSeconds =
-          arpeggioEnd + FREQSET_CHORD_DELAY + FREQSET_CHORD_DURATION;
+        totalPlaybackSeconds = FREQSET_CHORD_DURATION;
+      } else {
+        /* Play each frequency sequentially (arpeggio) */
+        freqs.forEach(function (freq, index) {
+          synth.triggerAttackRelease(
+            freq,
+            FREQSET_NOTE_DURATION,
+            startTime + index * FREQSET_NOTE_SPACING
+          );
+        });
+
+        var arpeggioEnd =
+          (freqs.length - 1) * FREQSET_NOTE_SPACING + FREQSET_NOTE_DURATION;
+        totalPlaybackSeconds = arpeggioEnd;
+
+        if (freqs.length > 1) {
+          var chordStart = startTime + arpeggioEnd + FREQSET_CHORD_DELAY;
+          freqs.forEach(function (freq) {
+            synth.triggerAttackRelease(freq, FREQSET_CHORD_DURATION, chordStart);
+          });
+          totalPlaybackSeconds =
+            arpeggioEnd + FREQSET_CHORD_DELAY + FREQSET_CHORD_DURATION;
+        }
       }
 
       cleanupTimeout = setTimeout(function () {

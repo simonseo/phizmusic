@@ -127,7 +127,224 @@ Engineering targets are chosen relative to human perception:
 
 So "accurate audio" is not only mathematical reconstruction; it is reconstruction sufficient for human hearing constraints.
 
-<!-- INTERACTIVE: Sampling and aliasing simulator — choose source frequency, sampling rate, and anti-alias filter cutoff; show waveform snapshots, reconstructed signal, and spectral fold-back -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Sampling &amp; Aliasing Simulator</div>
+<canvas id="da-sampling-canvas" height="220" style="width:100%;"></canvas>
+<div id="da-info" style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:6px 0 4px;font-family:monospace;"></div>
+<div class="phiz-viz-controls" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 16px;">
+  <div>
+    <div style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-bottom:2px;">Source frequency: <span id="da-freq-label" style="color:#00e5ff;">440 Hz</span></div>
+    <input type="range" id="da-freq" min="100" max="2000" value="440" style="width:100%;accent-color:#00e5ff;">
+  </div>
+  <div>
+    <div style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-bottom:2px;">Sampling rate: <span id="da-sr-label" style="color:#69f0ae;">8000 Hz</span></div>
+    <input type="range" id="da-sr" min="500" max="10000" value="8000" step="100" style="width:100%;accent-color:#69f0ae;">
+  </div>
+</div>
+<div class="phiz-viz-controls" style="margin-top:8px;">
+  <button id="da-play-orig">&#9654; Play Original</button>
+  <button id="da-play-alias">&#9654; Play Aliased</button>
+</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var canvas = document.getElementById("da-sampling-canvas");
+  var infoEl = document.getElementById("da-info");
+  var freqSlider = document.getElementById("da-freq");
+  var srSlider = document.getElementById("da-sr");
+  var freqLabel = document.getElementById("da-freq-label");
+  var srLabel = document.getElementById("da-sr-label");
+  var playOrigBtn = document.getElementById("da-play-orig");
+  var playAliasBtn = document.getElementById("da-play-alias");
+
+  var TWO_PI = 2 * Math.PI;
+
+  function getParams() {
+    var sourceFreq = parseInt(freqSlider.value, 10);
+    var sampleRate = parseInt(srSlider.value, 10);
+    var nyquist = sampleRate / 2;
+    var aliased = sourceFreq > nyquist;
+    var aliasFreq = aliased ? Math.abs(sampleRate - sourceFreq) : sourceFreq;
+    return {
+      sourceFreq: sourceFreq,
+      sampleRate: sampleRate,
+      nyquist: nyquist,
+      aliased: aliased,
+      aliasFreq: aliasFreq
+    };
+  }
+
+  function draw() {
+    if (typeof PhizViz === "undefined") return;
+    var fit = PhizViz.fitCanvas(canvas);
+    var w = fit.w;
+    var h = fit.h;
+    var ctx = fit.ctx;
+    var p = getParams();
+
+    // Background
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 10;
+    var padR = 10;
+    var padT = 15;
+    var padB = 20;
+    var plotW = w - padL - padR;
+    var plotH = h - padT - padB;
+    var midY = padT + plotH / 2;
+
+    // Show ~3 cycles of the source frequency
+    var numCycles = 3;
+    var duration = numCycles / p.sourceFreq;
+    var numSamples = Math.floor(duration * p.sampleRate);
+    var samplesPerPx = duration / plotW;
+
+    // Draw axis
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, midY);
+    ctx.lineTo(padL + plotW, midY);
+    ctx.stroke();
+
+    // Draw original continuous sine wave
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(0,229,255,0.5)";
+    ctx.lineWidth = 1.5;
+    for (var px = 0; px <= plotW; px++) {
+      var t = (px / plotW) * duration;
+      var y = midY - Math.sin(TWO_PI * p.sourceFreq * t) * (plotH * 0.4);
+      if (px === 0) {
+        ctx.moveTo(padL + px, y);
+      } else {
+        ctx.lineTo(padL + px, y);
+      }
+    }
+    ctx.stroke();
+
+    // Draw sample points
+    var sampleXs = [];
+    var sampleYs = [];
+    for (var n = 0; n <= numSamples; n++) {
+      var tSample = n / p.sampleRate;
+      if (tSample > duration) break;
+      var sX = padL + (tSample / duration) * plotW;
+      var sY = midY - Math.sin(TWO_PI * p.sourceFreq * tSample) * (plotH * 0.4);
+      sampleXs.push(sX);
+      sampleYs.push(sY);
+    }
+
+    // Draw reconstructed signal (connecting sample points with smooth interpolation)
+    if (sampleXs.length > 1) {
+      ctx.beginPath();
+      ctx.strokeStyle = p.aliased ? "rgba(255,23,68,0.7)" : "rgba(105,240,174,0.7)";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5, 3]);
+      // Draw the reconstructed (aliased or not) waveform
+      var reconFreq = p.aliased ? p.aliasFreq : p.sourceFreq;
+      // Phase-match: at t=0, original is sin(0)=0, alias might differ
+      // For proper alias visualization, sample the original at sample times
+      // then draw the sinc-interpolated (or alias-freq) reconstruction
+      for (var px2 = 0; px2 <= plotW; px2++) {
+        var t2 = (px2 / plotW) * duration;
+        var yRecon = midY - Math.sin(TWO_PI * reconFreq * t2) * (plotH * 0.4);
+        if (px2 === 0) {
+          ctx.moveTo(padL + px2, yRecon);
+        } else {
+          ctx.lineTo(padL + px2, yRecon);
+        }
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Draw sample dots on top
+    for (var d = 0; d < sampleXs.length; d++) {
+      ctx.beginPath();
+      ctx.arc(sampleXs[d], sampleYs[d], 3, 0, TWO_PI);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+    }
+
+    // Legend
+    ctx.font = "10px PT Sans, sans-serif";
+    ctx.textBaseline = "top";
+
+    ctx.fillStyle = "rgba(0,229,255,0.7)";
+    ctx.textAlign = "left";
+    ctx.fillText("Original: " + p.sourceFreq + " Hz", padL + 4, padT + 2);
+
+    ctx.fillStyle = p.aliased ? "rgba(255,23,68,0.9)" : "rgba(105,240,174,0.9)";
+    ctx.textAlign = "right";
+    ctx.fillText(
+      p.aliased ? "Reconstructed (alias): " + p.aliasFreq + " Hz" : "Reconstructed: " + p.sourceFreq + " Hz",
+      padL + plotW - 4, padT + 2
+    );
+
+    // Nyquist indicator line — draw a small marker
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("Nyquist: " + p.nyquist + " Hz", w / 2, h - 2);
+
+    // Info
+    var statusText = "Source: " + p.sourceFreq + " Hz | Sample rate: " + p.sampleRate +
+      " Hz | Nyquist: " + p.nyquist + " Hz | Status: ";
+    if (p.aliased) {
+      statusText += "ALIASED \u2192 appears as " + p.aliasFreq + " Hz";
+      infoEl.style.color = "#ff1744";
+    } else {
+      statusText += "OK";
+      infoEl.style.color = "rgba(255,255,255,0.6)";
+    }
+    infoEl.textContent = statusText;
+  }
+
+  function onInput() {
+    freqLabel.textContent = freqSlider.value + " Hz";
+    srLabel.textContent = srSlider.value + " Hz";
+    draw();
+  }
+
+  freqSlider.addEventListener("input", onInput);
+  srSlider.addEventListener("input", onInput);
+
+  // Audio playback
+  function playTone(freq, duration) {
+    Tone.start().then(function() {
+      var gain = new Tone.Gain(0.25).toDestination();
+      var osc = new Tone.Oscillator(freq, "sine").connect(gain);
+      osc.start();
+      setTimeout(function() {
+        osc.stop();
+        osc.dispose();
+        gain.dispose();
+      }, (duration || 1.0) * 1000);
+    });
+  }
+
+  playOrigBtn.addEventListener("click", function() {
+    var p = getParams();
+    playTone(p.sourceFreq, 1.0);
+  });
+
+  playAliasBtn.addEventListener("click", function() {
+    var p = getParams();
+    playTone(p.aliasFreq, 1.0);
+  });
+
+  // Initial draw
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", draw);
+  } else {
+    draw();
+  }
+})();
+</script>
 
 ## Translation Table
 

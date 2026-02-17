@@ -233,7 +233,225 @@ As the component frequencies all shift upward by one chromatic step, the spectra
 
 Shepard tones demonstrate that chroma (step position 0-11) and height (octave number) are separable perceptual dimensions — a fact that underlies both the naming system (see [naming-system.md](naming-system.md)) and the octave equivalence that most tuning systems assume.
 
-<!-- INTERACTIVE: Harmonic series visualizer — show partials of a tone on a spectrum display, click to hear individual harmonics vs. full tone. Toggle harmonics on/off to hear how timbre changes. -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Harmonic Series Explorer</div>
+<canvas id="hs-spectrum-canvas" height="180"></canvas>
+<canvas id="hs-waveform-canvas" height="150"></canvas>
+<div id="hs-status" style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:6px 0 4px;"></div>
+<div class="phiz-viz-controls" id="hs-harmonic-toggles"></div>
+<div class="phiz-viz-controls" style="margin-top:4px;">
+<button id="hs-all-on">All On</button>
+<button id="hs-all-off">All Off</button>
+<button id="hs-play">Play</button>
+<button id="hs-solo">Solo</button>
+</div>
+</div>
+
+<script>
+(function() {
+  var NUM_HARMONICS = 16;
+  var FUNDAMENTAL = 100;
+  var GAIN_SCALE = 0.3;
+
+  var spectrumCanvas = document.getElementById("hs-spectrum-canvas");
+  var waveformCanvas = document.getElementById("hs-waveform-canvas");
+  var statusEl = document.getElementById("hs-status");
+  var toggleContainer = document.getElementById("hs-harmonic-toggles");
+  var playBtn = document.getElementById("hs-play");
+  var soloBtn = document.getElementById("hs-solo");
+  var allOnBtn = document.getElementById("hs-all-on");
+  var allOffBtn = document.getElementById("hs-all-off");
+
+  var active = [];
+  var oscillators = [];
+  var gainNodes = [];
+  var isPlaying = false;
+  var isSolo = false;
+  var soloIndex = -1;
+  var toggleButtons = [];
+
+  var i;
+  for (i = 0; i < NUM_HARMONICS; i++) {
+    active.push(true);
+  }
+
+  // Build toggle buttons
+  for (i = 0; i < NUM_HARMONICS; i++) {
+    var btn = document.createElement("button");
+    btn.textContent = "H" + (i + 1);
+    btn.className = "active";
+    btn.setAttribute("data-index", String(i));
+    btn.addEventListener("click", (function(idx) {
+      return function() { onToggle(idx); };
+    })(i));
+    toggleContainer.appendChild(btn);
+    toggleButtons.push(btn);
+  }
+
+  function getAmplitudes() {
+    var amps = [];
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      amps.push(active[j] ? (1 / (j + 1)) : 0);
+    }
+    return amps;
+  }
+
+  function countActive() {
+    var c = 0;
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      if (active[j]) c++;
+    }
+    return c;
+  }
+
+  function redraw() {
+    var amps = getAmplitudes();
+    PhizViz.drawHarmonicSpectrum(spectrumCanvas, amps);
+
+    // Compute max amplitude for normalization
+    var maxSum = 0;
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      if (amps[j] > 0) maxSum += amps[j];
+    }
+    var norm = maxSum > 0 ? maxSum : 1;
+
+    PhizViz.drawWaveform(waveformCanvas, function(t) {
+      var sum = 0;
+      for (var k = 0; k < NUM_HARMONICS; k++) {
+        if (amps[k] > 0) {
+          sum += amps[k] * Math.sin(2 * Math.PI * FUNDAMENTAL * (k + 1) * t);
+        }
+      }
+      return sum / norm;
+    }, { duration: 0.03 });
+
+    statusEl.textContent = "Fundamental: " + FUNDAMENTAL + " Hz | Active harmonics: " + countActive() + "/" + NUM_HARMONICS;
+
+    // Update button classes
+    for (var m = 0; m < NUM_HARMONICS; m++) {
+      if (active[m]) {
+        if (toggleButtons[m].className.indexOf("active") === -1) {
+          toggleButtons[m].className = "active";
+        }
+      } else {
+        toggleButtons[m].className = "";
+      }
+    }
+  }
+
+  function updateAudioGains() {
+    if (!isPlaying) return;
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      if (gainNodes[j]) {
+        gainNodes[j].gain.value = active[j] ? (GAIN_SCALE / (j + 1)) : 0;
+      }
+    }
+  }
+
+  function onToggle(idx) {
+    if (isSolo) {
+      if (soloIndex === idx) {
+        // Un-solo: restore all on
+        for (var j = 0; j < NUM_HARMONICS; j++) {
+          active[j] = true;
+        }
+        soloIndex = -1;
+        isSolo = false;
+        soloBtn.className = "";
+      } else {
+        // Solo this harmonic
+        for (var k = 0; k < NUM_HARMONICS; k++) {
+          active[k] = (k === idx);
+        }
+        soloIndex = idx;
+      }
+    } else {
+      active[idx] = !active[idx];
+    }
+    redraw();
+    updateAudioGains();
+  }
+
+  function startAudio() {
+    Tone.start().then(function() {
+      for (var j = 0; j < NUM_HARMONICS; j++) {
+        var freq = FUNDAMENTAL * (j + 1);
+        var amp = active[j] ? (GAIN_SCALE / (j + 1)) : 0;
+        var gain = new Tone.Gain(amp).toDestination();
+        var osc = new Tone.Oscillator(freq, "sine").connect(gain);
+        osc.start();
+        oscillators.push(osc);
+        gainNodes.push(gain);
+      }
+      isPlaying = true;
+      playBtn.textContent = "Stop";
+      playBtn.className = "active";
+    });
+  }
+
+  function stopAudio() {
+    for (var j = 0; j < oscillators.length; j++) {
+      oscillators[j].stop();
+      oscillators[j].dispose();
+    }
+    for (var k = 0; k < gainNodes.length; k++) {
+      gainNodes[k].dispose();
+    }
+    oscillators = [];
+    gainNodes = [];
+    isPlaying = false;
+    playBtn.textContent = "Play";
+    playBtn.className = "";
+  }
+
+  playBtn.addEventListener("click", function() {
+    if (isPlaying) {
+      stopAudio();
+    } else {
+      startAudio();
+    }
+  });
+
+  soloBtn.addEventListener("click", function() {
+    isSolo = !isSolo;
+    if (isSolo) {
+      soloBtn.className = "active";
+    } else {
+      soloBtn.className = "";
+      // Restore all when exiting solo
+      if (soloIndex !== -1) {
+        for (var j = 0; j < NUM_HARMONICS; j++) {
+          active[j] = true;
+        }
+        soloIndex = -1;
+        redraw();
+        updateAudioGains();
+      }
+    }
+  });
+
+  allOnBtn.addEventListener("click", function() {
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      active[j] = true;
+    }
+    soloIndex = -1;
+    redraw();
+    updateAudioGains();
+  });
+
+  allOffBtn.addEventListener("click", function() {
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      active[j] = false;
+    }
+    soloIndex = -1;
+    redraw();
+    updateAudioGains();
+  });
+
+  // Initial draw
+  redraw();
+})();
+</script>
 
 ## Translation Table
 

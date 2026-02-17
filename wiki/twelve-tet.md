@@ -162,7 +162,229 @@ Compare just intonation intervals (pure ratios) with their 12-TET approximations
 </tr>
 </table>
 
-<!-- INTERACTIVE: Comparison player — hear the same chord in just intonation vs. 12-TET, with adjustable sustain time to make the difference more or less apparent -->
+<div class="phiz-viz-container">
+<div class="phiz-viz-title">Just vs 12-TET Comparison</div>
+<div class="phiz-viz-controls" id="jt-presets">
+  <button id="jt-preset-major" class="active">{0,4,7}</button>
+  <button id="jt-preset-minor">{0,3,7}</button>
+  <button id="jt-preset-dom7">{0,4,7,10}</button>
+</div>
+<div class="phiz-viz-controls">
+  <button class="phiz-play-btn" id="jt-play-just">▶ Just Intonation</button>
+  <button class="phiz-play-btn" id="jt-play-tet">▶ 12-TET</button>
+  <button class="phiz-play-btn" id="jt-play-ab">▶ A/B (Just → TET)</button>
+</div>
+<div class="phiz-viz-controls" style="align-items:center;">
+  <span style="color:rgba(255,255,255,0.7);font-size:0.85rem;">Sustain:</span>
+  <input type="range" id="jt-sustain" min="0.5" max="5.0" step="0.1" value="2.0" style="flex:1;max-width:200px;accent-color:#00e5ff;">
+  <span id="jt-sustain-val" style="color:#00e5ff;font-family:monospace;font-size:0.85rem;min-width:3em;">2.0 s</span>
+</div>
+<pre id="jt-info" style="color:rgba(255,255,255,0.7);font-size:0.75rem;margin:8px 0 0;line-height:1.5;background:none;border:none;padding:0;"></pre>
+<canvas id="jt-beat-canvas" height="60" style="width:100%;margin-top:8px;"></canvas>
+</div>
+
+<script>
+(function() {
+  var ROOT = 220;
+
+  var presets = {
+    major:  { label: "{0,4,7}",    steps: [0, 4, 7],     justRatios: [1, 5/4, 3/2],     ratioLabel: "4:5:6" },
+    minor:  { label: "{0,3,7}",    steps: [0, 3, 7],     justRatios: [1, 6/5, 3/2],     ratioLabel: "10:12:15" },
+    dom7:   { label: "{0,4,7,10}", steps: [0, 4, 7, 10], justRatios: [1, 5/4, 3/2, 7/4], ratioLabel: "4:5:6:7" }
+  };
+
+  var currentPreset = "major";
+
+  var presetMajorBtn = document.getElementById("jt-preset-major");
+  var presetMinorBtn = document.getElementById("jt-preset-minor");
+  var presetDom7Btn  = document.getElementById("jt-preset-dom7");
+  var playJustBtn    = document.getElementById("jt-play-just");
+  var playTetBtn     = document.getElementById("jt-play-tet");
+  var playAbBtn      = document.getElementById("jt-play-ab");
+  var sustainSlider  = document.getElementById("jt-sustain");
+  var sustainValEl   = document.getElementById("jt-sustain-val");
+  var infoEl         = document.getElementById("jt-info");
+  var beatCanvas     = document.getElementById("jt-beat-canvas");
+
+  var presetButtons = [presetMajorBtn, presetMinorBtn, presetDom7Btn];
+  var presetKeys    = ["major", "minor", "dom7"];
+  var playButtons   = [playJustBtn, playTetBtn, playAbBtn];
+
+  function getSustain() {
+    return parseFloat(sustainSlider.value);
+  }
+
+  function getJustFreqs(key) {
+    var p = presets[key];
+    var freqs = [];
+    for (var i = 0; i < p.justRatios.length; i++) {
+      freqs.push(ROOT * p.justRatios[i]);
+    }
+    return freqs;
+  }
+
+  function getTetFreqs(key) {
+    var p = presets[key];
+    var freqs = [];
+    for (var i = 0; i < p.steps.length; i++) {
+      freqs.push(ROOT * Math.pow(2, p.steps[i] / 12));
+    }
+    return freqs;
+  }
+
+  function formatFreq(f) {
+    return f.toFixed(2);
+  }
+
+  function formatDiff(d) {
+    if (d >= 0) {
+      return "+" + d.toFixed(2);
+    }
+    return d.toFixed(2);
+  }
+
+  function updateInfo() {
+    var p = presets[currentPreset];
+    var justFreqs = getJustFreqs(currentPreset);
+    var tetFreqs  = getTetFreqs(currentPreset);
+
+    var justStrs = [];
+    var tetStrs  = [];
+    var diffStrs = [];
+    for (var i = 0; i < justFreqs.length; i++) {
+      justStrs.push(formatFreq(justFreqs[i]));
+      tetStrs.push(formatFreq(tetFreqs[i]));
+      diffStrs.push(formatDiff(tetFreqs[i] - justFreqs[i]));
+    }
+
+    var lines = [];
+    lines.push("Just:       " + justStrs.join(", ") + " Hz  (ratios: " + p.ratioLabel + ")");
+    lines.push("12-TET:     " + tetStrs.join(", ") + " Hz  (equal temperament)");
+    lines.push("Difference: " + diffStrs.join(", ") + " Hz");
+
+    infoEl.textContent = lines.join("\n");
+  }
+
+  function drawBeating() {
+    var canvas = beatCanvas;
+    var ctx = canvas.getContext("2d");
+    var w = canvas.width = canvas.offsetWidth;
+    var h = canvas.height = 60;
+
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, w, h);
+
+    var justFreqs = getJustFreqs(currentPreset);
+    var tetFreqs  = getTetFreqs(currentPreset);
+
+    var duration = 0.05;
+    var samples = w;
+    var mid = h / 2;
+    var maxAmp = justFreqs.length + tetFreqs.length;
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#00e5ff";
+    ctx.lineWidth = 1.5;
+
+    for (var x = 0; x < samples; x++) {
+      var t = (x / samples) * duration;
+      var val = 0;
+      for (var j = 0; j < justFreqs.length; j++) {
+        val += Math.sin(2 * Math.PI * justFreqs[j] * t);
+      }
+      for (var k = 0; k < tetFreqs.length; k++) {
+        val += Math.sin(2 * Math.PI * tetFreqs[k] * t);
+      }
+      var y = mid - (val / maxAmp) * (mid - 4);
+      if (x === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.stroke();
+  }
+
+  function selectPreset(key) {
+    currentPreset = key;
+    for (var i = 0; i < presetButtons.length; i++) {
+      if (presetKeys[i] === key) {
+        presetButtons[i].className = "active";
+      } else {
+        presetButtons[i].className = "";
+      }
+    }
+    updateInfo();
+    drawBeating();
+  }
+
+  function setPlayDisabled(disabled) {
+    for (var i = 0; i < playButtons.length; i++) {
+      playButtons[i].disabled = disabled;
+    }
+  }
+
+  function playChord(freqs, duration, callback) {
+    Tone.start().then(function() {
+      var gain = new Tone.Gain(0.25).toDestination();
+      var oscs = [];
+      for (var i = 0; i < freqs.length; i++) {
+        var osc = new Tone.Oscillator(freqs[i], "sine").connect(gain);
+        osc.start();
+        oscs.push(osc);
+      }
+      setTimeout(function() {
+        for (var j = 0; j < oscs.length; j++) {
+          oscs[j].stop();
+          oscs[j].dispose();
+        }
+        gain.dispose();
+        if (callback) callback();
+      }, duration * 1000);
+    });
+  }
+
+  playJustBtn.addEventListener("click", function() {
+    setPlayDisabled(true);
+    var dur = getSustain();
+    playChord(getJustFreqs(currentPreset), dur, function() {
+      setPlayDisabled(false);
+    });
+  });
+
+  playTetBtn.addEventListener("click", function() {
+    setPlayDisabled(true);
+    var dur = getSustain();
+    playChord(getTetFreqs(currentPreset), dur, function() {
+      setPlayDisabled(false);
+    });
+  });
+
+  playAbBtn.addEventListener("click", function() {
+    setPlayDisabled(true);
+    var dur = getSustain();
+    playChord(getJustFreqs(currentPreset), dur, function() {
+      setTimeout(function() {
+        playChord(getTetFreqs(currentPreset), dur, function() {
+          setPlayDisabled(false);
+        });
+      }, 300);
+    });
+  });
+
+  for (var p = 0; p < presetButtons.length; p++) {
+    presetButtons[p].addEventListener("click", (function(key) {
+      return function() { selectPreset(key); };
+    })(presetKeys[p]));
+  }
+
+  sustainSlider.addEventListener("input", function() {
+    sustainValEl.textContent = parseFloat(sustainSlider.value).toFixed(1) + " s";
+  });
+
+  selectPreset("major");
+})();
+</script>
 
 ## Translation Table
 

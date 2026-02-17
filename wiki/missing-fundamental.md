@@ -100,7 +100,191 @@ Try these demonstrations. First, hear the complete harmonic series with the fund
 
 <p><button class="phiz-play-btn" data-freqs="[100]" data-nochord="true" onclick="playFreqSet(this)">▶ Just the fundamental (100 Hz)</button></p>
 
-<!-- INTERACTIVE: Missing fundamental demo — play a harmonic series with the fundamental present, then remove it and hear how the pitch percept remains. Add a slider to filter out progressively lower harmonics and observe when the pitch percept finally breaks down. -->
+<div class="phiz-viz-container" id="mf-harmonic-removal">
+<div class="phiz-viz-title">Progressive Harmonic Removal</div>
+<canvas id="mf-spectrum" height="200" style="width:100%;"></canvas>
+<div id="mf-info" style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:6px 0 4px;"></div>
+<div class="phiz-viz-controls" id="mf-toggles"></div>
+<div class="phiz-viz-controls" style="margin-top:4px;">
+<button id="mf-play">▶ Play</button>
+<button id="mf-remove-bottom">Remove from bottom</button>
+<button id="mf-reset">Reset all</button>
+</div>
+</div>
+
+<script>
+(function() {
+  var NUM = 8;
+  var FUND = 100;
+  var GAIN_LEVEL = 0.15;
+
+  var canvas = document.getElementById("mf-spectrum");
+  var infoEl = document.getElementById("mf-info");
+  var toggleContainer = document.getElementById("mf-toggles");
+  var playBtn = document.getElementById("mf-play");
+  var removeBtn = document.getElementById("mf-remove-bottom");
+  var resetBtn = document.getElementById("mf-reset");
+
+  var active = [];
+  var toggleButtons = [];
+  var oscillators = [];
+  var gainNodes = [];
+  var masterGain = null;
+  var isPlaying = false;
+
+  var i;
+  for (i = 0; i < NUM; i++) {
+    active.push(true);
+  }
+
+  // Build toggle buttons
+  for (i = 0; i < NUM; i++) {
+    var btn = document.createElement("button");
+    btn.textContent = "H" + (i + 1) + ": " + (FUND * (i + 1)) + " Hz";
+    btn.className = "active";
+    btn.setAttribute("data-index", String(i));
+    btn.addEventListener("click", (function(idx) {
+      return function() { onToggle(idx); };
+    })(i));
+    toggleContainer.appendChild(btn);
+    toggleButtons.push(btn);
+  }
+
+  function countActive() {
+    var c = 0;
+    for (var j = 0; j < NUM; j++) {
+      if (active[j]) c++;
+    }
+    return c;
+  }
+
+  function lowestActive() {
+    for (var j = 0; j < NUM; j++) {
+      if (active[j]) return FUND * (j + 1);
+    }
+    return 0;
+  }
+
+  function updateInfo() {
+    var count = countActive();
+    var lowest = lowestActive();
+    var pitchNote = active[0]
+      ? "Perceived pitch: ~" + FUND + " Hz (fundamental)"
+      : "Perceived pitch: ~" + FUND + " Hz (missing fundamental)";
+    if (count === 0) {
+      pitchNote = "No harmonics active";
+    }
+    infoEl.textContent = "Active harmonics: " + count + "/" + NUM +
+      " | Lowest: " + lowest + " Hz | " + pitchNote;
+  }
+
+  function getAmplitudes() {
+    var amps = [];
+    for (var j = 0; j < NUM; j++) {
+      amps.push(active[j] ? 1.0 : 0);
+    }
+    return amps;
+  }
+
+  function redraw() {
+    if (typeof PhizViz !== "undefined" && PhizViz.drawHarmonicSpectrum) {
+      PhizViz.drawHarmonicSpectrum(canvas, getAmplitudes(), {
+        color: "#00e5ff",
+        bg: "#111",
+        labelColor: "rgba(255,255,255,0.5)"
+      });
+    }
+    updateInfo();
+    for (var m = 0; m < NUM; m++) {
+      toggleButtons[m].className = active[m] ? "active" : "";
+    }
+  }
+
+  function updateAudioGains() {
+    if (!isPlaying) return;
+    for (var j = 0; j < NUM; j++) {
+      if (gainNodes[j]) {
+        gainNodes[j].gain.value = active[j] ? GAIN_LEVEL : 0;
+      }
+    }
+  }
+
+  function onToggle(idx) {
+    active[idx] = !active[idx];
+    redraw();
+    updateAudioGains();
+  }
+
+  function startAudio() {
+    Tone.start().then(function() {
+      masterGain = new Tone.Gain(1).toDestination();
+      for (var j = 0; j < NUM; j++) {
+        var freq = FUND * (j + 1);
+        var g = new Tone.Gain(active[j] ? GAIN_LEVEL : 0).connect(masterGain);
+        var osc = new Tone.Oscillator(freq, "sine").connect(g);
+        osc.start();
+        oscillators.push(osc);
+        gainNodes.push(g);
+      }
+      isPlaying = true;
+      playBtn.textContent = "■ Stop";
+      playBtn.className = "active";
+    });
+  }
+
+  function stopAudio() {
+    for (var j = 0; j < oscillators.length; j++) {
+      oscillators[j].stop();
+      oscillators[j].dispose();
+    }
+    for (var k = 0; k < gainNodes.length; k++) {
+      gainNodes[k].dispose();
+    }
+    if (masterGain) {
+      masterGain.dispose();
+      masterGain = null;
+    }
+    oscillators = [];
+    gainNodes = [];
+    isPlaying = false;
+    playBtn.textContent = "▶ Play";
+    playBtn.className = "";
+  }
+
+  playBtn.addEventListener("click", function() {
+    if (isPlaying) {
+      stopAudio();
+    } else {
+      startAudio();
+    }
+  });
+
+  removeBtn.addEventListener("click", function() {
+    for (var j = 0; j < NUM; j++) {
+      if (active[j]) {
+        active[j] = false;
+        redraw();
+        updateAudioGains();
+        return;
+      }
+    }
+  });
+
+  resetBtn.addEventListener("click", function() {
+    for (var j = 0; j < NUM; j++) {
+      active[j] = true;
+    }
+    redraw();
+    updateAudioGains();
+  });
+
+  // Initial draw
+  if (typeof PhizViz !== "undefined" && PhizViz.fitCanvas) {
+    PhizViz.fitCanvas(canvas);
+  }
+  redraw();
+})();
+</script>
 
 ## Translation Table
 

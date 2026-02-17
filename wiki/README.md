@@ -40,6 +40,8 @@ The physical foundations that everything else builds on.
 | [Sound Waves](sound-waves.md) | Pressure waves, frequency, amplitude, waveform vs. spectrum |
 | [The Ear & Cochlea](ear-cochlea.md) | Biological frequency analyzer, basilar membrane, critical bandwidth |
 | [Fourier Analysis](fourier-analysis.md) | Decomposing complex sounds into sine wave components |
+| [Standing Waves](standing-waves.md) | Resonant modes in strings and pipes, node/antinode patterns |
+| [Waveform Gallery](waveform-gallery.md) | Side-by-side comparison of fundamental waveforms and their spectra |
 
 ### Tier 1 — Music Primitives
 
@@ -64,6 +66,7 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 |------|-------------|
 | [Twelve-TET](twelve-tet.md) | The equal-temperament compromise and what it sacrifices |
 | [Consonance & Dissonance](consonance-dissonance.md) | Roughness, harmonic template matching, cultural perception |
+| [Beating & Roughness](beating-roughness.md) | Two-tone interference, beat rate, roughness, and critical bandwidth |
 | [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) | The universal 5-note scale and why it appears everywhere |
 | [Translation Tables](translation-tables.md) | Complete PhizMusic ↔ Western ↔ other systems mapping |
 | [Notation Layer](notation-layer.md) | Chromatic grid (Dodeka/piano roll) notation approach |
@@ -74,6 +77,10 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Digital Audio](digital-audio.md) | Sampling, Nyquist, aliasing, bit depth, room acoustics basics |
 | [Auditory Masking](auditory-masking.md) | Frequency and temporal masking, MP3 compression connection |
 | [Equal Loudness](equal-loudness.md) | Fletcher-Munson curves, frequency-dependent hearing sensitivity |
+| [Dissonance Curves](dissonance-curves.md) | Sethares' timbre-dependent dissonance model, sensory dissonance computation |
+| [Shepard Tones](shepard-tones.md) | Auditory illusion of endlessly ascending/descending pitch |
+| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of step-distance 7, generating all 12 steps |
+| [Functional Analysis](functional-analysis.md) | Step-set positions within a step-subset, tension and resolution patterns |
 
 ### Reference
 
@@ -94,14 +101,17 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 |------|---------------------|
 | [ADSR Envelope](adsr-envelope.md) | Amplitude envelope: attack, decay, sustain, release phases |
 | [Auditory Masking](auditory-masking.md) | How loud sounds render quiet sounds inaudible |
+| [Beating & Roughness](beating-roughness.md) | Physical beating and perceptual roughness across frequency spacing |
 | [Chords](chords.md) | Simultaneous pitches described as step-sets and ratio-sets |
 | [Chord Progressions](chord-progressions.md) | Sequences of step-sets with voice-leading analysis |
 | [Consonance & Dissonance](consonance-dissonance.md) | Multi-factorial perception of tonal fusion vs. clash |
 | [Digital Audio](digital-audio.md) | ADC, sampling rate, Nyquist theorem, aliasing, bit depth |
+| [Dissonance Curves](dissonance-curves.md) | Sethares' sensory dissonance model for arbitrary timbres |
 | [The Ear & Cochlea](ear-cochlea.md) | Biological frequency decomposition via basilar membrane |
 | [Equal Loudness](equal-loudness.md) | Fletcher-Munson curves and frequency-dependent hearing |
 | [Fourier Analysis](fourier-analysis.md) | Decomposing waveforms into component sine waves |
 | [Frequency Ratios](frequency-ratios.md) | Pitch comparison by ratio, the cent measurement system |
+| [Functional Analysis](functional-analysis.md) | Step-set positions within a step-subset, tension and resolution |
 | [Glossary](glossary.md) | Canonical PhizMusic vocabulary definitions |
 | [Harmonic Series](harmonic-series.md) | Integer-multiple overtone sequence from vibrating objects |
 | [Instrument Physics](instrument-physics.md) | Acoustics of strings, pipes, and membranes |
@@ -114,9 +124,13 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Rhythm](rhythm.md) | Pulse-fraction system for temporal organization |
 | [ROADMAP](ROADMAP.md) | Future plans: interactive tools, deferred content topics |
 | [Scales](scales.md) | Step-subsets: selecting from the 12 chromatic pitches |
+| [Shepard Tones](shepard-tones.md) | Auditory illusion of endlessly ascending/descending pitch |
+| [Standing Waves](standing-waves.md) | Resonant modes in strings and pipes, nodes and antinodes |
+| [Step-7 Cycle](step-7-cycle.md) | Modular arithmetic of step-distance 7, generating all 12 steps |
 | [Timbre](timbre.md) | Spectral fingerprint of a sound, timbre-tuning coupling |
 | [Translation Tables](translation-tables.md) | Bidirectional PhizMusic ↔ Western ↔ other systems |
 | [Twelve-TET](twelve-tet.md) | Equal temperament: the engineering compromise |
+| [Waveform Gallery](waveform-gallery.md) | Side-by-side waveform and spectrum comparison |
 
 ## Mathematical Notation
 
@@ -157,6 +171,8 @@ wiki/reference-table.md     — complete pitch mapping table
 wiki/sound-waves.md         — pressure waves, frequency, amplitude
 wiki/ear-cochlea.md         — biological frequency analyzer
 wiki/fourier-analysis.md    — waveform ↔ spectrum decomposition
+wiki/standing-waves.md      — resonant modes, nodes, antinodes
+wiki/waveform-gallery.md    — fundamental waveform + spectrum comparison
 
 # Tier 1 — Music Primitives
 wiki/harmonic-series.md     — the overtone sequence
@@ -171,6 +187,7 @@ wiki/missing-fundamental.md — virtual pitch perception
 # Tier 2 — Essential Context
 wiki/twelve-tet.md              — equal temperament compromise
 wiki/consonance-dissonance.md   — perceptual fusion mechanisms
+wiki/beating-roughness.md       — interference beating, roughness, and CB transitions
 wiki/pentatonic-cross-cultural.md — universal 5-note scale
 wiki/translation-tables.md     — PhizMusic ↔ Western ↔ others
 wiki/notation-layer.md         — chromatic grid notation
@@ -181,6 +198,10 @@ wiki/adsr-envelope.md          — amplitude envelope
 wiki/digital-audio.md          — sampling, Nyquist, aliasing
 wiki/auditory-masking.md       — frequency/temporal masking
 wiki/equal-loudness.md         — Fletcher-Munson curves
+wiki/dissonance-curves.md      — Sethares sensory dissonance model
+wiki/shepard-tones.md          — endlessly ascending/descending pitch illusion
+wiki/step-7-cycle.md           — modular arithmetic of step-distance 7
+wiki/functional-analysis.md    — step-set positions, tension and resolution
 
 # Future
 wiki/ROADMAP.md             — Phase 2 interactive tooling vision

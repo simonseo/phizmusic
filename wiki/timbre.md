@@ -105,7 +105,205 @@ All four buttons play the same pitch (Do4 = 261.63 Hz) with different oscillator
 | Square | Odd harmonics only, amplitudes fall as 1/n — hollow, woody | <button class="phiz-play-btn" data-freq="261.63" data-waveform="square" onclick="playWaveform(this)">▶ Square</button> |
 | Sawtooth | All harmonics, amplitudes fall as 1/n — bright, buzzy | <button class="phiz-play-btn" data-freq="261.63" data-waveform="sawtooth" onclick="playWaveform(this)">▶ Sawtooth</button> |
 
-<!-- INTERACTIVE: Timbre lab — lock fundamental frequency, then vary harmonic amplitude envelope and attack profile to morph between "flute-like," "violin-like," and "bell-like" percepts while showing spectrum and stream-grouping cues -->
+<div class="phiz-viz-container" id="tl-timbre-lab">
+  <div class="phiz-viz-title">Timbre Lab</div>
+  <canvas id="tl-spectrum" height="200" style="width:100%;"></canvas>
+  <div id="tl-info" style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:6px 0 4px;">Preset: Sawtooth</div>
+  <div class="phiz-viz-controls" id="tl-sliders" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:4px 12px;"></div>
+  <div class="phiz-viz-controls" style="margin-top:10px; justify-content:center;">
+    <button id="tl-pr-sawtooth" class="active">Sawtooth</button>
+    <button id="tl-pr-square">Square</button>
+    <button id="tl-pr-triangle">Triangle</button>
+    <button id="tl-pr-sine">Sine</button>
+    <button id="tl-pr-flute">Flute-like</button>
+    <button id="tl-pr-bell">Bell-like</button>
+    <button id="tl-play">▶ Play</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var NUM_HARMONICS = 8;
+  var FUNDAMENTAL = 220;
+  var amplitudes = [];
+  var sliderEls = [];
+  var valueEls = [];
+  var synth = null;
+  var playing = false;
+  var currentPreset = "Sawtooth";
+
+  // --- Preset definitions (return amplitude 0-1 for harmonic index 0-based) ---
+  var presets = {
+    Sawtooth: function (n) { return 1 / n; },
+    Square: function (n) { return (n % 2 === 1) ? (1 / n) : 0; },
+    Triangle: function (n) { return (n % 2 === 1) ? (1 / (n * n)) : 0; },
+    Sine: function (n) { return (n === 1) ? 1 : 0; },
+    "Flute-like": function (n) {
+      if (n === 1) return 1;
+      if (n === 2) return 0.25;
+      if (n === 3) return 0.12;
+      return 0;
+    },
+    "Bell-like": function (n) {
+      var vals = [0.3, 0.15, 0.2, 0.8, 1.0, 0.7, 0.2, 0.1];
+      return vals[n - 1] !== undefined ? vals[n - 1] : 0;
+    }
+  };
+
+  // --- Initialize amplitudes to sawtooth ---
+  for (var i = 0; i < NUM_HARMONICS; i++) {
+    amplitudes[i] = presets.Sawtooth(i + 1);
+  }
+
+  // --- Build slider rows ---
+  var slidersContainer = document.getElementById("tl-sliders");
+  for (var h = 0; h < NUM_HARMONICS; h++) {
+    var row = document.createElement("div");
+    row.style.cssText = "display:flex; align-items:center; gap:4px;";
+
+    var label = document.createElement("span");
+    label.style.cssText = "color:rgba(255,255,255,0.6); font-size:0.75rem; font-family:monospace; min-width:2.2em; text-align:right;";
+    label.textContent = "H" + (h + 1);
+
+    var slider = document.createElement("input");
+    slider.type = "range";
+    slider.min = "0";
+    slider.max = "100";
+    slider.step = "1";
+    slider.value = String(Math.round(amplitudes[h] * 100));
+    slider.style.cssText = "flex:1; min-width:60px; accent-color:#00e5ff; height:16px;";
+    slider.setAttribute("data-harmonic", String(h));
+
+    var valSpan = document.createElement("span");
+    valSpan.style.cssText = "color:#00e5ff; font-family:monospace; font-size:0.75rem; min-width:2.8em; text-align:left;";
+    valSpan.textContent = amplitudes[h].toFixed(2);
+
+    row.appendChild(label);
+    row.appendChild(slider);
+    row.appendChild(valSpan);
+    slidersContainer.appendChild(row);
+
+    sliderEls[h] = slider;
+    valueEls[h] = valSpan;
+  }
+
+  // --- Redraw spectrum ---
+  function redraw() {
+    var canvas = document.getElementById("tl-spectrum");
+    if (typeof PhizViz !== "undefined") {
+      PhizViz.drawHarmonicSpectrum(canvas, amplitudes, { color: "#00e5ff", bg: "#111", labelColor: "#aaa" });
+    }
+  }
+
+  // --- Sync sliders from amplitudes ---
+  function syncSliders() {
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      sliderEls[j].value = String(Math.round(amplitudes[j] * 100));
+      valueEls[j].textContent = amplitudes[j].toFixed(2);
+    }
+  }
+
+  // --- Update info line ---
+  function updateInfo(name) {
+    currentPreset = name;
+    document.getElementById("tl-info").textContent = "Preset: " + name + "  |  Fundamental: " + FUNDAMENTAL + " Hz";
+  }
+
+  // --- Synth management ---
+  function updateSynthPartials() {
+    if (!synth || !playing) return;
+    synth.oscillator.partials = amplitudes.slice();
+  }
+
+  function createSynth() {
+    synth = new Tone.Synth({
+      oscillator: { type: "custom", partials: amplitudes.slice() },
+      envelope: { attack: 0.05, decay: 0, sustain: 1, release: 0.1 }
+    }).toDestination();
+  }
+
+  function startPlaying() {
+    Tone.start().then(function () {
+      if (!synth) createSynth();
+      synth.oscillator.partials = amplitudes.slice();
+      synth.triggerAttack(FUNDAMENTAL);
+      playing = true;
+      document.getElementById("tl-play").textContent = "\u25A0 Stop";
+      document.getElementById("tl-play").classList.add("active");
+    });
+  }
+
+  function stopPlaying() {
+    if (synth) {
+      synth.triggerRelease();
+    }
+    playing = false;
+    document.getElementById("tl-play").textContent = "\u25B6 Play";
+    document.getElementById("tl-play").classList.remove("active");
+  }
+
+  // --- Slider input handler ---
+  slidersContainer.addEventListener("input", function (e) {
+    if (e.target.type !== "range") return;
+    var idx = parseInt(e.target.getAttribute("data-harmonic"), 10);
+    amplitudes[idx] = parseInt(e.target.value, 10) / 100;
+    valueEls[idx].textContent = amplitudes[idx].toFixed(2);
+    updateInfo("Custom");
+    redraw();
+    updateSynthPartials();
+  });
+
+  // --- Play/Stop toggle ---
+  document.getElementById("tl-play").addEventListener("click", function () {
+    if (playing) {
+      stopPlaying();
+    } else {
+      startPlaying();
+    }
+  });
+
+  // --- Apply preset ---
+  function applyPreset(name) {
+    var fn = presets[name];
+    for (var j = 0; j < NUM_HARMONICS; j++) {
+      amplitudes[j] = fn(j + 1);
+    }
+    syncSliders();
+    updateInfo(name);
+    redraw();
+    updateSynthPartials();
+    // Update active button styling
+    var btns = ["tl-pr-sawtooth", "tl-pr-square", "tl-pr-triangle", "tl-pr-sine", "tl-pr-flute", "tl-pr-bell"];
+    var names = ["Sawtooth", "Square", "Triangle", "Sine", "Flute-like", "Bell-like"];
+    for (var k = 0; k < btns.length; k++) {
+      var el = document.getElementById(btns[k]);
+      if (names[k] === name) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    }
+  }
+
+  // --- Preset button listeners ---
+  document.getElementById("tl-pr-sawtooth").addEventListener("click", function () { applyPreset("Sawtooth"); });
+  document.getElementById("tl-pr-square").addEventListener("click", function () { applyPreset("Square"); });
+  document.getElementById("tl-pr-triangle").addEventListener("click", function () { applyPreset("Triangle"); });
+  document.getElementById("tl-pr-sine").addEventListener("click", function () { applyPreset("Sine"); });
+  document.getElementById("tl-pr-flute").addEventListener("click", function () { applyPreset("Flute-like"); });
+  document.getElementById("tl-pr-bell").addEventListener("click", function () { applyPreset("Bell-like"); });
+
+  // --- Initial draw ---
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { redraw(); updateInfo("Sawtooth"); });
+  } else {
+    redraw();
+    updateInfo("Sawtooth");
+  }
+})();
+</script>
 
 ## Translation Table
 

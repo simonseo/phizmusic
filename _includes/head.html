@@ -40,8 +40,81 @@
         opacity: 0.4;
         cursor: not-allowed;
       }
+      .phiz-viz-container {
+        background: #111;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 1em 0;
+        overflow: hidden;
+      }
+      .phiz-viz-container canvas {
+        display: block;
+        width: 100%;
+        border-radius: 4px;
+      }
+      .phiz-viz-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .phiz-viz-controls label {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .phiz-viz-controls input[type="range"] {
+        width: 100px;
+        accent-color: #00e5ff;
+      }
+      .phiz-viz-controls input[type="checkbox"] {
+        accent-color: #00e5ff;
+      }
+      .phiz-viz-controls button {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 4px;
+        color: #fff;
+        padding: 4px 12px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: background 0.15s;
+      }
+      .phiz-viz-controls button:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      .phiz-viz-controls button.active {
+        background: #00e5ff;
+        color: #111;
+        border-color: #00e5ff;
+      }
+      .phiz-viz-controls select {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 4px;
+        color: #fff;
+        padding: 3px 6px;
+        font-size: 0.8rem;
+      }
+      .phiz-viz-controls .slider-value {
+        color: #00e5ff;
+        font-family: monospace;
+        font-size: 0.8rem;
+        min-width: 3em;
+      }
+      .phiz-viz-title {
+        color: rgba(255,255,255,0.6);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+      }
     </style>
     <script defer src="https://unpkg.com/tone@15.1.22/build/Tone.js"></script>
     <script defer src="{{ site.baseurl }}public/js/phizmusic-audio.js"></script>
+    <script defer src="{{ site.baseurl }}public/js/phizmusic-viz.js"></script>
   {% endif %}
 </head>

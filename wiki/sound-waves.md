@@ -132,9 +132,239 @@ Hear pure sine waves at different frequencies, and compare ratio-based perceptio
 
 <p><button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Octave: 220 Hz → 440 Hz (2:1 ratio)</button></p>
 
-<!-- INTERACTIVE: Oscilloscope showing sine wave with adjustable frequency and amplitude sliders -->
+<div class="phiz-viz-container" id="sw-oscilloscope">
+  <div class="phiz-viz-title">Oscilloscope — Real-Time Waveform</div>
+  <canvas id="sw-osc-canvas" height="180" style="width:100%;"></canvas>
+  <div class="phiz-viz-controls" id="sw-osc-controls" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:8px;">
+    <label style="color:rgba(255,255,255,0.7); font-size:0.8rem; font-family:monospace;">Freq
+      <input type="range" id="sw-osc-freq" min="20" max="2000" value="440" style="width:120px; accent-color:#00e5ff;">
+    </label>
+    <label style="color:rgba(255,255,255,0.7); font-size:0.8rem; font-family:monospace;">Amp
+      <input type="range" id="sw-osc-amp" min="0" max="100" value="80" style="width:100px; accent-color:#00e5ff;">
+    </label>
+    <span style="display:inline-flex; gap:4px;">
+      <button id="sw-osc-wf-sine" class="active">Sine</button>
+      <button id="sw-osc-wf-square">Square</button>
+      <button id="sw-osc-wf-sawtooth">Sawtooth</button>
+      <button id="sw-osc-wf-triangle">Triangle</button>
+    </span>
+    <button id="sw-osc-play">&#9654; Play</button>
+  </div>
+  <div id="sw-osc-info" style="color:rgba(255,255,255,0.5); font-size:0.75rem; font-family:monospace; margin-top:6px;">
+    Frequency: 440 Hz | Amplitude: 80% | Waveform: sine
+  </div>
+</div>
 
-<!-- INTERACTIVE: Spectrum analyzer showing frequency decomposition of a complex tone -->
+<script>
+(function () {
+  "use strict";
+
+  var freqSlider = document.getElementById("sw-osc-freq");
+  var ampSlider = document.getElementById("sw-osc-amp");
+  var playBtn = document.getElementById("sw-osc-play");
+  var infoEl = document.getElementById("sw-osc-info");
+  var canvas = document.getElementById("sw-osc-canvas");
+
+  var waveformBtns = {
+    sine: document.getElementById("sw-osc-wf-sine"),
+    square: document.getElementById("sw-osc-wf-square"),
+    sawtooth: document.getElementById("sw-osc-wf-sawtooth"),
+    triangle: document.getElementById("sw-osc-wf-triangle")
+  };
+
+  var currentType = "sine";
+  var playing = false;
+  var osc = null;
+  var gainNode = null;
+  var viz = null;
+
+  function getFreq() { return parseInt(freqSlider.value, 10); }
+  function getAmp() { return parseInt(ampSlider.value, 10) / 100; }
+
+  function updateInfo() {
+    infoEl.textContent = "Frequency: " + getFreq() + " Hz | Amplitude: " +
+      parseInt(ampSlider.value, 10) + "% | Waveform: " + currentType;
+  }
+
+  function setActiveWaveformBtn(type) {
+    var keys = ["sine", "square", "sawtooth", "triangle"];
+    for (var i = 0; i < keys.length; i++) {
+      waveformBtns[keys[i]].classList.remove("active");
+    }
+    waveformBtns[type].classList.add("active");
+  }
+
+  function startPlaying() {
+    Tone.start().then(function () {
+      gainNode = new Tone.Gain(getAmp()).toDestination();
+      osc = new Tone.Oscillator(getFreq(), currentType);
+      osc.connect(gainNode);
+      osc.start();
+
+      viz = PhizViz.oscilloscope(canvas, { color: "#00e5ff", bg: "#111" });
+      viz.connect(gainNode);
+      viz.start();
+
+      playing = true;
+      playBtn.textContent = "\u25A0 Stop";
+      playBtn.classList.add("active");
+    });
+  }
+
+  function stopPlaying() {
+    if (osc) { osc.stop(); osc.dispose(); osc = null; }
+    if (gainNode) { gainNode.dispose(); gainNode = null; }
+    if (viz) { viz.stop(); viz.dispose(); viz = null; }
+    playing = false;
+    playBtn.textContent = "\u25B6 Play";
+    playBtn.classList.remove("active");
+  }
+
+  playBtn.addEventListener("click", function () {
+    if (playing) { stopPlaying(); } else { startPlaying(); }
+  });
+
+  freqSlider.addEventListener("input", function () {
+    if (osc) { osc.frequency.value = getFreq(); }
+    updateInfo();
+  });
+
+  ampSlider.addEventListener("input", function () {
+    if (gainNode) { gainNode.gain.value = getAmp(); }
+    updateInfo();
+  });
+
+  function handleWaveformClick(type) {
+    return function () {
+      currentType = type;
+      setActiveWaveformBtn(type);
+      if (osc) { osc.type = type; }
+      updateInfo();
+    };
+  }
+
+  waveformBtns.sine.addEventListener("click", handleWaveformClick("sine"));
+  waveformBtns.square.addEventListener("click", handleWaveformClick("square"));
+  waveformBtns.sawtooth.addEventListener("click", handleWaveformClick("sawtooth"));
+  waveformBtns.triangle.addEventListener("click", handleWaveformClick("triangle"));
+})();
+</script>
+
+<div class="phiz-viz-container" id="sw-spectrum-analyzer">
+  <div class="phiz-viz-title">Spectrum Analyzer — Frequency Decomposition</div>
+  <canvas id="sw-spec-canvas" height="180" style="width:100%;"></canvas>
+  <div class="phiz-viz-controls" id="sw-spec-controls" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:8px;">
+    <label style="color:rgba(255,255,255,0.7); font-size:0.8rem; font-family:monospace;">Fundamental
+      <input type="range" id="sw-spec-fund" min="100" max="1000" value="220" style="width:120px; accent-color:#ff6090;">
+    </label>
+    <label style="color:rgba(255,255,255,0.7); font-size:0.8rem; font-family:monospace;">Harmonics
+      <input type="range" id="sw-spec-harm" min="1" max="16" value="6" style="width:100px; accent-color:#ff6090;">
+    </label>
+    <button id="sw-spec-play">&#9654; Play</button>
+  </div>
+  <div id="sw-spec-info" style="color:rgba(255,255,255,0.5); font-size:0.75rem; font-family:monospace; margin-top:6px;">
+    Fundamental: 220 Hz | Harmonics: 6 | Highest partial: 1320 Hz
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var fundSlider = document.getElementById("sw-spec-fund");
+  var harmSlider = document.getElementById("sw-spec-harm");
+  var playBtn = document.getElementById("sw-spec-play");
+  var infoEl = document.getElementById("sw-spec-info");
+  var canvas = document.getElementById("sw-spec-canvas");
+
+  var playing = false;
+  var oscillators = [];
+  var gainNode = null;
+  var viz = null;
+
+  function getFund() { return parseInt(fundSlider.value, 10); }
+  function getHarm() { return parseInt(harmSlider.value, 10); }
+
+  function updateInfo() {
+    var fund = getFund();
+    var harm = getHarm();
+    infoEl.textContent = "Fundamental: " + fund + " Hz | Harmonics: " +
+      harm + " | Highest partial: " + (fund * harm) + " Hz";
+  }
+
+  var partialGains = [];
+
+  function disposeOscillators() {
+    for (var i = 0; i < oscillators.length; i++) {
+      oscillators[i].stop();
+      oscillators[i].dispose();
+    }
+    for (var j = 0; j < partialGains.length; j++) {
+      partialGains[j].dispose();
+    }
+    oscillators = [];
+    partialGains = [];
+  }
+
+  function createOscillators() {
+    var fund = getFund();
+    var harm = getHarm();
+    for (var n = 1; n <= harm; n++) {
+      var pg = new Tone.Gain(1 / n).connect(gainNode);
+      var o = new Tone.Oscillator(fund * n, "sine");
+      o.connect(pg);
+      o.start();
+      oscillators.push(o);
+      partialGains.push(pg);
+    }
+  }
+
+  function startPlaying() {
+    Tone.start().then(function () {
+      gainNode = new Tone.Gain(0.5).toDestination();
+
+      createOscillators();
+
+      viz = PhizViz.spectrum(canvas, { color: "#ff6090", bg: "#111", maxFreq: 5000 });
+      viz.connect(gainNode);
+      viz.start();
+
+      playing = true;
+      playBtn.textContent = "\u25A0 Stop";
+      playBtn.classList.add("active");
+    });
+  }
+
+  function stopPlaying() {
+    disposeOscillators();
+    if (gainNode) { gainNode.dispose(); gainNode = null; }
+    if (viz) { viz.stop(); viz.dispose(); viz = null; }
+    playing = false;
+    playBtn.textContent = "\u25B6 Play";
+    playBtn.classList.remove("active");
+  }
+
+  function rebuildOscillators() {
+    if (!playing) return;
+    disposeOscillators();
+    createOscillators();
+  }
+
+  playBtn.addEventListener("click", function () {
+    if (playing) { stopPlaying(); } else { startPlaying(); }
+  });
+
+  fundSlider.addEventListener("input", function () {
+    rebuildOscillators();
+    updateInfo();
+  });
+
+  harmSlider.addEventListener("input", function () {
+    rebuildOscillators();
+    updateInfo();
+  });
+})();
+</script>
 
 ## Logarithmic Perception: Hearing in Ratios
 

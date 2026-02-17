@@ -125,7 +125,115 @@ Click any button below to hear the two tones separately and together. Listen for
 | 7 | Perfect 5th | Maximum fusion | <button class="phiz-play-btn" data-freq1="220" data-freq2="329.63" onclick="playRatio(this)">▶ Play</button> |
 | 12 | Octave | Perceptual reset | <button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Play</button> |
 
-<!-- INTERACTIVE: Dissonance curve explorer — play two tones, sweep interval from unison to octave, see real-time roughness visualization alongside frequency spectrum showing harmonic pairs within critical bandwidth -->
+<div class="phiz-viz-container" id="cd-explorer">
+<div class="phiz-viz-title">Dissonance Curve Explorer</div>
+<canvas id="cd-curve-canvas" height="280" style="width:100%;"></canvas>
+<div class="phiz-viz-controls">
+<label>Ratio: <input type="range" id="cd-ratio" min="1000" max="2000" step="1" value="1500"> <span class="slider-value" id="cd-ratio-val">1.500</span></label>
+<button id="cd-play">▶ Play at Ratio</button>
+<button id="cd-stop">■ Stop</button>
+</div>
+<div id="cd-info" style="color:#aaa; font-size:0.85rem; padding:4px 8px;">Ratio: 1.500 | Step-distance: 7.02 | Dissonance: —</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+  var canvas = document.getElementById("cd-curve-canvas");
+  var ratioSlider = document.getElementById("cd-ratio");
+  var ratioVal = document.getElementById("cd-ratio-val");
+  var info = document.getElementById("cd-info");
+  var REF = 220;
+  var spectrum = [1, 0.5, 0.33, 0.25, 0.2, 0.17];
+  var curveData = null;
+  var osc1 = null;
+  var osc2 = null;
+  var gain = null;
+
+  function computeCurve() {
+    if (typeof PhizViz !== "undefined" && PhizViz.computeDissonanceCurve) {
+      curveData = PhizViz.computeDissonanceCurve(spectrum, REF, 2.05, 500);
+    }
+  }
+
+  function drawCurve() {
+    if (!curveData) return;
+    if (typeof PhizViz !== "undefined" && PhizViz.drawDissonanceCurve) {
+      PhizViz.drawDissonanceCurve(canvas, curveData, {showIntervals: true, color: "#ff6090", bg: "#111"});
+    }
+    var ratio = ratioSlider.value / 1000;
+    var ctx = canvas.getContext("2d");
+    var dpr = window.devicePixelRatio || 1;
+    var w = canvas.width / dpr;
+    var h = canvas.height / dpr;
+    var x = ((ratio - 1.0) / 1.05) * w;
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.strokeStyle = "#00e5ff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function getDissonanceAtRatio(ratio) {
+    if (!curveData) return 0;
+    var idx = Math.round(((ratio - 1.0) / 1.05) * (curveData.ratios.length - 1));
+    if (idx < 0) idx = 0;
+    if (idx >= curveData.dissonance.length) idx = curveData.dissonance.length - 1;
+    return curveData.dissonance[idx];
+  }
+
+  function updateInfo() {
+    var ratio = ratioSlider.value / 1000;
+    ratioVal.textContent = ratio.toFixed(3);
+    var sd = 12 * Math.log(ratio) / Math.log(2);
+    var diss = getDissonanceAtRatio(ratio);
+    info.textContent = "Ratio: " + ratio.toFixed(3) + " | Step-distance: " + sd.toFixed(2) + " | Dissonance: " + diss.toFixed(2);
+    drawCurve();
+  }
+
+  ratioSlider.addEventListener("input", updateInfo);
+
+  document.getElementById("cd-play").addEventListener("click", function() {
+    var ratio = ratioSlider.value / 1000;
+    Tone.start().then(function() {
+      if (osc1) { osc1.stop(); osc1.dispose(); }
+      if (osc2) { osc2.stop(); osc2.dispose(); }
+      if (gain) { gain.dispose(); }
+      gain = new Tone.Gain(0.15).toDestination();
+      osc1 = new Tone.Oscillator(REF, "sine").connect(gain);
+      osc2 = new Tone.Oscillator(REF * ratio, "sine").connect(gain);
+      osc1.start();
+      osc2.start();
+      setTimeout(function() {
+        if (osc1) { osc1.stop(); osc1.dispose(); osc1 = null; }
+        if (osc2) { osc2.stop(); osc2.dispose(); osc2 = null; }
+        if (gain) { gain.dispose(); gain = null; }
+      }, 2000);
+    });
+  });
+
+  document.getElementById("cd-stop").addEventListener("click", function() {
+    if (osc1) { osc1.stop(); osc1.dispose(); osc1 = null; }
+    if (osc2) { osc2.stop(); osc2.dispose(); osc2 = null; }
+    if (gain) { gain.dispose(); gain = null; }
+  });
+
+  function init() {
+    computeCurve();
+    updateInfo();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
 
 ## The Cultural Dimension: Fusion ≠ Preference
 
