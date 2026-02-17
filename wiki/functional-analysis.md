@@ -2,8 +2,8 @@
 title: Functional Analysis
 aliases: [Roman numeral analysis, harmonic function, key analysis]
 tier: 2
-category: harmony
-sidebar_order: 2
+category: music
+sidebar_order: 5
 tags: [harmony, analysis, chord-function]
 prerequisites: [chords.md, scales.md, chord-progressions.md, naming-system.md]
 related: [chord-progressions.md, chords.md, scales.md, step-7-cycle.md]

@@ -2,7 +2,8 @@
 title: Naming System
 aliases: [step numbers, Dodeka syllables, note names, pitch notation]
 tier: 1
-category: music
+category: reference
+sidebar_order: 1
 tags: [notation, foundation, reference]
 prerequisites: []
 related: [glossary.md, reference-table.md, intervals.md, scales.md, translation-tables.md]

@@ -2,7 +2,8 @@
 title: Sound Waves
 aliases: [pressure waves, acoustics basics]
 tier: 1
-category: physics
+category: deep-physics
+sidebar_order: 4
 tags: [physics, foundation]
 prerequisites: []
 related: [ear-cochlea.md, fourier-analysis.md, harmonic-series.md, glossary.md]

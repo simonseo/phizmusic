@@ -3,7 +3,7 @@ title: Pentatonic & Cross-Cultural Scales
 aliases: [pentatonic, cross-cultural, world scales]
 tier: 2
 category: systems
-sidebar_order: 2
+sidebar_order: 3
 tags: [cross-cultural, scales, universals]
 prerequisites: [scales.md, frequency-ratios.md, intervals.md]
 related: [scales.md, frequency-ratios.md, intervals.md, harmonic-series.md, consonance-dissonance.md, twelve-tet.md]

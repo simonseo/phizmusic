@@ -2,8 +2,8 @@
 title: ADSR Envelope
 aliases: [envelope, attack decay sustain release, amplitude shape]
 tier: 2
-category: sound
-sidebar_order: 3
+category: sound-design
+sidebar_order: 4
 tags: [time-domain, timbre, dynamics]
 prerequisites: [sound-waves.md, timbre.md, rhythm.md]
 related: [sound-waves.md, timbre.md, rhythm.md, digital-audio.md, instrument-physics.md]

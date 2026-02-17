@@ -2,6 +2,8 @@
 title: Pitch Reference Table
 aliases: [reference table, frequency table, pitch mapping]
 tier: structural
+category: reference
+sidebar_order: 4
 tags: [reference]
 prerequisites: []
 related: [naming-system.md, glossary.md, intervals.md, translation-tables.md]

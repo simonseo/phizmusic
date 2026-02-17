@@ -2,8 +2,8 @@
 title: Chord Progressions
 aliases: [progressions, harmonic motion, voice-leading]
 tier: 2
-category: harmony
-sidebar_order: 1
+category: music
+sidebar_order: 4
 tags: [harmony, time, prediction]
 prerequisites: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md]
 related: [chords.md, intervals.md, rhythm.md, consonance-dissonance.md, scales.md, notation-layer.md]

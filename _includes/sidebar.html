@@ -12,15 +12,15 @@
       <a class="sidebar-nav-item{% if page.path == 'wiki/README.md' %} active{% endif %}" href="{{ '/wiki/README/' | relative_url }}">Wiki Overview</a>
 
       {% comment %}
-        Group wiki pages by tier+category for collapsible sidebar navigation.
-        Pages must have `tier` in front matter. Tier 1 pages also need `category: physics|music`.
+        Group wiki pages by category for collapsible sidebar navigation.
+        Pages must have `category` and `sidebar_order` in front matter.
+        7 groups ordered from low-level physics to high-level reference.
       {% endcomment %}
 
       {% assign wiki_pages = site.pages | where_exp: "p", "p.path contains 'wiki/'" %}
 
-      {% comment %} === Tier 1 — Physics Primitives === {% endcomment %}
-      {% assign tier1_pages = wiki_pages | where_exp: "p", "p.tier == 1" %}
-      {% assign physics_pages = tier1_pages | where: "category", "physics" | sort: "title" %}
+      {% comment %} === Physics Primitives === {% endcomment %}
+      {% assign physics_pages = wiki_pages | where: "category", "physics" | sort: "sidebar_order" %}
       {% if physics_pages.size > 0 %}
         {% assign physics_active = false %}
         {% for p in physics_pages %}
@@ -34,8 +34,8 @@
         </details>
       {% endif %}
 
-      {% comment %} === Tier 1 — Music Primitives === {% endcomment %}
-      {% assign music_pages = tier1_pages | where: "category", "music" | sort: "title" %}
+      {% comment %} === Music Primitives === {% endcomment %}
+      {% assign music_pages = wiki_pages | where: "category", "music" | sort: "sidebar_order" %}
       {% if music_pages.size > 0 %}
         {% assign music_active = false %}
         {% for p in music_pages %}
@@ -49,41 +49,53 @@
         </details>
       {% endif %}
 
-      {% comment %} === Tier 2 — Sub-grouped by category, ordered low→high level === {% endcomment %}
-      {% assign tier2_all = wiki_pages | where_exp: "p", "p.tier == 2" %}
-
-      {% comment %} === How We Hear (perception) === {% endcomment %}
-      {% assign perception_pages = tier2_all | where: "category", "perception" | sort: "sidebar_order" %}
-      {% if perception_pages.size > 0 %}
-        {% assign perception_active = false %}
-        {% for p in perception_pages %}
-          {% if page.url == p.url %}{% assign perception_active = true %}{% endif %}
+      {% comment %} === How Ears Hear === {% endcomment %}
+      {% assign hearing_pages = wiki_pages | where: "category", "hearing" | sort: "sidebar_order" %}
+      {% if hearing_pages.size > 0 %}
+        {% assign hearing_active = false %}
+        {% for p in hearing_pages %}
+          {% if page.url == p.url %}{% assign hearing_active = true %}{% endif %}
         {% endfor %}
-        <details class="sidebar-group"{% if perception_active %} open{% endif %}>
-          <summary class="sidebar-group-heading">How We Hear</summary>
-          {% for p in perception_pages %}
+        <details class="sidebar-group"{% if hearing_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">How Ears Hear</summary>
+          {% for p in hearing_pages %}
             <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
           {% endfor %}
         </details>
       {% endif %}
 
-      {% comment %} === Sound Sources (sound) === {% endcomment %}
-      {% assign sound_pages = tier2_all | where: "category", "sound" | sort: "sidebar_order" %}
-      {% if sound_pages.size > 0 %}
-        {% assign sound_active = false %}
-        {% for p in sound_pages %}
-          {% if page.url == p.url %}{% assign sound_active = true %}{% endif %}
+      {% comment %} === Physics in Depth === {% endcomment %}
+      {% assign deep_pages = wiki_pages | where: "category", "deep-physics" | sort: "sidebar_order" %}
+      {% if deep_pages.size > 0 %}
+        {% assign deep_active = false %}
+        {% for p in deep_pages %}
+          {% if page.url == p.url %}{% assign deep_active = true %}{% endif %}
         {% endfor %}
-        <details class="sidebar-group"{% if sound_active %} open{% endif %}>
-          <summary class="sidebar-group-heading">Sound Sources</summary>
-          {% for p in sound_pages %}
+        <details class="sidebar-group"{% if deep_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Physics in Depth</summary>
+          {% for p in deep_pages %}
             <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
           {% endfor %}
         </details>
       {% endif %}
 
-      {% comment %} === Organizing Pitch (systems) === {% endcomment %}
-      {% assign systems_pages = tier2_all | where: "category", "systems" | sort: "sidebar_order" %}
+      {% comment %} === Sound Design === {% endcomment %}
+      {% assign design_pages = wiki_pages | where: "category", "sound-design" | sort: "sidebar_order" %}
+      {% if design_pages.size > 0 %}
+        {% assign design_active = false %}
+        {% for p in design_pages %}
+          {% if page.url == p.url %}{% assign design_active = true %}{% endif %}
+        {% endfor %}
+        <details class="sidebar-group"{% if design_active %} open{% endif %}>
+          <summary class="sidebar-group-heading">Sound Design</summary>
+          {% for p in design_pages %}
+            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% comment %} === Organizing Pitch === {% endcomment %}
+      {% assign systems_pages = wiki_pages | where: "category", "systems" | sort: "sidebar_order" %}
       {% if systems_pages.size > 0 %}
         {% assign systems_active = false %}
         {% for p in systems_pages %}
@@ -97,23 +109,8 @@
         </details>
       {% endif %}
 
-      {% comment %} === Applied Theory (harmony) === {% endcomment %}
-      {% assign harmony_pages = tier2_all | where: "category", "harmony" | sort: "sidebar_order" %}
-      {% if harmony_pages.size > 0 %}
-        {% assign harmony_active = false %}
-        {% for p in harmony_pages %}
-          {% if page.url == p.url %}{% assign harmony_active = true %}{% endif %}
-        {% endfor %}
-        <details class="sidebar-group"{% if harmony_active %} open{% endif %}>
-          <summary class="sidebar-group-heading">Applied Theory</summary>
-          {% for p in harmony_pages %}
-            <a class="sidebar-nav-item sidebar-nav-subitem{% if page.url == p.url %} active{% endif %}" href="{{ p.url | relative_url }}">{{ p.title }}</a>
-          {% endfor %}
-        </details>
-      {% endif %}
-
       {% comment %} === Reference === {% endcomment %}
-      {% assign ref_pages = wiki_pages | where: "tier", "structural" | sort: "title" %}
+      {% assign ref_pages = wiki_pages | where: "category", "reference" | sort: "sidebar_order" %}
       {% if ref_pages.size > 0 %}
         {% assign ref_active = false %}
         {% for p in ref_pages %}

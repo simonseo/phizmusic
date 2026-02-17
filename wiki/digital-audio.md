@@ -2,8 +2,8 @@
 title: Digital Audio
 aliases: [ADC, sampling, Nyquist, aliasing, bit depth]
 tier: 2
-category: sound
-sidebar_order: 4
+category: sound-design
+sidebar_order: 5
 tags: [audio engineering, signal processing, recording]
 prerequisites: [sound-waves.md, fourier-analysis.md, adsr-envelope.md]
 related: [sound-waves.md, fourier-analysis.md, adsr-envelope.md, auditory-masking.md, equal-loudness.md, instrument-physics.md]

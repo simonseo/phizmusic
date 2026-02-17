@@ -2,7 +2,8 @@
 title: The Ear & Cochlea
 aliases: [ear, cochlea, basilar membrane, auditory system]
 tier: 1
-category: physics
+category: hearing
+sidebar_order: 1
 tags: [biology, physics, perception]
 prerequisites: [sound-waves.md]
 related: [sound-waves.md, fourier-analysis.md, consonance-dissonance.md, auditory-masking.md, equal-loudness.md, missing-fundamental.md]

@@ -3,6 +3,7 @@ title: Scales
 aliases: [step-subsets, scale, modes]
 tier: 1
 category: music
+sidebar_order: 2
 tags: [music, foundation]
 has_audio: true
 prerequisites: [naming-system.md, intervals.md, frequency-ratios.md]

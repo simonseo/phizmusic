@@ -2,6 +2,8 @@
 title: PhizMusic Glossary
 aliases: [glossary, vocabulary, terminology]
 tier: structural
+category: reference
+sidebar_order: 3
 tags: [reference]
 prerequisites: []
 related: [reference-table.md, naming-system.md, translation-tables.md]

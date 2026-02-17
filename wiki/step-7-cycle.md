@@ -3,7 +3,7 @@ title: The Step-7 Cycle
 aliases: [circle of fifths, step-7 generator, chromatic generator]
 tier: 2
 category: systems
-sidebar_order: 3
+sidebar_order: 2
 tags: [tuning, intervals, modular-arithmetic]
 prerequisites: [intervals.md, twelve-tet.md, naming-system.md]
 related: [scales.md, chord-progressions.md, twelve-tet.md, frequency-ratios.md]

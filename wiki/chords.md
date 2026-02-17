@@ -3,6 +3,7 @@ title: Chords
 aliases: [step-combos, ratio-sets, triads, chord]
 tier: 1
 category: music
+sidebar_order: 3
 tags: [music, foundation, harmony]
 prerequisites: [intervals.md, harmonic-series.md, frequency-ratios.md, naming-system.md]
 related: [intervals.md, harmonic-series.md, frequency-ratios.md, chord-progressions.md, consonance-dissonance.md, scales.md]

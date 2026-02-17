@@ -1,7 +1,8 @@
 ---
 title: "Waveform Gallery"
 tier: 1
-category: physics
+category: deep-physics
+sidebar_order: 1
 scope-boundary: "Visual and auditory comparison of fundamental waveforms and their spectra"
 aliases: ["waveform comparison", "wave shapes"]
 tags: [waveform, spectrum, sine, square, sawtooth, triangle, fourier]

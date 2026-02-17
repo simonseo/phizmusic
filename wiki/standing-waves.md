@@ -2,7 +2,8 @@
 title: Standing Waves
 aliases: [resonance modes, vibrational modes, harmonics on a string]
 tier: 1
-category: physics
+category: deep-physics
+sidebar_order: 3
 tags: [acoustics, vibration, waves]
 prerequisites: [sound-waves.md]
 related: [harmonic-series.md, instrument-physics.md, fourier-analysis.md]

@@ -3,6 +3,7 @@ title: Intervals
 aliases: [step-interval, interval, musical intervals]
 tier: 1
 category: music
+sidebar_order: 1
 tags: [music, foundation, reference]
 has_audio: true
 prerequisites: [naming-system.md, frequency-ratios.md, harmonic-series.md]
