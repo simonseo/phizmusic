@@ -7,6 +7,7 @@ tags: [biology, physics, perception]
 prerequisites: [sound-waves.md]
 related: [sound-waves.md, fourier-analysis.md, consonance-dissonance.md, auditory-masking.md, equal-loudness.md, missing-fundamental.md]
 scope-boundary: Peripheral auditory system only (outer ear to cochlear nerve). No higher auditory cortex processing, no musical interval theory, no consonance models.
+has_audio: true
 ---
 
 # The Ear & Cochlea
