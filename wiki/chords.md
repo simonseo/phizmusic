@@ -7,6 +7,7 @@ tags: [music, foundation, harmony]
 prerequisites: [intervals.md, harmonic-series.md, frequency-ratios.md, naming-system.md]
 related: [intervals.md, harmonic-series.md, frequency-ratios.md, chord-progressions.md, consonance-dissonance.md, scales.md]
 scope-boundary: Chord definition, step-set/ratio-set notation, common chord catalog only. No chord progressions, no inversions or voicing in depth.
+has_audio: true
 ---
 
 # Chords
@@ -66,12 +67,47 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
 
 ### Triads (3 notes)
 
-| Step-set | Ratio-set | Harmonic origin | Character |
-|----------|-----------|-----------------|-----------|
-| {0, 4, 7} | 4:5:6 | Harmonics 4, 5, 6 | Maximum fusion — bright, stable, resolved |
-| {0, 3, 7} | 10:12:15 | No simple harmonic group | Dark, warm — the 6:5 ratio on bottom gives a minor quality |
-| {0, 3, 6} | ~25:30:36 | No clean harmonic origin | Tense, unstable — both intervals are imperfect |
-| {0, 4, 8} | ~16:20:25 | No clean harmonic origin | Symmetrical (equal step-4 intervals), ambiguous, floating |
+<table>
+  <thead>
+    <tr>
+      <th>Step-set</th>
+      <th>Ratio-set</th>
+      <th>Harmonic origin</th>
+      <th>Character</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{0, 4, 7}</td>
+      <td>4:5:6</td>
+      <td>Harmonics 4, 5, 6</td>
+      <td>Maximum fusion — bright, stable, resolved</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4,7]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 3, 7}</td>
+      <td>10:12:15</td>
+      <td>No simple harmonic group</td>
+      <td>Dark, warm — the 6:5 ratio on bottom gives a minor quality</td>
+      <td><button class="phiz-play-btn" data-steps="[0,3,7]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 3, 6}</td>
+      <td>~25:30:36</td>
+      <td>No clean harmonic origin</td>
+      <td>Tense, unstable — both intervals are imperfect</td>
+      <td><button class="phiz-play-btn" data-steps="[0,3,6]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 4, 8}</td>
+      <td>~16:20:25</td>
+      <td>No clean harmonic origin</td>
+      <td>Symmetrical (equal step-4 intervals), ambiguous, floating</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4,8]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+  </tbody>
+</table>
 
 **Why {0, 3, 7} sounds different from {0, 4, 7}**: The ratio 10:12:15 involves larger numbers than 4:5:6. Larger ratio numbers = more complex relationship = less harmonic overlap = less perceptual fusion. The chord still sounds "good" (the outer step-distance 7 is the solid 3:2 ratio), but the internal structure is less aligned with the harmonic series, giving it a darker, more complex quality.
 
@@ -79,12 +115,47 @@ Western theory calls this a "major triad." PhizMusic calls it what it is: the 4:
 
 ### Tetrads (4 notes)
 
-| Step-set | Ratio-set | Harmonic origin | Character |
-|----------|-----------|-----------------|-----------|
-| {0, 4, 7, 10} | 4:5:6:7 | Harmonics 4, 5, 6, 7 | The "natural tetrad" — all four notes from the harmonic series. Bluesy, wants to resolve. |
-| {0, 4, 7, 11} | 8:10:12:15 | — | Lush, jazz-inflected, complex but not harsh |
-| {0, 3, 7, 10} | 10:12:15:18 | — | Dark + tension — foundation of blues and minor keys |
-| {0, 4, 7, 10, 14} | ~4:5:6:7:9 | Harmonics 4-7 + 9 | Extended "natural" chord — all harmonic series |
+<table>
+  <thead>
+    <tr>
+      <th>Step-set</th>
+      <th>Ratio-set</th>
+      <th>Harmonic origin</th>
+      <th>Character</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{0, 4, 7, 10}</td>
+      <td>4:5:6:7</td>
+      <td>Harmonics 4, 5, 6, 7</td>
+      <td>The "natural tetrad" — all four notes from the harmonic series. Bluesy, wants to resolve.</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4,7,10]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 4, 7, 11}</td>
+      <td>8:10:12:15</td>
+      <td>—</td>
+      <td>Lush, jazz-inflected, complex but not harsh</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4,7,11]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 3, 7, 10}</td>
+      <td>10:12:15:18</td>
+      <td>—</td>
+      <td>Dark + tension — foundation of blues and minor keys</td>
+      <td><button class="phiz-play-btn" data-steps="[0,3,7,10]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>{0, 4, 7, 10, 14}</td>
+      <td>~4:5:6:7:9</td>
+      <td>Harmonics 4-7 + 9</td>
+      <td>Extended "natural" chord — all harmonic series</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4,7,10,14]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+  </tbody>
+</table>
 
 **The {0, 4, 7, 10} tetrad** deserves special attention. Its ratio-set 4:5:6:7 means it literally IS harmonics 4 through 7 of a fundamental. The 7th harmonic (ratio 7:4 = 969 cents) falls 31 cents below the 12-TET step-10 (1000 cents). This means the "natural" version of this chord doesn't quite match the 12-TET approximation. Barbershop quartets and blues singers instinctively tune the top note lower than 12-TET to hit the 7:4 sweet spot. Western theory calls this chord "dominant seventh" and explains it as functional harmony. Physics simply says: "It's harmonics 4-5-6-7."
 
