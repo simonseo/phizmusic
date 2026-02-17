@@ -7,6 +7,7 @@ prerequisites: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md]
 related: [ear-cochlea.md, harmonic-series.md, intervals.md, chords.md, frequency-ratios.md, timbre.md, twelve-tet.md]
 scope-boundary: Perceptual mechanisms only. No musical application or prescriptive ranking (see chord-progressions.md for application).
 has_audio: true
+has_timbre: true
 ---
 
 # Consonance & Dissonance
@@ -131,6 +132,7 @@ Click any button below to hear the two tones separately and together. Listen for
 > **Attribution**: This dissonance curve visualization is inspired by and based on Aatish Bhatia's [Dissonance Curve Explorer](https://aatishb.com/dissonance/), which implements William Sethares' sensory dissonance model. See [Dissonance Curves](dissonance-curves.md) for the full treatment.
 
 <canvas id="cd-curve-canvas" height="280" style="width:100%;"></canvas>
+<div id="cd-timbre" style="margin:10px 0;"></div>
 <div class="phiz-viz-controls">
 <label>Ratio: <input type="range" id="cd-ratio" min="1000" max="2000" step="1" value="1500"> <span class="slider-value" id="cd-ratio-val">1.500</span></label>
 <button id="cd-play">▶ Play at Ratio</button>
@@ -148,14 +150,34 @@ window.addEventListener('load', function() {
   var ratioVal = document.getElementById("cd-ratio-val");
   var info = document.getElementById("cd-info");
   var REF = 220;
-  var spectrum = {freq: [1, 2, 3, 4, 5, 6], amp: [1, 0.5, 0.33, 0.25, 0.2, 0.17]};
+  var currentSpectrum = {freq: [1, 2, 3, 4, 5, 6], amp: [1, 0.5, 0.33, 0.25, 0.2, 0.17]};
   var curveData = null;
   var osc1 = null;
   var osc2 = null;
   var gain = null;
 
+  /* ── Timbre Designer integration ── */
+  var td = null;
+  if (typeof PhizTimbre !== "undefined") {
+    td = PhizTimbre.create("cd-timbre", {
+      numSlots: 8,
+      fundamental: REF,
+      preset: "string",
+      collapsed: true,
+      onChange: function(spectrum) {
+        currentSpectrum = spectrum;
+        computeCurve();
+        updateInfo();
+      }
+    });
+  }
+
   function computeCurve() {
     if (typeof PhizViz !== "undefined" && PhizViz.computeDissonanceCurve) {
+      var spectrum = currentSpectrum;
+      if (spectrum.freq.length === 0) {
+        spectrum = {freq: [1], amp: [1]};
+      }
       curveData = PhizViz.computeDissonanceCurve(spectrum, REF, 2.05, 500);
     }
   }

@@ -8,6 +8,7 @@ prerequisites: [consonance-dissonance.md, timbre.md, harmonic-series.md]
 related: [consonance-dissonance.md, timbre.md, twelve-tet.md, harmonic-series.md]
 scope-boundary: Sethares model only. Cultural preferences covered in consonance-dissonance.md.
 has_audio: true
+has_timbre: true
 ---
 
 # Dissonance Curves
@@ -107,14 +108,7 @@ Use the explorer below to see how different spectra produce different dissonance
 <div class="phiz-viz-title">Sethares Dissonance Curve Explorer</div>
 <canvas id="dc-curve-canvas" height="280" style="width:100%;"></canvas>
 <div id="dc-info" style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:6px 0 4px;text-align:center;font-family:monospace;">Ratio: 1.500 | Step-interval: 7.02 | Dissonance: 0.00</div>
-<div class="phiz-viz-controls">
-<button id="dc-preset-harmonic" class="active">Harmonic (1/n)</button>
-<button id="dc-preset-square">Square Wave</button>
-<button id="dc-preset-equal">Equal</button>
-<button id="dc-preset-stretched">Inharmonic (stretched)</button>
-<button id="dc-preset-sine">Pure Sine</button>
-</div>
-<div id="dc-sliders" style="display:grid;grid-template-columns:auto 1fr auto;gap:2px 8px;align-items:center;margin:10px 0;padding:0 8px;"></div>
+<div id="dc-timbre" style="margin:10px 0;"></div>
 <div class="phiz-viz-controls" style="margin-top:8px;">
 <label style="color:rgba(255,255,255,0.7);font-size:0.85rem;">Ratio: <input type="range" id="dc-ratio-slider" min="1000" max="2000" step="1" value="1500" style="width:200px;vertical-align:middle;"></label>
 <span id="dc-ratio-display" style="color:#00e5ff;font-family:monospace;min-width:3em;display:inline-block;">1.500</span>
@@ -125,125 +119,38 @@ Use the explorer below to see how different spectra produce different dissonance
 <script>
 window.addEventListener('load', function() {
 (function() {
-  var NUM_HARMONICS = 8;
   var REF_FREQ = 220;
   var PLAY_DURATION = 1500;
 
   var canvas = document.getElementById("dc-curve-canvas");
   var infoEl = document.getElementById("dc-info");
-  var sliderContainer = document.getElementById("dc-sliders");
   var ratioSlider = document.getElementById("dc-ratio-slider");
   var ratioDisplay = document.getElementById("dc-ratio-display");
   var playBtn = document.getElementById("dc-play-btn");
 
-  var presetHarmonicBtn = document.getElementById("dc-preset-harmonic");
-  var presetSquareBtn = document.getElementById("dc-preset-square");
-  var presetEqualBtn = document.getElementById("dc-preset-equal");
-  var presetStretchedBtn = document.getElementById("dc-preset-stretched");
-  var presetSineBtn = document.getElementById("dc-preset-sine");
-
-  var freqMultipliers = [1, 2, 3, 4, 5, 6, 7, 8];
-  var amplitudes = [100, 50, 33, 25, 20, 17, 14, 12];
-  var isInharmonic = false;
+  var currentSpectrum = { freq: [1, 2, 3, 4, 5, 6, 7, 8], amp: [1, 0.5, 0.33, 0.25, 0.2, 0.17, 0.14, 0.12] };
   var currentCurveData = null;
   var audioInitialized = false;
 
-  var sliderInputs = [];
-  var sliderValueEls = [];
-
-  // Build slider rows
-  for (var i = 0; i < NUM_HARMONICS; i++) {
-    var label = document.createElement("span");
-    label.style.cssText = "color:rgba(255,255,255,0.7);font-size:0.8rem;text-align:right;";
-    label.textContent = "H" + (i + 1);
-
-    var slider = document.createElement("input");
-    slider.type = "range";
-    slider.min = "0";
-    slider.max = "100";
-    slider.value = String(amplitudes[i]);
-    slider.style.cssText = "width:100%;";
-    slider.setAttribute("data-index", String(i));
-
-    var val = document.createElement("span");
-    val.style.cssText = "color:rgba(255,255,255,0.5);font-size:0.75rem;min-width:2.2em;text-align:right;font-family:monospace;";
-    val.textContent = String(amplitudes[i]);
-
-    (function(idx, sl, vl) {
-      sl.addEventListener("input", function() {
-        amplitudes[idx] = parseInt(sl.value, 10);
-        vl.textContent = String(amplitudes[idx]);
+  /* ── Timbre Designer integration ── */
+  var td = null;
+  if (typeof PhizTimbre !== "undefined") {
+    td = PhizTimbre.create("dc-timbre", {
+      numSlots: 8,
+      fundamental: REF_FREQ,
+      preset: "string",
+      collapsed: true,
+      onChange: function(spectrum) {
+        currentSpectrum = spectrum;
         computeAndDraw();
-      });
-    })(i, slider, val);
-
-    sliderContainer.appendChild(label);
-    sliderContainer.appendChild(slider);
-    sliderContainer.appendChild(val);
-    sliderInputs.push(slider);
-    sliderValueEls.push(val);
+      }
+    });
   }
-
-  function updateSliderUI() {
-    for (var i = 0; i < NUM_HARMONICS; i++) {
-      sliderInputs[i].value = String(amplitudes[i]);
-      sliderValueEls[i].textContent = String(amplitudes[i]);
-    }
-  }
-
-  function clearPresetHighlight() {
-    presetHarmonicBtn.className = "";
-    presetSquareBtn.className = "";
-    presetEqualBtn.className = "";
-    presetStretchedBtn.className = "";
-    presetSineBtn.className = "";
-  }
-
-  function setPreset(name) {
-    clearPresetHighlight();
-    isInharmonic = false;
-    freqMultipliers = [1, 2, 3, 4, 5, 6, 7, 8];
-
-    if (name === "harmonic") {
-      amplitudes = [100, 50, 33, 25, 20, 17, 14, 12];
-      presetHarmonicBtn.className = "active";
-    } else if (name === "square") {
-      amplitudes = [100, 0, 33, 0, 20, 0, 14, 0];
-      presetSquareBtn.className = "active";
-    } else if (name === "equal") {
-      amplitudes = [100, 100, 100, 100, 100, 100, 100, 100];
-      presetEqualBtn.className = "active";
-    } else if (name === "stretched") {
-      freqMultipliers = [1, 2.1, 3.15, 4.2, 5.3, 6.4, 7.5, 8.6];
-      amplitudes = [100, 50, 33, 25, 20, 17, 14, 12];
-      isInharmonic = true;
-      presetStretchedBtn.className = "active";
-    } else if (name === "sine") {
-      amplitudes = [100, 0, 0, 0, 0, 0, 0, 0];
-      presetSineBtn.className = "active";
-    }
-
-    updateSliderUI();
-    computeAndDraw();
-  }
-
-  presetHarmonicBtn.addEventListener("click", function() { setPreset("harmonic"); });
-  presetSquareBtn.addEventListener("click", function() { setPreset("square"); });
-  presetEqualBtn.addEventListener("click", function() { setPreset("equal"); });
-  presetStretchedBtn.addEventListener("click", function() { setPreset("stretched"); });
-  presetSineBtn.addEventListener("click", function() { setPreset("sine"); });
 
   function computeAndDraw() {
-    var spectrum = { freq: [], amp: [] };
-    for (var i = 0; i < NUM_HARMONICS; i++) {
-      if (amplitudes[i] > 0) {
-        spectrum.freq.push(freqMultipliers[i]);
-        spectrum.amp.push(amplitudes[i] / 100);
-      }
-    }
+    var spectrum = currentSpectrum;
     if (spectrum.freq.length === 0) {
-      spectrum.freq.push(1);
-      spectrum.amp.push(1);
+      spectrum = { freq: [1], amp: [1] };
     }
     currentCurveData = PhizViz.computeDissonanceCurve(spectrum, REF_FREQ, 2.05, 500);
     PhizViz.drawDissonanceCurve(canvas, currentCurveData, { showIntervals: true, color: "#ff6090", bg: "#111" });
@@ -257,7 +164,6 @@ window.addEventListener('load', function() {
 
     var stepDist = 1200 * Math.log(ratio) / Math.log(2) / 100;
 
-    // Find closest point in curve data
     var closestIdx = 0;
     var closestDiff = Math.abs(currentCurveData.ratios[0] - ratio);
     for (var i = 1; i < currentCurveData.ratios.length; i++) {
@@ -276,8 +182,46 @@ window.addEventListener('load', function() {
     updateInfo();
   });
 
-  // Audio playback
-  function doPlayHarmonic(ratio, partials) {
+  /* ── Audio playback ── */
+  function playAtRatio() {
+    var ratio = parseInt(ratioSlider.value, 10) / 1000;
+    var spectrum = currentSpectrum;
+    var isInharmonic = false;
+    for (var c = 0; c < spectrum.freq.length; c++) {
+      if (Math.abs(spectrum.freq[c] - Math.round(spectrum.freq[c])) > 0.01) {
+        isInharmonic = true;
+        break;
+      }
+    }
+
+    function doPlay() {
+      if (isInharmonic) {
+        doPlayInharmonic(ratio, spectrum);
+      } else {
+        doPlayHarmonic(ratio, spectrum);
+      }
+    }
+
+    if (!audioInitialized) {
+      Tone.start().then(function() {
+        audioInitialized = true;
+        doPlay();
+      });
+    } else {
+      doPlay();
+    }
+  }
+
+  function doPlayHarmonic(ratio, spectrum) {
+    var partials = [];
+    /* Tone.js custom partials are indexed by harmonic number (1-based),
+       so fill gaps with 0 amplitude for missing harmonics */
+    var maxHarmonic = Math.ceil(spectrum.freq[spectrum.freq.length - 1]);
+    for (var h = 0; h < maxHarmonic; h++) {
+      var idx = spectrum.freq.indexOf(h + 1);
+      partials.push(idx >= 0 ? spectrum.amp[idx] : 0);
+    }
+
     var synth1 = new Tone.Synth({
       oscillator: { type: "custom", partials: partials },
       volume: -8
@@ -297,20 +241,20 @@ window.addEventListener('load', function() {
     }, PLAY_DURATION + 500);
   }
 
-  function doPlayInharmonic(ratio, freqMults, amps) {
+  function doPlayInharmonic(ratio, spectrum) {
     var oscs1 = [];
     var oscs2 = [];
-    for (var i = 0; i < NUM_HARMONICS; i++) {
-      if (amps[i] <= 0) continue;
-      var amp = amps[i] * 0.15;
+    for (var i = 0; i < spectrum.freq.length; i++) {
+      if (spectrum.amp[i] <= 0) continue;
+      var amp = spectrum.amp[i] * 0.15;
 
       var g1 = new Tone.Gain(amp).toDestination();
-      var o1 = new Tone.Oscillator(REF_FREQ * freqMults[i], "sine").connect(g1);
+      var o1 = new Tone.Oscillator(REF_FREQ * spectrum.freq[i], "sine").connect(g1);
       o1.start();
       oscs1.push({ osc: o1, gain: g1 });
 
       var g2 = new Tone.Gain(amp).toDestination();
-      var o2 = new Tone.Oscillator(REF_FREQ * ratio * freqMults[i], "sine").connect(g2);
+      var o2 = new Tone.Oscillator(REF_FREQ * ratio * spectrum.freq[i], "sine").connect(g2);
       o2.start();
       oscs2.push({ osc: o2, gain: g2 });
     }
@@ -327,36 +271,9 @@ window.addEventListener('load', function() {
     }, PLAY_DURATION + 500);
   }
 
-  function playAtRatio() {
-    var ratio = parseInt(ratioSlider.value, 10) / 1000;
-    var partials = [];
-    var normalizedAmps = [];
-    for (var i = 0; i < NUM_HARMONICS; i++) {
-      partials.push(amplitudes[i] / 100);
-      normalizedAmps.push(amplitudes[i] / 100);
-    }
-
-    function doPlay() {
-      if (isInharmonic) {
-        doPlayInharmonic(ratio, freqMultipliers, normalizedAmps);
-      } else {
-        doPlayHarmonic(ratio, partials);
-      }
-    }
-
-    if (!audioInitialized) {
-      Tone.start().then(function() {
-        audioInitialized = true;
-        doPlay();
-      });
-    } else {
-      doPlay();
-    }
-  }
-
   playBtn.addEventListener("click", playAtRatio);
 
-  // Initial draw
+  /* Initial draw */
   computeAndDraw();
 })();
 });
