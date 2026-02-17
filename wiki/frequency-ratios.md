@@ -7,6 +7,7 @@ tags: [physics, math, foundation]
 prerequisites: [sound-waves.md, harmonic-series.md]
 related: [harmonic-series.md, intervals.md, scales.md, twelve-tet.md, consonance-dissonance.md]
 scope-boundary: Ratio concept and cent system only. No specific interval catalog (see intervals.md), no scale construction.
+has_audio: true
 ---
 
 # Frequency Ratios
@@ -33,16 +34,75 @@ This ratio-based perception is a consequence of the cochlea's logarithmic freque
 
 The simplest frequency ratios emerge directly from the [harmonic series](harmonic-series.md):
 
-| Ratio | Decimal | Source harmonics | Character |
-|-------|---------|-----------------|-----------|
-| 1:1 | 1.000 | 1st : 1st | Unison — same frequency |
-| 2:1 | 2.000 | 2nd : 1st | Octave — perceptual "sameness" at different height |
-| 3:2 | 1.500 | 3rd : 2nd | The most consonant interval after octave |
-| 4:3 | 1.333 | 4th : 3rd | Nearly as consonant as 3:2 |
-| 5:4 | 1.250 | 5th : 4th | Warm, fused, sweet |
-| 6:5 | 1.200 | 6th : 5th | Darker, slightly more tense |
-| 5:3 | 1.667 | 5th : 3rd | Bright, open |
-| 7:4 | 1.750 | 7th : 4th | The "natural seventh" — bluesy, outside 12-TET grid |
+<table>
+  <thead>
+    <tr>
+      <th>Ratio</th>
+      <th>Decimal</th>
+      <th>Source harmonics</th>
+      <th>Character</th>
+      <th>Listen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1:1</td>
+      <td>1.000</td>
+      <td>1st : 1st</td>
+      <td>Unison — same frequency</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="220" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>2:1</td>
+      <td>2.000</td>
+      <td>2nd : 1st</td>
+      <td>Octave — perceptual "sameness" at different height</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>3:2</td>
+      <td>1.500</td>
+      <td>3rd : 2nd</td>
+      <td>The most consonant interval after octave</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="330" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>4:3</td>
+      <td>1.333</td>
+      <td>4th : 3rd</td>
+      <td>Nearly as consonant as 3:2</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.33" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>5:4</td>
+      <td>1.250</td>
+      <td>5th : 4th</td>
+      <td>Warm, fused, sweet</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="275" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>6:5</td>
+      <td>1.200</td>
+      <td>6th : 5th</td>
+      <td>Darker, slightly more tense</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="264" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>5:3</td>
+      <td>1.667</td>
+      <td>5th : 3rd</td>
+      <td>Bright, open</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="366.67" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+    <tr>
+      <td>7:4</td>
+      <td>1.750</td>
+      <td>7th : 4th</td>
+      <td>The "natural seventh" — bluesy, outside 12-TET grid</td>
+      <td><button class="phiz-play-btn" data-freq1="220" data-freq2="385" onclick="playRatio(this)">▶ Play</button></td>
+    </tr>
+  </tbody>
+</table>
 
 **Pattern**: ratios with smaller integers produce greater perceptual fusion. This is not subjective — it is a measurable consequence of harmonic overlap. When two tones have a 3:2 ratio, every 3rd harmonic of the lower tone aligns with every 2nd harmonic of the upper tone, producing reinforcement instead of roughness within critical bandwidth (see [consonance-dissonance.md](consonance-dissonance.md)).
 
