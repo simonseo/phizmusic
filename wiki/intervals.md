@@ -38,6 +38,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <th>Just cents</th>
       <th>12-TET cents</th>
       <th>Error</th>
+      <th>Example (Hz)</th>
       <th>Character</th>
       <th>Preview</th>
     </tr>
@@ -49,6 +50,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>0.0</td>
       <td>0</td>
       <td>0.0</td>
+      <td>261.63 Hz</td>
       <td>Identity — same pitch</td>
       <td><button class="phiz-play-btn" data-steps="[0]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -58,6 +60,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>111.7</td>
       <td>100</td>
       <td>-11.7</td>
+      <td>261.63 → 277.18 Hz</td>
       <td>Maximum tension, semitone "rub"</td>
       <td><button class="phiz-play-btn" data-steps="[0,1]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -67,6 +70,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>203.9</td>
       <td>200</td>
       <td>-3.9</td>
+      <td>261.63 → 293.66 Hz</td>
       <td>Mild tension, melodic step</td>
       <td><button class="phiz-play-btn" data-steps="[0,2]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -76,6 +80,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>315.6</td>
       <td>300</td>
       <td>-15.6</td>
+      <td>261.63 → 311.13 Hz</td>
       <td>Dark, warm fusion</td>
       <td><button class="phiz-play-btn" data-steps="[0,3]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -85,6 +90,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>386.3</td>
       <td>400</td>
       <td>+13.7</td>
+      <td>261.63 → 329.63 Hz</td>
       <td>Bright, sweet fusion</td>
       <td><button class="phiz-play-btn" data-steps="[0,4]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -94,6 +100,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>498.0</td>
       <td>500</td>
       <td>+2.0</td>
+      <td>261.63 → 349.23 Hz</td>
       <td>Open, stable</td>
       <td><button class="phiz-play-btn" data-steps="[0,5]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -103,6 +110,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>600.0</td>
       <td>600</td>
       <td>0.0</td>
+      <td>261.63 → 369.99 Hz</td>
       <td>Maximum ambiguity, symmetry point</td>
       <td><button class="phiz-play-btn" data-steps="[0,6]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -112,6 +120,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>702.0</td>
       <td>700</td>
       <td>-2.0</td>
+      <td>261.63 → 392.00 Hz</td>
       <td>Maximum fusion after octave</td>
       <td><button class="phiz-play-btn" data-steps="[0,7]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -121,6 +130,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>813.7</td>
       <td>800</td>
       <td>-13.7</td>
+      <td>261.63 → 415.30 Hz</td>
       <td>Inversion of step-4</td>
       <td><button class="phiz-play-btn" data-steps="[0,8]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -130,6 +140,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>884.4</td>
       <td>900</td>
       <td>+15.6</td>
+      <td>261.63 → 440.00 Hz</td>
       <td>Bright, open</td>
       <td><button class="phiz-play-btn" data-steps="[0,9]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -139,6 +150,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>1017.6</td>
       <td>1000</td>
       <td>-17.6</td>
+      <td>261.63 → 466.16 Hz</td>
       <td>Tense, wants to resolve</td>
       <td><button class="phiz-play-btn" data-steps="[0,10]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -148,6 +160,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>1088.3</td>
       <td>1100</td>
       <td>+11.7</td>
+      <td>261.63 → 493.88 Hz</td>
       <td>Extreme tension, leading tone</td>
       <td><button class="phiz-play-btn" data-steps="[0,11]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -157,6 +170,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
       <td>1200.0</td>
       <td>1200</td>
       <td>0.0</td>
+      <td>261.63 → 523.25 Hz</td>
       <td>Octave — perceptual "reset"</td>
       <td><button class="phiz-play-btn" data-steps="[0,12]" onclick="playStepSet(this)">▶</button></td>
     </tr>
@@ -169,6 +183,7 @@ All intervals within one octave (0 through 12 steps), with both the just-intonat
 - **Just cents**: the exact size of the just ratio in cents (`1200 × log₂(ratio)`)
 - **12-TET cents**: the equal-temperament size (step-interval × 100)
 - **Error**: how far 12-TET deviates from just (positive = 12-TET is wider, negative = narrower)
+- **Example (Hz)**: 12-TET frequencies from a 261.63 Hz base (Do4/C4), using `freq = 261.63 × 2^(step/12)`
 - **Character**: a brief perceptual description (not prescriptive — different musical contexts change how an interval "feels")
 
 ### Notable Observations

@@ -41,6 +41,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <th>Ratio</th>
       <th>Decimal</th>
       <th>Source harmonics</th>
+      <th>Example (Hz)</th>
       <th>Character</th>
       <th>Listen</th>
     </tr>
@@ -50,6 +51,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>1:1</td>
       <td>1.000</td>
       <td>1st : 1st</td>
+      <td>220 Hz × 1/1 = 220 Hz</td>
       <td>Unison — same frequency</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="220" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -57,6 +59,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>2:1</td>
       <td>2.000</td>
       <td>2nd : 1st</td>
+      <td>220 Hz × 2/1 = 440 Hz</td>
       <td>Octave — perceptual "sameness" at different height</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="440" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -64,6 +67,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>3:2</td>
       <td>1.500</td>
       <td>3rd : 2nd</td>
+      <td>220 Hz × 3/2 = 330 Hz</td>
       <td>The most consonant interval after octave</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="330" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -71,6 +75,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>4:3</td>
       <td>1.333</td>
       <td>4th : 3rd</td>
+      <td>220 Hz × 4/3 = 293.33 Hz</td>
       <td>Nearly as consonant as 3:2</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="293.33" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -78,6 +83,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>5:4</td>
       <td>1.250</td>
       <td>5th : 4th</td>
+      <td>220 Hz × 5/4 = 275 Hz</td>
       <td>Warm, fused, sweet</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="275" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -85,6 +91,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>6:5</td>
       <td>1.200</td>
       <td>6th : 5th</td>
+      <td>220 Hz × 6/5 = 264 Hz</td>
       <td>Darker, slightly more tense</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="264" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -92,6 +99,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>5:3</td>
       <td>1.667</td>
       <td>5th : 3rd</td>
+      <td>220 Hz × 5/3 = 366.67 Hz</td>
       <td>Bright, open</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="366.67" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -99,6 +107,7 @@ The simplest frequency ratios emerge directly from the [harmonic series](harmoni
       <td>7:4</td>
       <td>1.750</td>
       <td>7th : 4th</td>
+      <td>220 Hz × 7/4 = 385 Hz</td>
       <td>The "natural seventh" — bluesy, outside 12-TET grid</td>
       <td><button class="phiz-play-btn" data-freq1="220" data-freq2="385" onclick="playRatio(this)">▶ Play</button></td>
     </tr>
@@ -139,14 +148,14 @@ The cent scale is logarithmic, so:
 
 ### Examples
 
-| Ratio | Cents | Meaning |
-|-------|-------|---------|
-| 2:1 | 1200.0 | Octave |
-| 3:2 | 702.0 | Slightly more than 7 chromatic steps |
-| 5:4 | 386.3 | Slightly less than 4 chromatic steps |
-| 6:5 | 315.6 | Slightly more than 3 chromatic steps |
-| 7:4 | 968.8 | Almost 10 chromatic steps (but 31 cents flat) |
-| 9:8 | 203.9 | Slightly more than 2 chromatic steps |
+| Ratio | Cents | Example (Hz) | Meaning |
+|-------|-------|--------------|---------|
+| 2:1 | 1200.0 | 220 Hz → 440 Hz | Octave |
+| 3:2 | 702.0 | 220 Hz → 330 Hz | Slightly more than 7 chromatic steps |
+| 5:4 | 386.3 | 220 Hz → 275 Hz | Slightly less than 4 chromatic steps |
+| 6:5 | 315.6 | 220 Hz → 264 Hz | Slightly more than 3 chromatic steps |
+| 7:4 | 968.8 | 220 Hz → 385 Hz | Almost 10 chromatic steps (but 31 cents flat) |
+| 9:8 | 203.9 | 220 Hz → 247.5 Hz | Slightly more than 2 chromatic steps |
 
 Verify: 3:2 = 5:4 × 6:5. In cents: 702.0 ≈ 386.3 + 315.6 = 701.9 (rounding).
 
@@ -154,12 +163,12 @@ Verify: 3:2 = 5:4 × 6:5. In cents: 702.0 ≈ 386.3 + 315.6 = 701.9 (rounding).
 
 The simple ratios above are called **just intonation** — intervals tuned to exact harmonic-series ratios. In 12-TET (see [twelve-tet.md](twelve-tet.md)), every chromatic step is an equal ratio of 2^(1/12), producing intervals that are close to but never exactly match just ratios (except the octave):
 
-| Just ratio | Just cents | 12-TET cents | Error |
-|-----------|-----------|-------------|-------|
-| 3:2 | 702.0 | 700 | -2.0 cents |
-| 5:4 | 386.3 | 400 | +13.7 cents |
-| 6:5 | 315.6 | 300 | -15.6 cents |
-| 4:3 | 498.0 | 500 | +2.0 cents |
+| Just ratio | Just cents | 12-TET cents | Example from 220 Hz | Error |
+|-----------|-----------|-------------|---------------------|-------|
+| 3:2 | 702.0 | 700 | 330 Hz (just) vs 329.63 Hz (12-TET) | -2.0 cents |
+| 5:4 | 386.3 | 400 | 275 Hz (just) vs 277.18 Hz (12-TET) | +13.7 cents |
+| 6:5 | 315.6 | 300 | 264 Hz (just) vs 261.63 Hz (12-TET) | -15.6 cents |
+| 4:3 | 498.0 | 500 | 293.33 Hz (just) vs 293.66 Hz (12-TET) | +2.0 cents |
 
 The 3:2 and 4:3 ratios are approximated very well by 12-TET (within 2 cents). The 5:4 and 6:5 ratios have larger errors (~14-16 cents) — perceptible to trained ears, especially in sustained chords. This is the central trade-off of 12-TET: universal transposability at the cost of tuning purity.
 
