@@ -315,6 +315,41 @@ window.addEventListener('load', function() {
   freqSlider.addEventListener("input", onInput);
   srSlider.addEventListener("input", onInput);
 
+  /* ── audio playback ─────────────────────────────── */
+  var synth = null;
+
+  function stopAudio() {
+    if (synth) {
+      try { synth.triggerRelease(); } catch (e) {}
+      setTimeout(function() {
+        try { synth.dispose(); } catch (e) {}
+        synth = null;
+      }, 300);
+    }
+  }
+
+  function playTone(freq) {
+    if (typeof Tone === "undefined") return;
+    stopAudio();
+    Tone.start().then(function() {
+      synth = new Tone.Synth({
+        oscillator: { type: "sine" },
+        envelope: { attack: 0.01, decay: 0.1, sustain: 0.6, release: 0.3 }
+      }).toDestination();
+      synth.triggerAttackRelease(freq, "1");
+    });
+  }
+
+  playOrigBtn.addEventListener("click", function() {
+    var p = getParams();
+    playTone(p.sourceFreq);
+  });
+
+  playAliasBtn.addEventListener("click", function() {
+    var p = getParams();
+    playTone(p.aliased ? p.aliasFreq : p.sourceFreq);
+  });
+
   // Initial draw
   draw();
 })();
