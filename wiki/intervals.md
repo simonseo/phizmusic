@@ -4,6 +4,7 @@ aliases: [step-distance, interval, musical intervals]
 tier: 1
 category: music
 tags: [music, foundation, reference]
+has_audio: true
 prerequisites: [naming-system.md, frequency-ratios.md, harmonic-series.md]
 related: [frequency-ratios.md, harmonic-series.md, naming-system.md, scales.md, chords.md, consonance-dissonance.md, twelve-tet.md]
 scope-boundary: Interval definition and catalog only. No scale construction, no chord theory.
@@ -28,21 +29,138 @@ Neither description alone is complete. The step-distance tells you which keys to
 
 All intervals within one octave (0 through 12 steps), with both the just-intonation ratio (from the [harmonic series](harmonic-series.md)) and the 12-TET approximation:
 
-| Step-distance | Just ratio | Just cents | 12-TET cents | Error | Character |
-|---------------|-----------|-----------|-------------|-------|-----------|
-| 0 | 1:1 | 0.0 | 0 | 0.0 | Identity — same pitch |
-| 1 | 16:15 | 111.7 | 100 | -11.7 | Maximum tension, semitone "rub" |
-| 2 | 9:8 | 203.9 | 200 | -3.9 | Mild tension, melodic step |
-| 3 | 6:5 | 315.6 | 300 | -15.6 | Dark, warm fusion |
-| 4 | 5:4 | 386.3 | 400 | +13.7 | Bright, sweet fusion |
-| 5 | 4:3 | 498.0 | 500 | +2.0 | Open, stable |
-| 6 | √2:1 | 600.0 | 600 | 0.0 | Maximum ambiguity, symmetry point |
-| 7 | 3:2 | 702.0 | 700 | -2.0 | Maximum fusion after octave |
-| 8 | 8:5 | 813.7 | 800 | -13.7 | Inversion of step-4 |
-| 9 | 5:3 | 884.4 | 900 | +15.6 | Bright, open |
-| 10 | 9:5 | 1017.6 | 1000 | -17.6 | Tense, wants to resolve |
-| 11 | 15:8 | 1088.3 | 1100 | +11.7 | Extreme tension, leading tone |
-| 12 | 2:1 | 1200.0 | 1200 | 0.0 | Octave — perceptual "reset" |
+<table>
+  <thead>
+    <tr>
+      <th>Step-distance</th>
+      <th>Just ratio</th>
+      <th>Just cents</th>
+      <th>12-TET cents</th>
+      <th>Error</th>
+      <th>Character</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1:1</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>Identity — same pitch</td>
+      <td><button class="phiz-play-btn" data-steps="[0]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>16:15</td>
+      <td>111.7</td>
+      <td>100</td>
+      <td>-11.7</td>
+      <td>Maximum tension, semitone "rub"</td>
+      <td><button class="phiz-play-btn" data-steps="[0,1]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>9:8</td>
+      <td>203.9</td>
+      <td>200</td>
+      <td>-3.9</td>
+      <td>Mild tension, melodic step</td>
+      <td><button class="phiz-play-btn" data-steps="[0,2]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>6:5</td>
+      <td>315.6</td>
+      <td>300</td>
+      <td>-15.6</td>
+      <td>Dark, warm fusion</td>
+      <td><button class="phiz-play-btn" data-steps="[0,3]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5:4</td>
+      <td>386.3</td>
+      <td>400</td>
+      <td>+13.7</td>
+      <td>Bright, sweet fusion</td>
+      <td><button class="phiz-play-btn" data-steps="[0,4]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>4:3</td>
+      <td>498.0</td>
+      <td>500</td>
+      <td>+2.0</td>
+      <td>Open, stable</td>
+      <td><button class="phiz-play-btn" data-steps="[0,5]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>√2:1</td>
+      <td>600.0</td>
+      <td>600</td>
+      <td>0.0</td>
+      <td>Maximum ambiguity, symmetry point</td>
+      <td><button class="phiz-play-btn" data-steps="[0,6]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>3:2</td>
+      <td>702.0</td>
+      <td>700</td>
+      <td>-2.0</td>
+      <td>Maximum fusion after octave</td>
+      <td><button class="phiz-play-btn" data-steps="[0,7]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>8:5</td>
+      <td>813.7</td>
+      <td>800</td>
+      <td>-13.7</td>
+      <td>Inversion of step-4</td>
+      <td><button class="phiz-play-btn" data-steps="[0,8]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>5:3</td>
+      <td>884.4</td>
+      <td>900</td>
+      <td>+15.6</td>
+      <td>Bright, open</td>
+      <td><button class="phiz-play-btn" data-steps="[0,9]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>9:5</td>
+      <td>1017.6</td>
+      <td>1000</td>
+      <td>-17.6</td>
+      <td>Tense, wants to resolve</td>
+      <td><button class="phiz-play-btn" data-steps="[0,10]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>15:8</td>
+      <td>1088.3</td>
+      <td>1100</td>
+      <td>+11.7</td>
+      <td>Extreme tension, leading tone</td>
+      <td><button class="phiz-play-btn" data-steps="[0,11]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>2:1</td>
+      <td>1200.0</td>
+      <td>1200</td>
+      <td>0.0</td>
+      <td>Octave — perceptual "reset"</td>
+      <td><button class="phiz-play-btn" data-steps="[0,12]" onclick="playStepSet(this)">▶</button></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Reading the Table
 
