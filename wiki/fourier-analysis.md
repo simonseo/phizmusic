@@ -7,6 +7,7 @@ tags: [physics, math, foundation]
 prerequisites: [sound-waves.md]
 related: [sound-waves.md, ear-cochlea.md, timbre.md, digital-audio.md, harmonic-series.md]
 scope-boundary: Conceptual understanding of Fourier decomposition only. No FFT algorithms, no windowing, no DSP implementation details.
+has_audio: true
 ---
 
 # Fourier Analysis
@@ -103,6 +104,18 @@ Spectrum: a single peak at f₁, nothing else.
 ```
 
 A sine wave is the simplest possible sound — one frequency, one amplitude. It is the atom from which all complex sounds are built. A pure sine wave sounds thin, electronic, and "plain" because there is no spectral richness. No acoustic instrument produces a pure sine wave; all have overtones that shape their characteristic [timbre](timbre.md).
+
+## Hear Additive Synthesis
+
+Build complex timbres from sine waves. Each button adds harmonics at integer multiples of 220 Hz (La3), with amplitudes as described in the examples above.
+
+<p><button class="phiz-play-btn" data-fundamental="220" data-harmonics="[1]" onclick="playAdditive(this)">▶ Pure sine (1 harmonic)</button></p>
+
+<p><button class="phiz-play-btn" data-fundamental="220" data-harmonics="[1,0.5,0.33,0.25,0.2,0.167]" onclick="playAdditive(this)">▶ Sawtooth-like (6 harmonics: 1/n amplitudes)</button></p>
+
+<p><button class="phiz-play-btn" data-fundamental="220" data-harmonics="[1,0,0.33,0,0.2,0,0.143]" onclick="playAdditive(this)">▶ Square-like (odd harmonics only)</button></p>
+
+<p><button class="phiz-play-btn" data-fundamental="220" data-harmonics="[1,0.5,0.33,0.25,0.2,0.167,0.143,0.125,0.111,0.1,0.091,0.083,0.077,0.071,0.067,0.063]" onclick="playAdditive(this)">▶ Rich tone (16 harmonics)</button></p>
 
 <!-- INTERACTIVE: Additive synthesis — combine sine waves to build complex waveforms, show both waveform and spectrum updating in real time. Sliders for amplitude of harmonics 1-16. -->
 
