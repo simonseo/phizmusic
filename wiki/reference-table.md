@@ -4,7 +4,7 @@ aliases: [reference table, frequency table, pitch mapping]
 tier: structural
 tags: [reference]
 prerequisites: []
-related: [naming-system.md, _glossary.md, intervals.md, translation-tables.md]
+related: [naming-system.md, glossary.md, intervals.md, translation-tables.md]
 scope-boundary: Pitch mapping only — no instrument ranges, no microtonal frequencies, no tuning system comparisons
 ---
 
@@ -225,6 +225,6 @@ The **commonly used range** for most instruments and music spans roughly octaves
 ## Connections
 
 - [Naming System](naming-system.md) — detailed explanation of step-number and syllable notation
-- [Glossary](_glossary.md) — definitions of step-number, syllable, frequency
+- [Glossary](glossary.md) — definitions of step-number, syllable, frequency
 - [Intervals](intervals.md) — step-distance definitions using this table
 - [Translation Tables](translation-tables.md) — bidirectional Western ↔ PhizMusic mapping

@@ -4,7 +4,7 @@ aliases: [glossary, vocabulary, terminology]
 tier: structural
 tags: [reference]
 prerequisites: []
-related: [_reference-table.md, naming-system.md, translation-tables.md]
+related: [reference-table.md, naming-system.md, translation-tables.md]
 scope-boundary: Definitions only — no extended explanations. See linked concept pages for depth.
 ---
 
@@ -96,6 +96,6 @@ The syllable system (**Do, Ka, Re, Xo, Mi, Fa, Hu, So, Bi, La, Ve, Si**) is adap
 
 ## Connections
 
-- [Reference Table](_reference-table.md) — complete pitch mapping (step × octave → syllable → Hz)
+- [Reference Table](reference-table.md) — complete pitch mapping (step × octave → syllable → Hz)
 - [Naming System](naming-system.md) — detailed explanation of step-number and syllable notation
 - [Translation Tables](translation-tables.md) — PhizMusic ↔ Western ↔ other systems

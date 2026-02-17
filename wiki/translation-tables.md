@@ -4,7 +4,7 @@ aliases: [translation, Western equivalents, cross-system mapping]
 tier: 2
 tags: [reference, cross-system]
 prerequisites: [naming-system.md, intervals.md, scales.md, chords.md, rhythm.md]
-related: [_glossary.md, _reference-table.md, naming-system.md, intervals.md, scales.md, chords.md, rhythm.md]
+related: [glossary.md, reference-table.md, naming-system.md, intervals.md, scales.md, chords.md, rhythm.md]
 scope-boundary: Lookup tables only. No extended explanations — see linked concept pages for depth.
 ---
 
@@ -159,8 +159,8 @@ The comprehensive bidirectional mapping between PhizMusic terminology and Wester
 
 ## Connections
 
-- [Glossary](_glossary.md) — canonical PhizMusic term definitions
-- [Reference Table](_reference-table.md) — complete pitch × octave → Hz mapping
+- [Glossary](glossary.md) — canonical PhizMusic term definitions
+- [Reference Table](reference-table.md) — complete pitch × octave → Hz mapping
 - [Naming System](naming-system.md) — how step-numbers and syllables work
 - [Intervals](intervals.md) — physics behind the interval table
 - [Scales](scales.md) — physics behind the scale table

@@ -34,7 +34,7 @@ is_excluded_front_matter() {
 is_content_file() {
   local base
   base="$(basename "$1")"
-  [[ "$base" != "README.md" && "$base" != "_template.md" && "$base" != "_glossary.md" && "$base" != "_reference-table.md" ]]
+  [[ "$base" != "README.md" && "$base" != "_template.md" && "$base" != "glossary.md" && "$base" != "reference-table.md" ]]
 }
 
 is_excluded_link_checks() {
@@ -188,9 +188,9 @@ report_pass "Line count check complete"
 echo
 
 echo "7) Glossary coverage checks"
-GLOSSARY_FILE="$WIKI_DIR/_glossary.md"
+GLOSSARY_FILE="$WIKI_DIR/glossary.md"
 if [[ ! -f "$GLOSSARY_FILE" ]]; then
-  report_fail "_glossary.md missing; cannot perform glossary coverage"
+  report_fail "glossary.md missing; cannot perform glossary coverage"
 else
   KEY_TERMS_TMP="$(mktemp)"
   cat <<'EOF' > "$KEY_TERMS_TMP"

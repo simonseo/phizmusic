@@ -5,7 +5,7 @@ tier: 1
 category: physics
 tags: [physics, foundation]
 prerequisites: []
-related: [ear-cochlea.md, fourier-analysis.md, harmonic-series.md, _glossary.md]
+related: [ear-cochlea.md, fourier-analysis.md, harmonic-series.md, glossary.md]
 scope-boundary: No Fourier, no ear anatomy, no musical intervals
 ---
 

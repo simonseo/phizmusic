@@ -79,8 +79,8 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 
 | Page | Description |
 |------|-------------|
-| [Glossary](_glossary.md) | Canonical definitions of all PhizMusic terms |
-| [Reference Table](_reference-table.md) | Complete step/syllable/Western/Hz/MIDI mapping |
+| [Glossary](glossary.md) | Canonical definitions of all PhizMusic terms |
+| [Reference Table](reference-table.md) | Complete step/syllable/Western/Hz/MIDI mapping |
 
 ### Future
 
@@ -102,7 +102,7 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Equal Loudness](equal-loudness.md) | Fletcher-Munson curves and frequency-dependent hearing |
 | [Fourier Analysis](fourier-analysis.md) | Decomposing waveforms into component sine waves |
 | [Frequency Ratios](frequency-ratios.md) | Pitch comparison by ratio, the cent measurement system |
-| [Glossary](_glossary.md) | Canonical PhizMusic vocabulary definitions |
+| [Glossary](glossary.md) | Canonical PhizMusic vocabulary definitions |
 | [Harmonic Series](harmonic-series.md) | Integer-multiple overtone sequence from vibrating objects |
 | [Instrument Physics](instrument-physics.md) | Acoustics of strings, pipes, and membranes |
 | [Intervals](intervals.md) | Step-distances between pitches with ratio equivalents |
@@ -110,7 +110,7 @@ Deeper understanding, cross-cultural connections, and applied concepts.
 | [Naming System](naming-system.md) | Step-numbers (0-11) + octave, Dodeka syllables |
 | [Notation Layer](notation-layer.md) | Chromatic grid notation based on Dodeka and piano roll |
 | [Pentatonic & Cross-Cultural](pentatonic-cross-cultural.md) | The 5-note scale across world music traditions |
-| [Reference Table](_reference-table.md) | Complete pitch mapping: step × octave → syllable → Hz |
+| [Reference Table](reference-table.md) | Complete pitch mapping: step × octave → syllable → Hz |
 | [Rhythm](rhythm.md) | Pulse-fraction system for temporal organization |
 | [ROADMAP](ROADMAP.md) | Future plans: interactive tools, deferred content topics |
 | [Scales](scales.md) | Step-subsets: selecting from the 12 chromatic pitches |
@@ -150,8 +150,8 @@ Contribution checklist:
 # Structural
 wiki/README.md              — this file (index hub)
 wiki/_template.md           — page template for contributors
-wiki/_glossary.md           — canonical vocabulary reference
-wiki/_reference-table.md    — complete pitch mapping table
+wiki/glossary.md            — canonical vocabulary reference
+wiki/reference-table.md     — complete pitch mapping table
 
 # Tier 1 — Physics Primitives
 wiki/sound-waves.md         — pressure waves, frequency, amplitude

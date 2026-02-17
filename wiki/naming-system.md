@@ -5,7 +5,7 @@ tier: 1
 category: music
 tags: [notation, foundation, reference]
 prerequisites: []
-related: [_glossary.md, _reference-table.md, intervals.md, scales.md, translation-tables.md]
+related: [glossary.md, reference-table.md, intervals.md, scales.md, translation-tables.md]
 scope-boundary: Naming convention only. No interval, scale, or chord application.
 ---
 
@@ -65,7 +65,7 @@ MIDI number:  n = (octave + 1) × 12 + step
 Frequency:    f = 440 × 2^((n - 69) / 12)
 ```
 
-See [Reference Table](_reference-table.md) for the complete mapping.
+See [Reference Table](reference-table.md) for the complete mapping.
 
 ## Dodeka Syllables: Casual Notation
 
@@ -108,7 +108,7 @@ The assignment of step 0 (Do) to the Western pitch C is **arbitrary but conventi
 - Do4 (0.4) = C4 = 261.63 Hz
 - La4 (9.4) = A4 = 440.00 Hz (the universal tuning standard)
 
-Nothing in the PhizMusic system depends on this choice. If you wanted to anchor Do to A (step 0 = 440 Hz), every formula and relationship would still hold — only the absolute frequencies in the [Reference Table](_reference-table.md) would shift. The anchoring is a convention for interoperability, not a property of the system.
+Nothing in the PhizMusic system depends on this choice. If you wanted to anchor Do to A (step 0 = 440 Hz), every formula and relationship would still hold — only the absolute frequencies in the [Reference Table](reference-table.md) would shift. The anchoring is a convention for interoperability, not a property of the system.
 
 ## Categorical Perception
 
@@ -146,8 +146,8 @@ Note that Western notation has **17** names for 12 pitches (C, C♯, D♭, D, D�
 
 ## Connections
 
-- [Glossary](_glossary.md) — definitions of step-number and syllable
-- [Reference Table](_reference-table.md) — complete step × octave → frequency mapping
+- [Glossary](glossary.md) — definitions of step-number and syllable
+- [Reference Table](reference-table.md) — complete step × octave → frequency mapping
 - [Intervals](intervals.md) — step-distances between pitches
 - [Scales](scales.md) — step-subsets using the naming system
 - [Translation Tables](translation-tables.md) — comprehensive cross-system lookup
