@@ -44,9 +44,9 @@ The canonical vocabulary reference for the PhizMusic framework. Every novel term
 
 **Basilar membrane** — The tapered membrane inside the cochlea whose varying stiffness mechanically separates frequency components: high frequencies resonate near the base, low frequencies near the apex. The ear's physical Fourier analyzer. See [ear-cochlea.md](ear-cochlea.md).
 
-**Beat rate** — The rate of amplitude fluctuation when two nearby frequencies sound simultaneously, equal to |f₁ − f₂| Hz. At slow rates (<15 Hz) perceived as distinct beats; at faster rates transitions into roughness. See [beating-roughness.md](beating-roughness.md).
+**Beat rate** — The rate of amplitude fluctuation when two nearby frequencies sound simultaneously, equal to \|f₁ − f₂\| Hz. At slow rates (<15 Hz) perceived as distinct beats; at faster rates transitions into roughness. See [beating-roughness.md](beating-roughness.md).
 
-**Beating** — Periodic amplitude fluctuation produced by the interference of two sinusoidal frequencies close in pitch. The envelope oscillates at the difference frequency |f₁ − f₂|. See [beating-roughness.md](beating-roughness.md).
+**Beating** — Periodic amplitude fluctuation produced by the interference of two sinusoidal frequencies close in pitch. The envelope oscillates at the difference frequency \|f₁ − f₂\|. See [beating-roughness.md](beating-roughness.md).
 
 **Bessel function** — Mathematical functions whose zeros determine the modal frequencies of circular vibrating membranes (drums, cymbals). Unlike strings and pipes, membrane modes are not integer multiples of a fundamental, producing inharmonic spectra. See [instrument-physics.md](instrument-physics.md).
 
